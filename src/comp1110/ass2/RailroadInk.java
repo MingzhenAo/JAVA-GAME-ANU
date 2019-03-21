@@ -23,12 +23,12 @@ public class RailroadInk {
             if (t[3] >= '0' && t[3] <= '6'){
                 if (t[4] >= '0' && t[4] <= '7'){
                     if (t[0] == 'A' || t[0] == 'S'){
-                        if (t[1] >= '0' && t[1] <= '6')
+                        if (t[1] >= '0' && t[1] <= '5')
                             return true;
                     }
                     else
                     if (t[0] == 'B')
-                        if (t[1] >= '0' && t[1] <= '6')
+                        if (t[1] >= '0' && t[1] <= '2')
                             return true;
                 }
             }
