@@ -15,6 +15,24 @@ public class RailroadInk {
      */
     public static boolean isTilePlacementWellFormed(String tilePlacementString) {
         // FIXME Task 2: determine whether a tile placement is well-formed
+        if (tilePlacementString.length() != 5)
+            return false;
+        char[] t = new char[5];
+        t = tilePlacementString.toCharArray();
+        if (t[2] >= 'A' && t[2] <= 'G'){
+            if (t[3] >= '0' && t[3] <= '6'){
+                if (t[4] >= '0' && t[4] <= '7'){
+                    if (t[0] == 'A' || t[0] == 'S'){
+                        if (t[1] >= '0' && t[1] <= '6')
+                            return true;
+                    }
+                    else
+                    if (t[0] == 'B')
+                        if (t[1] >= '0' && t[1] <= '6')
+                            return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -29,6 +47,7 @@ public class RailroadInk {
      */
     public static boolean isBoardStringWellFormed(String boardString) {
         // FIXME Task 3: determine whether a board string is well-formed
+
         return false;
     }
 
