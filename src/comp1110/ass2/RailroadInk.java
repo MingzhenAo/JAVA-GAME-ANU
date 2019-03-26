@@ -17,17 +17,16 @@ public class RailroadInk {
         // FIXME Task 2: determine whether a tile placement is well-formed
         if (tilePlacementString.length() != 5)
             return false;
-        char[] t = new char[5];
-        t = tilePlacementString.toCharArray();
-        if (t[2] >= 'A' && t[2] <= 'G'){
-            if (t[3] >= '0' && t[3] <= '6'){
-                if (t[4] >= '0' && t[4] <= '7'){
-                    if (t[0] == 'A' || t[0] == 'S'){
+
+        char[] t = tilePlacementString.toCharArray();
+
+        if (t[2] >= 'A' && t[2] <= 'G') {                   //the third character represents the placement row A-G
+            if (t[3] >= '0' && t[3] <= '6') {               //the fourth character represents the placement column 0-6
+                if (t[4] >= '0' && t[4] <= '7') {           //the fifth character represents the orientation 0-7
+                    if (t[0] == 'A' || t[0] == 'S') {
                         if (t[1] >= '0' && t[1] <= '5')
                             return true;
-                    }
-                    else
-                    if (t[0] == 'B')
+                    } else if (t[0] == 'B')
                         if (t[1] >= '0' && t[1] <= '2')
                             return true;
                 }
@@ -47,8 +46,56 @@ public class RailroadInk {
      */
     public static boolean isBoardStringWellFormed(String boardString) {
         // FIXME Task 3: determine whether a board string is well-formed
+    /*
+    it consists of exactly N five-character tile placements (where N = 1 .. 31)
+    */
+        if (boardString == null || boardString.length() == 0 || boardString.length() % 5 != 0 || boardString.length() > 155) {
+            return false;
+        }
 
-        return false;
+        /*
+        no more than three special tiles are included
+         */
+        char[] bsc = boardString.toCharArray();
+        int count1 = 0;
+
+        for (int i = 0; i < bsc.length; i++) {
+            if (bsc[i] == 'S') {
+                count1++;
+            }
+
+        }
+
+        if (count1 > 3) {
+            return false;
+        }
+
+        /*
+        each piece placement is well-formed
+         */
+
+        int number = boardString.length() / 5;
+
+        String[] strings = new String[number];
+
+        for (int i = 0; i < number; i++) {
+            if (i <= number - 1) {
+                strings[i] = boardString.substring(5 * i, 5 * (i + 1));
+            }
+
+            if (i == number) {
+                strings[i] = boardString.substring(5 * i, 5 * (i + 1) + 1);
+            }
+        }
+
+
+        for (int i = 0; i < strings.length; i++) {
+            if (!isTilePlacementWellFormed(strings[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -74,12 +121,12 @@ public class RailroadInk {
      * A board string is valid if each tile placement is legal with respect to all previous tile
      * placements in the string, according to the rules for legal placements:
      * - A tile must be placed such that at least one edge connects to either an exit or a pre-existing route.
-     *   Such a connection is called a valid connection.
+     * Such a connection is called a valid connection.
      * - Tiles may not be placed such that a highway edge connects to a railway edge;
-     *   this is referred to as an invalid connection.
-     *   Highways and railways may only join at station tiles.
+     * this is referred to as an invalid connection.
+     * Highways and railways may only join at station tiles.
      * - A tile may have one or more edges touching a blank edge of another tile;
-     *   this is referred to as disconnected, but the placement is still legal.
+     * this is referred to as disconnected, but the placement is still legal.
      *
      * @param boardString a board string representing some placement sequence
      * @return true if placement sequence is valid
@@ -123,8 +170,9 @@ public class RailroadInk {
     /**
      * Given a valid boardString and a dice roll for the round,
      * return a String representing an ordered sequence of valid piece placements for the round.
+     *
      * @param boardString a board string representing the current state of the game as at the start of the round
-     * @param diceRoll a String representing a dice roll for the round
+     * @param diceRoll    a String representing a dice roll for the round
      * @return a String representing an ordered sequence of valid piece placements for the current round
      * @see RailroadInk#generateDiceRoll()
      */
