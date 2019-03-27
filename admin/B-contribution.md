@@ -2,6 +2,6 @@ We declare that the work toward our submission of Stage B was distributed among 
 
 * u6527600 33
 * u6736425 33
-* u0234567 33
+* u6605822 33
 
-Signed:Mingzhen Ao (u6527600), Yusen Wei (u6736425), and Sue Black (u0234567)
+Signed:Mingzhen Ao (u6527600), Yusen Wei (u6736425), and Zixin Ye(u6605822)
