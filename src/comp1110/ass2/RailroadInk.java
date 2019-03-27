@@ -66,7 +66,7 @@ public class RailroadInk {
 
         }
 
-        if (count1 > 3) {
+         if (count1 > 3) {
             return false;
         }
 
