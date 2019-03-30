@@ -1,11 +1,13 @@
 package comp1110.ass2;
 
+import static java.lang.Character.getNumericValue;
+
 public class RailroadInk {
     /**
      * Determine whether a tile placement string is well-formed:
      * - it consists of exactly 5 characters;
      * - the first character represents a die A or B, or a special tile S
-     * - the second character indicates which tile or face of the die (0-6 for die A and special tiles, or 0-3 for die B)
+     * - the second character indicates which tile or face of the die (0-5 for die A and special tiles, or 0-2 for die B)
      * - the third character represents the placement row A-G
      * - the fourth character represents the placement column 0-6
      * - the fifth character represents the orientation 0-7
@@ -39,6 +41,23 @@ public class RailroadInk {
                     }
                 }
             }
+        if (tilePlacementString.length() != 5)
+            return false;
+
+        char[] t = tilePlacementString.toCharArray();
+
+        if (t[2] >= 'A' && t[2] <= 'G') {                   //the third character represents the placement row A-G
+            if (t[3] >= '0' && t[3] <= '6') {               //the fourth character represents the placement column 0-6
+                if (t[4] >= '0' && t[4] <= '7') {           //the fifth character represents the orientation 0-7
+                    if (t[0] == 'A' || t[0] == 'S') {
+                        if (t[1] >= '0' && t[1] <= '5')
+                            return true;
+                    } else if (t[0] == 'B')
+                        if (t[1] >= '0' && t[1] <= '2')
+                            return true;
+                }
+            }
+        }
         return false;
         }
 
@@ -55,8 +74,59 @@ public class RailroadInk {
      */
     public static boolean isBoardStringWellFormed(String boardString) {
         // FIXME Task 3: determine whether a board string is well-formed
-        return false;
+    /*
+    it consists of exactly N five-character tile placements (where N = 1 .. 31)
+    */
+        if (boardString == null || boardString.length() == 0 || boardString.length() % 5 != 0 || boardString.length() > 155) {
+            return false;
+        }
+
+        /*
+        no more than three special tiles are included
+         */
+        char[] bsc = boardString.toCharArray();
+        int count1 = 0;
+
+        for (int i = 0; i < bsc.length; i++) {
+            if (bsc[i] == 'S') {
+                count1++;
+            }
+
+        }
+
+         if (count1 > 3) {
+            return false;
+        }
+
+        /*
+        each piece placement is well-formed
+         */
+
+        int number = boardString.length() / 5;
+
+        String[] strings = new String[number];
+
+        for (int i = 0; i < number; i++) {
+            if (i <= number - 1) {
+                strings[i] = boardString.substring(5 * i, 5 * (i + 1));
+            }
+
+            if (i == number) {
+                strings[i] = boardString.substring(5 * i, 5 * (i + 1) + 1);
+            }
+        }
+
+
+        for (int i = 0; i < strings.length; i++) {
+            if (!isTilePlacementWellFormed(strings[i])) {
+                return false;
+            }
+        }
+
+        return true;
     }
+
+
 
 
     /**
@@ -72,6 +142,15 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
+        if((tilePlacementStringA.charAt(2)==tilePlacementStringB.charAt(2)&Math.abs(getNumericValue(tilePlacementStringA.charAt(3))-getNumericValue(tilePlacementStringB.charAt(3)))==1)|
+                (getNumericValue(tilePlacementStringA.charAt(3))==getNumericValue(tilePlacementStringB.charAt(3))&Math.abs((int)tilePlacementStringB.charAt(2)-(int)tilePlacementStringB.charAt(2))==1))
+        {
+            if(3<tilePlacementStringA.charAt(0)<5&3<tilePlacementStringB.charAt(0)<5|tilePlacementStringA.charAt(0)=='B'|tilePlacementStringB.charAt(0)=='B')
+            {
+
+            }
+        }
+
         return false;
     }
 
@@ -81,12 +160,12 @@ public class RailroadInk {
      * A board string is valid if each tile placement is legal with respect to all previous tile
      * placements in the string, according to the rules for legal placements:
      * - A tile must be placed such that at least one edge connects to either an exit or a pre-existing route.
-     *   Such a connection is called a valid connection.
+     * Such a connection is called a valid connection.
      * - Tiles may not be placed such that a highway edge connects to a railway edge;
-     *   this is referred to as an invalid connection.
-     *   Highways and railways may only join at station tiles.
+     * this is referred to as an invalid connection.
+     * Highways and railways may only join at station tiles.
      * - A tile may have one or more edges touching a blank edge of another tile;
-     *   this is referred to as disconnected, but the placement is still legal.
+     * this is referred to as disconnected, but the placement is still legal.
      *
      * @param boardString a board string representing some placement sequence
      * @return true if placement sequence is valid
@@ -128,13 +207,14 @@ public class RailroadInk {
     /**
      * Given a valid boardString and a dice roll for the round,
      * return a String representing an ordered sequence of valid piece placements for the round.
+     *
      * @param boardString a board string representing the current state of the game as at the start of the round
-     * @param diceRoll a String representing a dice roll for the round
+     * @param diceRoll    a String representing a dice roll for the round
      * @return a String representing an ordered sequence of valid piece placements for the current round
      * @see RailroadInk#generateDiceRoll()
      */
     public static String generateMove(String boardString, String diceRoll) {
-        // FIXME Task 10: compute the basic score
+        // FIXME Task 10: generate a valid move
         return null;
     }
 
