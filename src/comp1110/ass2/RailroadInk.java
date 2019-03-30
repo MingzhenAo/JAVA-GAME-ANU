@@ -17,7 +17,7 @@ public class RailroadInk {
         // FIXME Task 2: determine whether a tile placement is well-formed
         if (tilePlacementString.length() == 5) {
                 if (tilePlacementString.charAt(0) == 'B') {
-                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '3') {
+                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '2') {
                         if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
                             if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
                                 if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
@@ -28,7 +28,7 @@ public class RailroadInk {
                     }
                 }
                 if (tilePlacementString.charAt(0) == 'A' | tilePlacementString.charAt(0) == 'S') {
-                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '6') {
+                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '5') {
                         if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
                             if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
                                 if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
@@ -99,10 +99,8 @@ public class RailroadInk {
     /**
      * Generate a random dice roll as a string of eight characters.
      * Dice A should be rolled three times, dice B should be rolled once.
-     * Die A has faces numbered 0-5.
-     * Die B has faces numbered 0-2.
-     * Each die roll is composed of a character 'A' or 'B' representing the dice,
-     * followed by a digit character representing the face.
+     * Each die has faces numbered 0-5.
+     * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
      *
      * @return a String representing the die roll e.g. A0A4A3B2
      */
