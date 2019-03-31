@@ -179,14 +179,22 @@ public class RailroadInk {
             boardStringArray[z] = boardString.substring(i, i + 5);
             z++;
         }
-        /* testing are connected neighbours
+        //testing are connected neighbours
         for (int i = 0; i < count - 1; i++) {
             for (int j = i + 1; j < count; j ++){
-                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true)
-                    return false;
+                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true){
+                    if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[i].charAt(3) - boardStringArray[j].charAt(3) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[j].charAt(3) - boardStringArray[i].charAt(3) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(3) == boardStringArray[j].charAt(3) && (int) boardStringArray[i].charAt(2) - (int) boardStringArray[j].charAt(2) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(3) == boardStringArray[j].charAt(3) && (int) boardStringArray[j].charAt(2) - (int) boardStringArray[i].charAt(2) == 1)
+                        return false;
+                }
             }
         }
-        */
+
         //testing are correctly connected to exit
         //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
