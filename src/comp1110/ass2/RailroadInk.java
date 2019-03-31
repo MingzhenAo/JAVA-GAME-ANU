@@ -1,11 +1,13 @@
 package comp1110.ass2;
 
+import static java.lang.Character.getNumericValue;
+
 public class RailroadInk {
     /**
      * Determine whether a tile placement string is well-formed:
      * - it consists of exactly 5 characters;
      * - the first character represents a die A or B, or a special tile S
-     * - the second character indicates which tile or face of the die (0-6 for die A and special tiles, or 0-3 for die B)
+     * - the second character indicates which tile or face of the die (0-5 for die A and special tiles, or 0-2 for die B)
      * - the third character represents the placement row A-G
      * - the fourth character represents the placement column 0-6
      * - the fifth character represents the orientation 0-7
@@ -15,6 +17,30 @@ public class RailroadInk {
      */
     public static boolean isTilePlacementWellFormed(String tilePlacementString) {
         // FIXME Task 2: determine whether a tile placement is well-formed
+        if (tilePlacementString.length() == 5) {
+                if (tilePlacementString.charAt(0) == 'B') {
+                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '2') {
+                        if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
+                            if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
+                                if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (tilePlacementString.charAt(0) == 'A' | tilePlacementString.charAt(0) == 'S') {
+                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '5') {
+                        if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
+                            if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
+                                if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         if (tilePlacementString.length() != 5)
             return false;
 
@@ -33,7 +59,9 @@ public class RailroadInk {
             }
         }
         return false;
-    }
+        }
+
+
 
     /**
      * Determine whether a board string is well-formed:
@@ -66,7 +94,7 @@ public class RailroadInk {
 
         }
 
-        if (count1 > 3) {
+         if (count1 > 3) {
             return false;
         }
 
@@ -99,6 +127,8 @@ public class RailroadInk {
     }
 
 
+
+
     /**
      * Determine whether the provided placements are neighbours connected by at least one validly connecting edge.
      * For example,
@@ -112,6 +142,15 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
+        if((tilePlacementStringA.charAt(2)==tilePlacementStringB.charAt(2)&Math.abs(getNumericValue(tilePlacementStringA.charAt(3))-getNumericValue(tilePlacementStringB.charAt(3)))==1)|
+                (getNumericValue(tilePlacementStringA.charAt(3))==getNumericValue(tilePlacementStringB.charAt(3))&Math.abs((int)tilePlacementStringB.charAt(2)-(int)tilePlacementStringB.charAt(2))==1))
+        {
+            if(3<tilePlacementStringA.charAt(0)<5&3<tilePlacementStringB.charAt(0)<5|tilePlacementStringA.charAt(0)=='B'|tilePlacementStringB.charAt(0)=='B')
+            {
+
+            }
+        }
+
         return false;
     }
 
@@ -150,10 +189,8 @@ public class RailroadInk {
     /**
      * Generate a random dice roll as a string of eight characters.
      * Dice A should be rolled three times, dice B should be rolled once.
-     * Die A has faces numbered 0-5.
-     * Die B has faces numbered 0-2.
-     * Each die roll is composed of a character 'A' or 'B' representing the dice,
-     * followed by a digit character representing the face.
+     * Each die has faces numbered 0-5.
+     * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
      *
      * @return a String representing the die roll e.g. A0A4A3B2
      */
@@ -188,7 +225,7 @@ public class RailroadInk {
      * @see RailroadInk#generateDiceRoll()
      */
     public static String generateMove(String boardString, String diceRoll) {
-        // FIXME Task 10: compute the basic score
+        // FIXME Task 10: generate a valid move
         return null;
     }
 
