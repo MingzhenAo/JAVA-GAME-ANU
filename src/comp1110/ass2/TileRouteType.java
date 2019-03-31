@@ -2,21 +2,22 @@ package comp1110.ass2;
 
 
 public class TileRouteType {
-    int A0[] = {1,1,5,5};
-    int A1[] = {5,1,5,1};
-    int A2[] = {5,1,1,1};
-    int A3[] = {5,0,0,0};
-    int A4[] = {5,0,5,0};
-    int A5[] = {0,0,5,5};
-    int B0[] = {5,0,5,1};
-    int B1[] = {5,0,1,5};
-    int B2[] = {1,0,1,5};
-    int S0[] = {0,0,0,1};
-    int S1[] = {1,0,1,1};
-    int S2[] = {0,0,0,0};
-    int S3[] = {1,1,1,1};
-    int S4[] = {0,0,1,1};
-    int S5[] = {1,0,1,0};
+    static int A0[] = {1,1,5,5};
+    static int A1[] = {5,1,5,1};
+    static int A2[] = {5,1,1,1};
+    static int A3[] = {5,0,0,0};
+    static int A4[] = {5,0,5,0};
+    static int A5[] = {0,0,5,5};
+    static int B0[] = {5,0,5,1};
+    static int B1[] = {5,0,1,5};
+    static int B2[] = {1,0,1,5};
+    static int S0[] = {0,0,0,1};
+    static int S1[] = {1,0,1,1};
+    static int S2[] = {0,0,0,0};
+    static int S3[] = {1,1,1,1};
+    static int S4[] = {0,0,1,1};
+    static int S5[] = {1,0,1,0};
+
     public int[] rotate90(int[] a)
     {   int m = a[3];
         a[3] = a[2];
@@ -34,7 +35,8 @@ public class TileRouteType {
         a[2] = n;
         return a;
     }
-    public int[] rotatetime(int[] a,int m)
+
+    public int[] rotateTimes(int[] a,int m)
     {
         int[] b = a;
         if (m > 3){

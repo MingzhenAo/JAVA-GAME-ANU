@@ -119,13 +119,23 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-        if((tilePlacementStringA.charAt(2)==tilePlacementStringB.charAt(2)&Math.abs(getNumericValue(tilePlacementStringA.charAt(3))-getNumericValue(tilePlacementStringB.charAt(3)))==1)|
-                (getNumericValue(tilePlacementStringA.charAt(3))==getNumericValue(tilePlacementStringB.charAt(3))&Math.abs((int)tilePlacementStringB.charAt(2)-(int)tilePlacementStringB.charAt(2))==1))
+        String a=tilePlacementStringA;
+        String b=tilePlacementStringB;
+        if(a.charAt(2)==b.charAt(2)&a.charAt(3)-b.charAt(3)==1)
         {
-            //if(tilePlacementStringA.charAt())
-            {
 
-            }
+        }
+        if(a.charAt(2)==b.charAt(2)&b.charAt(3)-a.charAt(3)==1)
+        {
+
+        }
+        if(a.charAt(3)==b.charAt(3)&(int)a.charAt(2)-(int)b.charAt(2)==1)
+        {
+
+        }
+        if(a.charAt(3)==b.charAt(3)&(int)b.charAt(2)-(int)a.charAt(2)==1)
+        {
+
         }
 
         return false;
