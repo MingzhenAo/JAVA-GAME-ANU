@@ -2,7 +2,7 @@ package comp1110.ass2;
 
 
 public class TileRouteType {
-    int A0[] = {1,1,5,5};
+    /*int A0[] = {1,1,5,5};
     int A1[] = {5,1,5,1};
     int A2[] = {5,1,1,1};
     int A3[] = {5,0,0,0};
@@ -16,7 +16,7 @@ public class TileRouteType {
     int S2[] = {0,0,0,0};
     int S3[] = {1,1,1,1};
     int S4[] = {0,0,1,1};
-    int S5[] = {1,0,1,0};
+    int S5[] = {1,0,1,0};*/
     public int[] rotate90(int[] a)
     {   int m = a[3];
         a[3] = a[2];
