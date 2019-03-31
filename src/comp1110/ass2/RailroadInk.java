@@ -36,8 +36,7 @@ public class RailroadInk {
             }
         }
         return false;
-        }
-
+    }
 
 
     /**
@@ -71,7 +70,7 @@ public class RailroadInk {
 
         }
 
-         if (count1 > 3) {
+        if (count1 > 3) {
             return false;
         }
 
@@ -104,8 +103,6 @@ public class RailroadInk {
     }
 
 
-
-
     /**
      * Determine whether the provided placements are neighbours connected by at least one validly connecting edge.
      * For example,
@@ -119,25 +116,39 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-        String a=tilePlacementStringA;
-        String b=tilePlacementStringB;
-        if(a.charAt(2)==b.charAt(2)&a.charAt(3)-b.charAt(3)==1)
+        TileRotate r = new TileRotate();
+        String a = tilePlacementStringA;
+        String b = tilePlacementStringB;
+
+        int[] tileA = {TileEnum.valueOf(a.substring(0, 2)).left, TileEnum.valueOf(a.substring(0, 2)).top,
+                TileEnum.valueOf(a.substring(0, 2)).right, TileEnum.valueOf(a.substring(0, 2)).bottom};
+
+        int[] tileB = {TileEnum.valueOf(b.substring(0, 2)).left, TileEnum.valueOf(b.substring(0, 2)).top,
+                TileEnum.valueOf(b.substring(0, 2)).right, TileEnum.valueOf(b.substring(0, 2)).bottom};
+
+        r.rotatetime(tileA, getNumericValue(a.charAt(4)));
+        r.rotatetime(tileB, getNumericValue(b.charAt(4)));
+
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
         {
-
+            if (tileA[0] == tileB[2] && tileA[0] != 5)
+                return true;
         }
-        if(a.charAt(2)==b.charAt(2)&b.charAt(3)-a.charAt(3)==1)
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
         {
-
+            if (tileA[2] == tileB[0] && tileA[2] != 5)
+                return true;
         }
-        if(a.charAt(3)==b.charAt(3)&(int)a.charAt(2)-(int)b.charAt(2)==1)
+        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
         {
-
+            if (tileA[1] == tileB[3] && tileA[1] != 5)
+                return true;
         }
-        if(a.charAt(3)==b.charAt(3)&(int)b.charAt(2)-(int)a.charAt(2)==1)
+        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
         {
-
+            if (tileA[3] == tileB[1] && tileA[3] != 5)
+                return true;
         }
-
         return false;
     }
 
@@ -161,11 +172,11 @@ public class RailroadInk {
         // FIXME Task 6: determine whether the given placement sequence is valid
         int count = boardString.length() / 5;
         String[] boardStringArray = new String[count];
-        for (int i = 0; i < boardString.length(); i += 5){
+        for (int i = 0; i < boardString.length(); i += 5) {
             boardStringArray[i] = boardString.substring(i, i + 4);
         }
         // testing are connected neighbours
-        for (int i = 0; i < count - 1; i ++){
+        for (int i = 0; i < count - 1; i++) {
             if (areConnectedNeighbours(boardStringArray[i], boardStringArray[i + 1]) != true)
                 return false;
         }

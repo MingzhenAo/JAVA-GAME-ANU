@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
  * <p>
@@ -33,6 +36,7 @@ public class Viewer extends Application {
      */
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
+
     }
 
     /**
