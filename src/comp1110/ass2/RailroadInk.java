@@ -145,7 +145,7 @@ public class RailroadInk {
         if((tilePlacementStringA.charAt(2)==tilePlacementStringB.charAt(2)&Math.abs(getNumericValue(tilePlacementStringA.charAt(3))-getNumericValue(tilePlacementStringB.charAt(3)))==1)|
                 (getNumericValue(tilePlacementStringA.charAt(3))==getNumericValue(tilePlacementStringB.charAt(3))&Math.abs((int)tilePlacementStringB.charAt(2)-(int)tilePlacementStringB.charAt(2))==1))
         {
-            if(3<tilePlacementStringA.charAt(0)<5&3<tilePlacementStringB.charAt(0)<5|tilePlacementStringA.charAt(0)=='B'|tilePlacementStringB.charAt(0)=='B')
+            if(tilePlacementStringA.charAt())
             {
 
             }
