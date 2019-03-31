@@ -17,30 +17,7 @@ public class RailroadInk {
      */
     public static boolean isTilePlacementWellFormed(String tilePlacementString) {
         // FIXME Task 2: determine whether a tile placement is well-formed
-        if (tilePlacementString.length() == 5) {
-                if (tilePlacementString.charAt(0) == 'B') {
-                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '2') {
-                        if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
-                            if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
-                                if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-                if (tilePlacementString.charAt(0) == 'A' | tilePlacementString.charAt(0) == 'S') {
-                    if (tilePlacementString.charAt(1) >= '0' & tilePlacementString.charAt(1) <= '5') {
-                        if (tilePlacementString.charAt(2) >= 'A' & tilePlacementString.charAt(2) <= 'G') {
-                            if (tilePlacementString.charAt(3) >= '0' & tilePlacementString.charAt(3) <= '6') {
-                                if (tilePlacementString.charAt(4) >= '0' & tilePlacementString.charAt(4) <= '7') {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+
         if (tilePlacementString.length() != 5)
             return false;
 
@@ -145,7 +122,7 @@ public class RailroadInk {
         if((tilePlacementStringA.charAt(2)==tilePlacementStringB.charAt(2)&Math.abs(getNumericValue(tilePlacementStringA.charAt(3))-getNumericValue(tilePlacementStringB.charAt(3)))==1)|
                 (getNumericValue(tilePlacementStringA.charAt(3))==getNumericValue(tilePlacementStringB.charAt(3))&Math.abs((int)tilePlacementStringB.charAt(2)-(int)tilePlacementStringB.charAt(2))==1))
         {
-            if(tilePlacementStringA.charAt())
+            //if(tilePlacementStringA.charAt())
             {
 
             }
