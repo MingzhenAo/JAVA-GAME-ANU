@@ -133,6 +133,17 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
+        int count = boardString.length() / 5;
+        String[] boardStringArray = new String[count];
+        for (int i = 0; i < boardString.length(); i += 5){
+            boardStringArray[i] = boardString.substring(i, i + 4);
+        }
+        // testing are connected neighbours
+        for (int i = 0; i < count - 1; i ++){
+            if (areConnectedNeighbours(boardStringArray[i], boardStringArray[i + 1]) != true)
+                return false;
+        }
+
         return false;
     }
 
