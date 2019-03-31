@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import java.util.Arrays;
+
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -172,16 +174,66 @@ public class RailroadInk {
         // FIXME Task 6: determine whether the given placement sequence is valid
         int count = boardString.length() / 5;
         String[] boardStringArray = new String[count];
+        int z = 0;
         for (int i = 0; i < boardString.length(); i += 5) {
-            boardStringArray[i] = boardString.substring(i, i + 4);
+            boardStringArray[z] = boardString.substring(i, i + 5);
+            z++;
         }
-        // testing are connected neighbours
+        //testing are connected neighbours
         for (int i = 0; i < count - 1; i++) {
-            if (areConnectedNeighbours(boardStringArray[i], boardStringArray[i + 1]) != true)
-                return false;
+            for (int j = i + 1; j < count; j ++){
+                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true){
+                    if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[i].charAt(3) - boardStringArray[j].charAt(3) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[j].charAt(3) - boardStringArray[i].charAt(3) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(3) == boardStringArray[j].charAt(3) && (int) boardStringArray[i].charAt(2) - (int) boardStringArray[j].charAt(2) == 1)
+                        return false;
+                    else if (boardStringArray[i].charAt(3) == boardStringArray[j].charAt(3) && (int) boardStringArray[j].charAt(2) - (int) boardStringArray[i].charAt(2) == 1)
+                        return false;
+                }
+            }
         }
 
-        return false;
+        //testing are correctly connected to exit
+        //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
+        //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
+        TileRotate r = new TileRotate();
+        int[] tile = new int[4];
+        for (int i = 0; i < count; i++) {
+            tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
+            r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
+            switch (boardStringArray[i].substring(3,5)){
+                case "A1":case "A5":
+                    if (tile[1] != 0)
+                        return false;
+                case "D0":
+                    if (tile[0] != 0)
+                        return false;
+                case "D1":
+                    if (tile[2] != 0)
+                        return false;
+                case "G1": case "G5":
+                    if (tile[3] != 0)
+                        return false;
+                case "A3":
+                    if (tile[1] != 1)
+                        return false;
+                case "B0": case "F0":
+                    if (tile[0] != 1)
+                        return false;
+                case "B6": case "F6":
+                    if (tile[2] != 1)
+                        return false;
+                case "G3":
+                    if (tile[3] != 1)
+                        return false;
+            }
+        }
+        return true;
     }
 
     /**
