@@ -4,40 +4,53 @@ import static java.lang.Character.getNumericValue;
 
 public class Test {
     public static void main(String[] args) {
+        String boardString = "A4A50A4G12B2G54A1G36";
+        int count = boardString.length() / 5;
+        String[] boardStringArray = new String[count];
+        int z = 0;
+        for (int i = 0; i < boardString.length(); i += 5) {
+            boardStringArray[z] = boardString.substring(i, i + 5);
+            z++;
+        }
+        int[] tile = new int[4];
         TileRotate r = new TileRotate();
-        String a = "A4B21";
-        String b = "S1B37";
-
-        int[] tileA = {TileEnum.valueOf(a.substring(0, 2)).left, TileEnum.valueOf(a.substring(0, 2)).top,
-                TileEnum.valueOf(a.substring(0, 2)).right, TileEnum.valueOf(a.substring(0, 2)).bottom};
-
-        int[] tileB = {TileEnum.valueOf(b.substring(0, 2)).left, TileEnum.valueOf(b.substring(0, 2)).top,
-                TileEnum.valueOf(b.substring(0, 2)).right, TileEnum.valueOf(b.substring(0, 2)).bottom};
-
-        r.rotatetime(tileA, getNumericValue(a.charAt(4)));
-        r.rotatetime(tileB, getNumericValue(b.charAt(4)));
-
-        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
-        {
-            if (tileA[0] == tileB[2] && tileA[0] != 5)
-                System.out.println("true");
+        for (int i = 0; i < count; i++) {
+            tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
+            r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
+            switch (boardStringArray[i].substring(0, 2)) {
+                case "A1":
+                case "A5":
+                    if (tile[1] != 0)
+                        System.out.println("false");
+                case "D0":
+                    if (tile[0] != 0)
+                        System.out.println("false");
+                case "D1":
+                    if (tile[2] != 0)
+                        System.out.println("false");
+                case "G1":
+                case "G5":
+                    if (tile[3] != 0)
+                        System.out.println("false");
+                case "A3":
+                    if (tile[1] != 1)
+                        System.out.println("false");
+                case "B0":
+                case "F0":
+                    if (tile[0] != 1)
+                        System.out.println("false");
+                case "B6":
+                case "F6":
+                    if (tile[2] != 1)
+                        System.out.println("false");
+                case "G3":
+                    if (tile[3] != 1)
+                        System.out.println("false");
+            }
         }
-        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
-        {
-            if (tileA[2] == tileB[0] && tileA[2] != 5)
-                System.out.println("true");
-        }
-        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
-        {
-            if (tileA[1] == tileB[3] && tileA[1] != 5)
-                System.out.println("true");
-        }
-        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
-        {
-            if (tileA[3] == tileB[1] && tileA[3] != 5)
-                System.out.println("true");
-        }
-        System.out.println("fasle");
+        System.out.println("true");
     }
-
 }

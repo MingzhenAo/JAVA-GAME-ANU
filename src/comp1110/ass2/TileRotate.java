@@ -46,8 +46,6 @@ public class TileRotate {
             b = rotate90(b);
             }
         }
-
-
         return b;
     }
 }

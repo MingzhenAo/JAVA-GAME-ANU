@@ -176,7 +176,7 @@ public class RailroadInk {
         String[] boardStringArray = new String[count];
         int z = 0;
         for (int i = 0; i < boardString.length(); i += 5) {
-            boardStringArray[z] = boardString.substring(i, i + 4);
+            boardStringArray[z] = boardString.substring(i, i + 5);
             z++;
         }
         /* testing are connected neighbours
@@ -190,13 +190,15 @@ public class RailroadInk {
         //testing are correctly connected to exit
         //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
+        TileRotate r = new TileRotate();
         int[] tile = new int[4];
         for (int i = 0; i < count; i++) {
             tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
             tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
             tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
-            switch (boardStringArray[i].substring(0,2)){
+            r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
+            switch (boardStringArray[i].substring(3,5)){
                 case "A1":case "A5":
                     if (tile[1] != 0)
                         return false;
