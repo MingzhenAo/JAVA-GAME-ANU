@@ -161,6 +161,50 @@ public class RailroadInk {
     }
 
     /**
+     * testing are two placement strings are legally connected
+     * @param tilePlacementStringA
+     * @param tilePlacementStringB
+     * @return fasle if the tiles are highway to railway
+     */
+    public static boolean areLegalConnected(String tilePlacementStringA, String tilePlacementStringB) {
+        TileRotate r = new TileRotate();
+        String a = tilePlacementStringA;
+        String b = tilePlacementStringB;
+
+        int[] tileA = {TileEnum.valueOf(a.substring(0, 2)).left, TileEnum.valueOf(a.substring(0, 2)).top,
+                TileEnum.valueOf(a.substring(0, 2)).right, TileEnum.valueOf(a.substring(0, 2)).bottom};
+
+        int[] tileB = {TileEnum.valueOf(b.substring(0, 2)).left, TileEnum.valueOf(b.substring(0, 2)).top,
+                TileEnum.valueOf(b.substring(0, 2)).right, TileEnum.valueOf(b.substring(0, 2)).bottom};
+
+        r.rotateTime(tileA, getNumericValue(a.charAt(4)));
+        r.rotateTime(tileB, getNumericValue(b.charAt(4)));
+
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
+        {
+            if ((tileA[0] == 1 && tileB[2] == 0) || (tileA[0] == 0 && tileB[2] == 1))
+                return false;
+        }
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
+        {
+            if ((tileA[2] == 1 && tileB[0] == 0) || (tileA[2] == 0 && tileB[0] == 1))
+                return false;
+        }
+        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
+        {
+            if ((tileA[1] == 1 && tileB[3] == 0) || (tileA[1] == 0 && tileB[3] == 1))
+                return false;
+        }
+        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
+        {
+            if ((tileA[3] == 1 && tileB[1] == 0) || (tileA[3] == 0 && tileB[1] == 1))
+                return false;
+        }
+        return true;
+    }
+
+
+    /**
      * Given a well-formed board string representing an ordered list of placements,
      * determine whether the board string is valid.
      * A board string is valid if each tile placement is legal with respect to all previous tile
@@ -182,10 +226,14 @@ public class RailroadInk {
 
         String[] boardStringArray = getBoardStringArray(boardString);
 
-        //testing are connected neighbours
+        TileRotate r = new TileRotate();
+        //testing no lonely tile
+
+
+        //testing are legal connected
         for (int i = 0; i < count - 1; i++) {
             for (int j = i + 1; j < count; j++) {
-                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true) {
+                if (areLegalConnected(boardStringArray[i], boardStringArray[j]) != true) {
                     if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[i].charAt(3) - boardStringArray[j].charAt(3) == 1)
                         return false;
                     else if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[j].charAt(3) - boardStringArray[i].charAt(3) == 1)
@@ -201,7 +249,6 @@ public class RailroadInk {
         //testing are correctly connected to exit
         //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
-        TileRotate r = new TileRotate();
         int[] tile = new int[4];
         for (int i = 0; i < count; i++) {
             tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
