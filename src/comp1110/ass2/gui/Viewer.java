@@ -41,6 +41,7 @@ public class Viewer extends Application {
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
 
+
     }
 
 
@@ -81,6 +82,8 @@ public class Viewer extends Application {
         m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
         m.setLayoutX(500);
         m.setLayoutY(130);
+
+
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         root.getChildren().add(m);
