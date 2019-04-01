@@ -6,12 +6,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import java.awt.*;
+
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -37,53 +41,14 @@ public class Viewer extends Application {
      */
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
-        JFrame jFrame=new JFrame("Board");
-        //设置窗口的大小（7个格子，每个格子宽，高为100个像素）
-        jFrame.setSize(700,700);
-        //窗口的位置
-        jFrame.setLocation(300,300);
-        //格子的行数，列数
-        int m=7;
-        //格子的像素
-        int n=100;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<m;j++){
-                //在每个位置添加标签
-                JLabel jLabel = new JLabel();
-                //放置白色方块
-                jLabel.setBackground(Color.WHITE);
-                //设置边框颜色
-                jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                //标签的大小为格子的大小
-                jLabel.setSize(n, n);
-                //标签的位置为索引乘以格子的高度/宽度
-                jLabel.setLocation(i * n, j * n);
-                //设置不透明度为不透明
-                jLabel.setOpaque(true);
-                jFrame.add(jLabel);
-            }
-        }
-        JLabel jLabel=new JLabel();
-        //放置白色方块
-        jLabel.setBackground(Color.WHITE);
-        //设置边框颜色
-        jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        //标签的大小为格子的大小
-        jLabel.setSize(n,n);
-        //标签的位置为索引乘以格子的高度/宽度
-        jLabel.setLocation(6*n,6*n);
-        //设置不透明度为不透明
-        jLabel.setOpaque(true);
-        jFrame.add(jLabel);
-        //窗体设置可见
-        jFrame.setVisible(true);
-        //关闭退出
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
     }
+    public void makeboard(Stage primaryStage)
+    {
 
 
-
-
+    }
     /**
      * Create a basic text field for input and a refresh button.
      */
@@ -106,13 +71,35 @@ public class Viewer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        int n=70;
+        GridPane m = new GridPane();
+
+        /*for(int i = 0; i < 7; i++)
+        {
+            for(int j = 0; j < 7; j++)
+            {   Rectangle rectangle = new Rectangle(n,n,Color.CYAN);
+                rectangle.setStyle("--fx-border-color:black;-fx-border-width:10");
+                rectangle.setLayoutX(i*n+200);
+                rectangle.setLayoutY(j*n+200);
+                m.getChildren().add(rectangle);
+            }
+        }*/
+
+        for(int i = 0; i < 7; i++) {
+            ColumnConstraints column = new ColumnConstraints(70);
+            m.getColumnConstraints().add(column);
+        }
+
+        for(int i = 0; i < 7; i++) {
+            RowConstraints row = new RowConstraints(70);
+            m.getRowConstraints().add(row);
+        }
+        m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
-
         root.getChildren().add(controls);
-
+        root.getChildren().add(m);
         makeControls();
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
