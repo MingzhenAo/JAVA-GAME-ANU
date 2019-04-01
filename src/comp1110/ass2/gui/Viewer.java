@@ -6,17 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -26,8 +24,8 @@ import java.awt.image.ImageProducer;
  */
 public class Viewer extends Application {
     /* board layout */
-    private static final int VIEWER_WIDTH = 1024;
-    private static final int VIEWER_HEIGHT = 768;
+    private static final int VIEWER_WIDTH = 1600;
+    private static final int VIEWER_HEIGHT = 1000;
 
     private static final String URI_BASE = "assets/";
 
@@ -70,44 +68,27 @@ public class Viewer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        GridPane m = new GridPane();
+        for(int i = 0; i < 7; i++) {
+            ColumnConstraints column = new ColumnConstraints(100);
+            m.getColumnConstraints().add(column);
+        }
+
+        for(int i = 0; i < 7; i++) {
+            RowConstraints row = new RowConstraints(100);
+            m.getRowConstraints().add(row);
+        }
+        m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
+        m.setLayoutX(500);
+        m.setLayoutY(130);
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
-
+        root.getChildren().add(m);
         root.getChildren().add(controls);
 
         makeControls();
 
         primaryStage.setScene(scene);
-
-        Image board = new Image(Viewer.class.getResource(Viewer.URI_BASE+"Board.jpg").toString());
-        /*
-        Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.jpg").toString());
-        Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A1.jpg").toString());
-        Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A2.jpg").toString());
-        Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A3.jpg").toString());
-        Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A4.jpg").toString());
-        Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A5.jpg").toString());
-        Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B0.jpg").toString());
-        Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B1.jpg").toString());
-        Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B2.jpg").toString());
-        Image B3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B3.jpg").toString());
-        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S0.jpg").toString());
-        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S1.jpg").toString());
-        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S2.jpg").toString());
-        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S3.jpg").toString());
-        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S4.jpg").toString());
-        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S5.jpg").toString());
-        Image HighExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"HighExit.jpg").toString());
-        Image RailExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
-        */
-        ImageView imageViewboard = new ImageView(board);
-        imageViewboard.setX(0);
-        imageViewboard.setY(0);
-        imageViewboard.setFitHeight(700);
-        imageViewboard.setFitWidth(1024);
-        root.getChildren().add(imageViewboard);
-
-
         primaryStage.show();
     }
 }
