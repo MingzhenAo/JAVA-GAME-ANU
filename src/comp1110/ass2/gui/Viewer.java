@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 
 /**
@@ -48,20 +49,32 @@ public class Viewer extends Application {
         for(int i=0;i<m;i++){
             for(int j=0;j<m;j++){
                 //在每个位置添加标签
-                JLabel jLabel=new JLabel();
-                //标签的大小为格子的大小
-                jLabel.setSize(n,n);
-                //标签的位置为索引乘以格子的高度/宽度
-                jLabel.setLocation(i*n,j*n);
-                //放置黑色方块
+                JLabel jLabel = new JLabel();
+                //放置白色方块
                 jLabel.setBackground(Color.WHITE);
                 //设置边框颜色
                 jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                //标签的大小为格子的大小
+                jLabel.setSize(n, n);
+                //标签的位置为索引乘以格子的高度/宽度
+                jLabel.setLocation(i * n, j * n);
                 //设置不透明度为不透明
                 jLabel.setOpaque(true);
                 jFrame.add(jLabel);
             }
         }
+        JLabel jLabel=new JLabel();
+        //放置白色方块
+        jLabel.setBackground(Color.WHITE);
+        //设置边框颜色
+        jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        //标签的大小为格子的大小
+        jLabel.setSize(n,n);
+        //标签的位置为索引乘以格子的高度/宽度
+        jLabel.setLocation(6*n,6*n);
+        //设置不透明度为不透明
+        jLabel.setOpaque(true);
+        jFrame.add(jLabel);
         //窗体设置可见
         jFrame.setVisible(true);
         //关闭退出
