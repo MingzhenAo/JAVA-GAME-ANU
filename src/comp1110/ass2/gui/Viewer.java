@@ -6,16 +6,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
-
+import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
+import java.awt.*;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -25,8 +24,8 @@ import javafx.scene.shape.Rectangle;
  */
 public class Viewer extends Application {
     /* board layout */
-    private static final int VIEWER_WIDTH = 1024;
-    private static final int VIEWER_HEIGHT = 768;
+    private static final int VIEWER_WIDTH = 1600;
+    private static final int VIEWER_HEIGHT = 1000;
 
     private static final String URI_BASE = "assets/";
 
@@ -42,13 +41,11 @@ public class Viewer extends Application {
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
 
-
     }
-    public void makeboard(Stage primaryStage)
-    {
 
 
-    }
+
+
     /**
      * Create a basic text field for input and a refresh button.
      */
@@ -71,35 +68,26 @@ public class Viewer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        int n=70;
         GridPane m = new GridPane();
-
-        /*for(int i = 0; i < 7; i++)
-        {
-            for(int j = 0; j < 7; j++)
-            {   Rectangle rectangle = new Rectangle(n,n,Color.CYAN);
-                rectangle.setStyle("--fx-border-color:black;-fx-border-width:10");
-                rectangle.setLayoutX(i*n+200);
-                rectangle.setLayoutY(j*n+200);
-                m.getChildren().add(rectangle);
-            }
-        }*/
-
         for(int i = 0; i < 7; i++) {
-            ColumnConstraints column = new ColumnConstraints(70);
+            ColumnConstraints column = new ColumnConstraints(100);
             m.getColumnConstraints().add(column);
         }
 
         for(int i = 0; i < 7; i++) {
-            RowConstraints row = new RowConstraints(70);
+            RowConstraints row = new RowConstraints(100);
             m.getRowConstraints().add(row);
         }
         m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
+        m.setLayoutX(500);
+        m.setLayoutY(130);
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
-        root.getChildren().add(controls);
         root.getChildren().add(m);
+        root.getChildren().add(controls);
+
         makeControls();
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
