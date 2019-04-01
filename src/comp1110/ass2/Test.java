@@ -19,7 +19,7 @@ public class Test {
             tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
             tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
-            r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
+            r.rotateTime(tile, getNumericValue(boardStringArray[i].charAt(4)));
             switch (boardStringArray[i].substring(0, 2)) {
                 case "A1":
                 case "A5":

@@ -134,8 +134,8 @@ public class RailroadInk {
         int[] tileB = {TileEnum.valueOf(b.substring(0, 2)).left, TileEnum.valueOf(b.substring(0, 2)).top,
                 TileEnum.valueOf(b.substring(0, 2)).right, TileEnum.valueOf(b.substring(0, 2)).bottom};
 
-        r.rotatetime(tileA, getNumericValue(a.charAt(4)));
-        r.rotatetime(tileB, getNumericValue(b.charAt(4)));
+        r.rotateTime(tileA, getNumericValue(a.charAt(4)));
+        r.rotateTime(tileB, getNumericValue(b.charAt(4)));
 
         if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
         {
@@ -208,7 +208,7 @@ public class RailroadInk {
             tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
             tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
-            r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
+            r.rotateTime(tile, getNumericValue(boardStringArray[i].charAt(4)));
             switch (boardStringArray[i].substring(3, 5)) {
                 case "A1":
                 case "A5":
