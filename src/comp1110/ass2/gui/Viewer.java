@@ -11,10 +11,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
+
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -24,8 +29,8 @@ import java.awt.*;
  */
 public class Viewer extends Application {
     /* board layout */
-    private static final int VIEWER_WIDTH = 1600;
-    private static final int VIEWER_HEIGHT = 1000;
+    private static final int VIEWER_WIDTH = 1400;
+    private static final int VIEWER_HEIGHT = 800;
 
     private static final String URI_BASE = "assets/";
 
@@ -68,19 +73,59 @@ public class Viewer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        //set board
         GridPane m = new GridPane();
         for(int i = 0; i < 7; i++) {
-            ColumnConstraints column = new ColumnConstraints(100);
+            ColumnConstraints column = new ColumnConstraints(80);
             m.getColumnConstraints().add(column);
         }
 
         for(int i = 0; i < 7; i++) {
-            RowConstraints row = new RowConstraints(100);
+            RowConstraints row = new RowConstraints(80);
             m.getRowConstraints().add(row);
         }
         m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
-        m.setLayoutX(500);
-        m.setLayoutY(130);
+        m.setLayoutX(450);
+        m.setLayoutY(90);
+
+        //set exits
+        Image highexit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
+        ImageView viewhigh1 = new ImageView(highexit);
+        viewhigh1.setX(520);
+        viewhigh1.setY(20);
+        viewhigh1.setFitWidth(100);
+        viewhigh1.setFitHeight(100);
+        ImageView viewhigh2 = new ImageView(highexit);
+        viewhigh2.setX(840);
+        viewhigh2.setY(20);
+        viewhigh2.setFitWidth(100);
+        viewhigh2.setFitHeight(100);
+        root.getChildren().add(viewhigh1);
+        root.getChildren().add(viewhigh2);
+
+        Image railexit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
+
+        /*
+        Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.jpg").toString());
+        Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A1.jpg").toString());
+        Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A2.jpg").toString());
+        Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A3.jpg").toString());
+        Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A4.jpg").toString());
+        Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A5.jpg").toString());
+        Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B0.jpg").toString());
+        Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B1.jpg").toString());
+        Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B2.jpg").toString());
+        Image B3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B3.jpg").toString());
+        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S0.jpg").toString());
+        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S1.jpg").toString());
+        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S2.jpg").toString());
+        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S3.jpg").toString());
+        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S4.jpg").toString());
+        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S5.jpg").toString());
+        Image HighExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"HighExit.jpg").toString());
+        Image RailExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
+        */
+
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         root.getChildren().add(m);
