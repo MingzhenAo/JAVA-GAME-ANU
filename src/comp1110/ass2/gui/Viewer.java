@@ -88,22 +88,102 @@ public class Viewer extends Application {
         m.setLayoutX(450);
         m.setLayoutY(90);
 
-        //set exits
+        //set highway exits
         Image highexit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
         ImageView viewhigh1 = new ImageView(highexit);
         viewhigh1.setX(520);
         viewhigh1.setY(20);
         viewhigh1.setFitWidth(100);
         viewhigh1.setFitHeight(100);
+        root.getChildren().add(viewhigh1);
+
         ImageView viewhigh2 = new ImageView(highexit);
         viewhigh2.setX(840);
         viewhigh2.setY(20);
         viewhigh2.setFitWidth(100);
         viewhigh2.setFitHeight(100);
-        root.getChildren().add(viewhigh1);
         root.getChildren().add(viewhigh2);
 
-        Image railexit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
+        ImageView viewhigh3 = new ImageView(highexit);
+        viewhigh3.setRotate(270);
+        viewhigh3.setX(380);
+        viewhigh3.setY(320);
+        viewhigh3.setFitWidth(100);
+        viewhigh3.setFitHeight(100);
+        root.getChildren().add(viewhigh3);
+
+        ImageView viewhigh4 = new ImageView(highexit);
+        viewhigh4.setRotate(90);
+        viewhigh4.setX(980);
+        viewhigh4.setY(320);
+        viewhigh4.setFitWidth(100);
+        viewhigh4.setFitHeight(100);
+        root.getChildren().add(viewhigh4);
+
+        ImageView viewhigh5 = new ImageView(highexit);
+        viewhigh5.setRotate(180);
+        viewhigh5.setX(520);
+        viewhigh5.setY(620);
+        viewhigh5.setFitWidth(100);
+        viewhigh5.setFitHeight(100);
+        root.getChildren().add(viewhigh5);
+
+        ImageView viewhigh6 = new ImageView(highexit);
+        viewhigh6.setRotate(180);
+        viewhigh6.setX(840);
+        viewhigh6.setY(620);
+        viewhigh6.setFitWidth(100);
+        viewhigh6.setFitHeight(100);
+        root.getChildren().add(viewhigh6);
+
+        //set railway exits
+        Image railexit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.png").toString());
+        ImageView viewrail1 = new ImageView(railexit);
+        viewrail1.setX(680);
+        viewrail1.setY(20);
+        viewrail1.setFitWidth(100);
+        viewrail1.setFitHeight(100);
+        root.getChildren().add(viewrail1);
+
+        ImageView viewrail2 = new ImageView(railexit);
+        viewrail2.setRotate(270);
+        viewrail2.setX(380);
+        viewrail2.setY(160);
+        viewrail2.setFitWidth(100);
+        viewrail2.setFitHeight(100);
+        root.getChildren().add(viewrail2);
+
+        ImageView viewrail3 = new ImageView(railexit);
+        viewrail3.setRotate(270);
+        viewrail3.setX(380);
+        viewrail3.setY(480);
+        viewrail3.setFitWidth(100);
+        viewrail3.setFitHeight(100);
+        root.getChildren().add(viewrail3);
+
+        ImageView viewrail4 = new ImageView(railexit);
+        viewrail4.setRotate(90);
+        viewrail4.setX(980);
+        viewrail4.setY(160);
+        viewrail4.setFitWidth(100);
+        viewrail4.setFitHeight(100);
+        root.getChildren().add(viewrail4);
+
+        ImageView viewrail5 = new ImageView(railexit);
+        viewrail5.setRotate(90);
+        viewrail5.setX(980);
+        viewrail5.setY(480);
+        viewrail5.setFitWidth(100);
+        viewrail5.setFitHeight(100);
+        root.getChildren().add(viewrail5);
+
+        ImageView viewrail6 = new ImageView(railexit);
+        viewrail6.setRotate(180);
+        viewrail6.setX(680);
+        viewrail6.setY(620);
+        viewrail6.setFitWidth(100);
+        viewrail6.setFitHeight(100);
+        root.getChildren().add(viewrail6);
 
         /*
         Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.jpg").toString());
