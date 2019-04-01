@@ -1,7 +1,5 @@
 package comp1110.ass2;
 
-import java.util.Arrays;
-
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -40,6 +38,28 @@ public class RailroadInk {
         return false;
     }
 
+    /**
+     * Get a String array containing N five-character tile placements (where N = 1 .. 31)
+     *
+     * @param boardString a board string representing some placement sequence
+     * @return a String array containing N five-character tile placements (where N = 1 .. 31)
+     */
+    public static String[] getBoardStringArray(String boardString) {
+        int number = boardString.length() / 5;
+
+        String[] boardStringArray = new String[number];
+
+        for (int i = 0; i < number; i++) {
+            if (i <= number - 1) {
+                boardStringArray[i] = boardString.substring(5 * i, 5 * (i + 1));
+            }
+
+            if (i == number) {
+                boardStringArray[i] = boardString.substring(5 * i, 5 * (i + 1) + 1);
+            }
+        }
+        return boardStringArray;
+    }
 
     /**
      * Determine whether a board string is well-formed:
@@ -80,30 +100,16 @@ public class RailroadInk {
         each piece placement is well-formed
          */
 
-        int number = boardString.length() / 5;
+        String[] boardStringArray = getBoardStringArray(boardString);
 
-        String[] strings = new String[number];
-
-        for (int i = 0; i < number; i++) {
-            if (i <= number - 1) {
-                strings[i] = boardString.substring(5 * i, 5 * (i + 1));
-            }
-
-            if (i == number) {
-                strings[i] = boardString.substring(5 * i, 5 * (i + 1) + 1);
-            }
-        }
-
-
-        for (int i = 0; i < strings.length; i++) {
-            if (!isTilePlacementWellFormed(strings[i])) {
+        for (int i = 0; i < boardStringArray.length; i++) {
+            if (!isTilePlacementWellFormed(boardStringArray[i])) {
                 return false;
             }
         }
 
         return true;
     }
-
 
     /**
      * Determine whether the provided placements are neighbours connected by at least one validly connecting edge.
@@ -173,16 +179,13 @@ public class RailroadInk {
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
         int count = boardString.length() / 5;
-        String[] boardStringArray = new String[count];
-        int z = 0;
-        for (int i = 0; i < boardString.length(); i += 5) {
-            boardStringArray[z] = boardString.substring(i, i + 5);
-            z++;
-        }
+
+        String[] boardStringArray = getBoardStringArray(boardString);
+
         //testing are connected neighbours
         for (int i = 0; i < count - 1; i++) {
-            for (int j = i + 1; j < count; j ++){
-                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true){
+            for (int j = i + 1; j < count; j++) {
+                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]) != true) {
                     if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[i].charAt(3) - boardStringArray[j].charAt(3) == 1)
                         return false;
                     else if (boardStringArray[i].charAt(2) == boardStringArray[j].charAt(2) && boardStringArray[j].charAt(3) - boardStringArray[i].charAt(3) == 1)
@@ -206,8 +209,9 @@ public class RailroadInk {
             tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
             r.rotatetime(tile, getNumericValue(boardStringArray[i].charAt(4)));
-            switch (boardStringArray[i].substring(3,5)){
-                case "A1":case "A5":
+            switch (boardStringArray[i].substring(3, 5)) {
+                case "A1":
+                case "A5":
                     if (tile[1] != 0)
                         return false;
                 case "D0":
@@ -216,16 +220,19 @@ public class RailroadInk {
                 case "D1":
                     if (tile[2] != 0)
                         return false;
-                case "G1": case "G5":
+                case "G1":
+                case "G5":
                     if (tile[3] != 0)
                         return false;
                 case "A3":
                     if (tile[1] != 1)
                         return false;
-                case "B0": case "F0":
+                case "B0":
+                case "F0":
                     if (tile[0] != 1)
                         return false;
-                case "B6": case "F6":
+                case "B6":
+                case "F6":
                     if (tile[2] != 1)
                         return false;
                 case "G3":
