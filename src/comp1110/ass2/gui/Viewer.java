@@ -13,13 +13,6 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -39,12 +32,63 @@ public class Viewer extends Application {
     TextField textField;
 
     /**
+     * used to set the proper rotation
+     * @param a
+     * @param n
+     */
+    static ImageView rotation(ImageView a, int n){
+        if (n > 3){
+            a.usesMirroring();
+            n = n - 4;
+        }
+        if (n == 1){
+            a.setRotate(90);
+        }
+        if (n == 2){
+            a.setRotate(180);
+        }
+        if (n == 3){
+            a.setRotate(270);
+        }
+        return a;
+    }
+
+    /**
      * Draw a placement in the window, removing any previously drawn one
      *
      * @param placement A valid placement string
      */
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
+        int n = 0;
+        switch (placement.substring(0,2)){
+            case "A0":
+                Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.png").toString());
+                ImageView a0 = new ImageView(A0);
+                a0.setFitHeight(80);
+                a0.setFitWidth(80);
+                a0.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                a0.setY(90 + 80 * (placement.charAt(2) - 'A'));
+                rotation(a0, Integer.valueOf(placement.substring(4,5)));
+                root.getChildren().add(a0);
+        }
+
+        Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A1.png").toString());
+        Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A2.png").toString());
+        Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A3.png").toString());
+        Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A4.png").toString());
+        Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A5.png").toString());
+        Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B0.png").toString());
+        Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B1.png").toString());
+        Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B2.png").toString());
+        Image B3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B3.png").toString());
+        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S0.png").toString());
+        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S1.png").toString());
+        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S2.png").toString());
+        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S3.png").toString());
+        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S4.png").toString());
+        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S5.png").toString());
+
 
     }
 
@@ -185,26 +229,7 @@ public class Viewer extends Application {
         viewrail6.setFitHeight(100);
         root.getChildren().add(viewrail6);
 
-        /*
-        Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.jpg").toString());
-        Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A1.jpg").toString());
-        Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A2.jpg").toString());
-        Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A3.jpg").toString());
-        Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A4.jpg").toString());
-        Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A5.jpg").toString());
-        Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B0.jpg").toString());
-        Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B1.jpg").toString());
-        Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B2.jpg").toString());
-        Image B3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B3.jpg").toString());
-        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S0.jpg").toString());
-        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S1.jpg").toString());
-        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S2.jpg").toString());
-        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S3.jpg").toString());
-        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S4.jpg").toString());
-        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S5.jpg").toString());
-        Image HighExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"HighExit.jpg").toString());
-        Image RailExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
-        */
+
 
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
