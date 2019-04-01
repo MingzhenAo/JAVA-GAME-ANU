@@ -7,11 +7,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -37,48 +42,7 @@ public class Viewer extends Application {
      */
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
-        JFrame jFrame=new JFrame("Board");
-        //设置窗口的大小（7个格子，每个格子宽，高为100个像素）
-        jFrame.setSize(700,700);
-        //窗口的位置
-        jFrame.setLocation(300,300);
-        //格子的行数，列数
-        int m=7;
-        //格子的像素
-        int n=100;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<m;j++){
-                //在每个位置添加标签
-                JLabel jLabel = new JLabel();
-                //放置白色方块
-                jLabel.setBackground(Color.WHITE);
-                //设置边框颜色
-                jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                //标签的大小为格子的大小
-                jLabel.setSize(n, n);
-                //标签的位置为索引乘以格子的高度/宽度
-                jLabel.setLocation(i * n, j * n);
-                //设置不透明度为不透明
-                jLabel.setOpaque(true);
-                jFrame.add(jLabel);
-            }
-        }
-        JLabel jLabel=new JLabel();
-        //放置白色方块
-        jLabel.setBackground(Color.WHITE);
-        //设置边框颜色
-        jLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        //标签的大小为格子的大小
-        jLabel.setSize(n,n);
-        //标签的位置为索引乘以格子的高度/宽度
-        jLabel.setLocation(6*n,6*n);
-        //设置不透明度为不透明
-        jLabel.setOpaque(true);
-        jFrame.add(jLabel);
-        //窗体设置可见
-        jFrame.setVisible(true);
-        //关闭退出
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     }
 
 
@@ -114,6 +78,36 @@ public class Viewer extends Application {
         makeControls();
 
         primaryStage.setScene(scene);
+
+        Image board = new Image(Viewer.class.getResource(Viewer.URI_BASE+"Board.jpg").toString());
+        /*
+        Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A0.jpg").toString());
+        Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A1.jpg").toString());
+        Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A2.jpg").toString());
+        Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A3.jpg").toString());
+        Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A4.jpg").toString());
+        Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"A5.jpg").toString());
+        Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B0.jpg").toString());
+        Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B1.jpg").toString());
+        Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B2.jpg").toString());
+        Image B3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"B3.jpg").toString());
+        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S0.jpg").toString());
+        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S1.jpg").toString());
+        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S2.jpg").toString());
+        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S3.jpg").toString());
+        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S4.jpg").toString());
+        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE+"S5.jpg").toString());
+        Image HighExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"HighExit.jpg").toString());
+        Image RailExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
+        */
+        ImageView imageViewboard = new ImageView(board);
+        imageViewboard.setX(0);
+        imageViewboard.setY(0);
+        imageViewboard.setFitHeight(700);
+        imageViewboard.setFitWidth(1024);
+        root.getChildren().add(imageViewboard);
+
+
         primaryStage.show();
     }
 }
