@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import javax.swing.*;
+
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -250,43 +252,79 @@ public class RailroadInk {
         //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
         int[] tile = new int[4];
+        int b=0;
         for (int i = 0; i < count; i++) {
             tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
             tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
             tile[2] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom;
             r.rotateTime(tile, getNumericValue(boardStringArray[i].charAt(4)));
-            switch (boardStringArray[i].substring(3, 5)) {
+            switch (boardStringArray[i].substring(2, 4)) {
                 case "A1":
-                case "A5":
+                    b++;
                     if (tile[1] != 0)
                         return false;
+                        break;
+                case "A5":
+                    b++;
+                    if (tile[1] != 0)
+                    return false;
+                    break;
                 case "D0":
+                    b++;
                     if (tile[0] != 0)
                         return false;
-                case "D1":
+                    break;
+                case "D6":
+                    b++;
                     if (tile[2] != 0)
                         return false;
+                    break;
                 case "G1":
-                case "G5":
+                    b++;
                     if (tile[3] != 0)
                         return false;
+                    break;
+                case "G5":
+                    b++;
+                    if (tile[3] != 0)
+                        return false;
+                    break;
                 case "A3":
+                    b++;
                     if (tile[1] != 1)
                         return false;
+                    break;
                 case "B0":
-                case "F0":
+                    b++;
                     if (tile[0] != 1)
                         return false;
+                    break;
                 case "B6":
-                case "F6":
+                    b++;
                     if (tile[2] != 1)
                         return false;
+                    break;
+                case "F0":
+                    b++;
+                    if (tile[0] != 1)
+                        return false;
+                    break;
+                case "F6":
+                    b++;
+                    if (tile[2] != 1)
+                        return false;
+                    break;
                 case "G3":
+                    b++;
                     if (tile[3] != 1)
                         return false;
+                    break;
             }
         }
+
+       if(b==0)
+       {return false;}
         return true;
     }
 
