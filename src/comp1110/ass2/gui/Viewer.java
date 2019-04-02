@@ -207,16 +207,16 @@ public class Viewer extends Application {
         Image HighExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"HighExit.jpg").toString());
         Image RailExit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.jpg").toString());
         */
->>>>>>> 70fd24e578e788a9ea29b855806f0aa633607382
+
 
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
         root.getChildren().add(m);
         root.getChildren().add(controls);
-
+        m.usesMirroring();
         makeControls();
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-}
+}}
