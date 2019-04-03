@@ -1,4 +1,7 @@
+
 package comp1110.ass2;
+
+import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
     /**
@@ -15,6 +18,7 @@ public class RailroadInk {
      */
     public static boolean isTilePlacementWellFormed(String tilePlacementString) {
         // FIXME Task 2: determine whether a tile placement is well-formed
+
         if (tilePlacementString.length() != 5)
             return false;
 
@@ -34,6 +38,26 @@ public class RailroadInk {
         }
         return false;
     }
+
+    /**
+     * Get a String array containing N five-character tile placements (where N = 1 .. 31)
+     *
+     * @param boardString a board string representing some placement sequence
+     * @return a String array containing N five-character tile placements (where N = 1 .. 31)
+     */
+    public static String[] getPlacementStringArray(String boardString) {
+        int number = boardString.length() / 5;
+
+        String[] placementStringArray = new String[number];
+
+        for (int i = 0; i < number; i++) {
+
+            placementStringArray[i] = boardString.substring(5 * i, 5 * (i + 1));
+
+        }
+        return placementStringArray;
+    }
+
 
     /**
      * Determine whether a board string is well-formed:
@@ -66,7 +90,8 @@ public class RailroadInk {
 
         }
 
-         if (count1 > 3) {
+
+        if (count1 > 3) {
             return false;
         }
 
@@ -74,23 +99,10 @@ public class RailroadInk {
         each piece placement is well-formed
          */
 
-        int number = boardString.length() / 5;
+        String[] boardStringArray = getPlacementStringArray(boardString);
 
-        String[] strings = new String[number];
-
-        for (int i = 0; i < number; i++) {
-            if (i <= number - 1) {
-                strings[i] = boardString.substring(5 * i, 5 * (i + 1));
-            }
-
-            if (i == number) {
-                strings[i] = boardString.substring(5 * i, 5 * (i + 1) + 1);
-            }
-        }
-
-
-        for (int i = 0; i < strings.length; i++) {
-            if (!isTilePlacementWellFormed(strings[i])) {
+        for (int i = 0; i < boardStringArray.length; i++) {
+            if (!isTilePlacementWellFormed(boardStringArray[i])) {
                 return false;
             }
         }
@@ -112,8 +124,102 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
+
+        String a = tilePlacementStringA;
+        String b = tilePlacementStringB;
+
+         /*
+        a.substring(0, 2) will return the object's name of TileEnum, such as A0, A1 etc.
+        Then, by the method of valueOf(String name), we will get the corresponding object.
+        */
+        TileEnum tA = TileEnum.valueOf(a.substring(0, 2));
+        TileEnum tB = TileEnum.valueOf(b.substring(0, 2));
+
+
+        int[] tileA = {tA.left, tA.top, tA.right, tA.bottom};
+        int[] tileB = {tB.left, tB.top, tB.right, tB.bottom};
+
+        TileRotate r = new TileRotate();
+
+        r.rotateTime(tileA, getNumericValue(a.charAt(4)));
+        r.rotateTime(tileB, getNumericValue(b.charAt(4)));
+
+
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
+        {
+
+            if (tileA[0] == tileB[2] && tileA[0] != 5)
+                return true;
+            /*
+            It means that only the left edge of tilePlacementStringA should be the same with the
+            right edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
+            */
+        }
+
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
+        {
+            if (tileA[2] == tileB[0] && tileA[2] != 5)
+                return true;
+              /*
+            It means that only the right edge of tilePlacementStringA should be the same with the
+            left edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
+            */
+        }
+
+        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
+        {
+            if (tileA[1] == tileB[3] && tileA[1] != 5)
+                return true;
+
+            /*
+            It means that only the top edge of tilePlacementStringA should be the same with the
+            bottom edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
+            */
+        }
+        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
+        {
+            if (tileA[3] == tileB[1] && tileA[3] != 5)
+                return true;
+              /*
+            It means that only the bottom edge of tilePlacementStringA should be the same with the
+            top edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
+            */
+        }
+
+        //If all of these above are not satisfied, the placements are not connected neighbours.
         return false;
     }
+
+
+    /**
+     * @param placementString
+     * @return an int array containing 4 integers.
+     * The fist element represents left;
+     * The second element  represents top;
+     * The third  element represents right;
+     * The forth  element represents bottom;
+     * <p>
+     * 0 represents a highway; 1 represents a railway; 5 represents blank
+     * <p>
+     * For example if the array is [0,5,1,5],
+     * it means the tile has a highway in the left, blank for top, a railway for right, blank for bottom
+     */
+    public static int[] getRotatedTile(String placementString) {
+
+        TileRotate r = new TileRotate();
+        int[] tile = new int[4];
+        TileEnum tileName = TileEnum.valueOf(placementString.substring(0, 2));
+
+        tile[0] = tileName.left;
+        tile[1] = tileName.top;
+        tile[2] = tileName.right;
+        tile[3] = tileName.bottom;
+
+        r.rotateTime(tile, getNumericValue(placementString.charAt(4)));
+
+        return tile;
+    }
+
 
     /**
      * Given a well-formed board string representing an ordered list of placements,
@@ -133,16 +239,149 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
-        return false;
+        int count = boardString.length() / 5;
+
+        String[] placementStringArray = getPlacementStringArray(boardString);
+
+        TileRotate r = new TileRotate();
+
+
+        //testing are legal connected
+        for (int i = 0; i < count - 1; i++) {
+
+            for (int j = i + 1; j < count; j++) {
+
+                if (areConnectedNeighbours(placementStringArray[i], placementStringArray[j]) == false) {//说明两个tile不是相邻且连接的
+
+                    /*
+                     * A tile may have one or more edges touching a blank edge of another tile; this is referred to as disconnected,
+                     * but the placement is still legal.
+                     *
+                     */
+                    if (placementStringArray[i].charAt(2) == placementStringArray[j].charAt(2) && placementStringArray[i].charAt(3) - placementStringArray[j].charAt(3) == 1) //same row,i right, j left
+                    {
+                        //Determine whether a tile have one or more edges touching a blank edge of another tile
+                        if (getRotatedTile(placementStringArray[i])[0] != 5 && getRotatedTile(placementStringArray[j])[2] != 5) {
+                            return false;
+                        }
+
+                    } else if (placementStringArray[i].charAt(2) == placementStringArray[j].charAt(2) && placementStringArray[j].charAt(3) - placementStringArray[i].charAt(3) == 1)// same row,j right, i left
+                    {
+                        //Determine whether a tile have one or more edges touching a blank edge of another tile
+                        if (getRotatedTile(placementStringArray[j])[0] != 5 && getRotatedTile(placementStringArray[i])[2] != 5) {
+                            return false;
+                        }
+                    } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[i].charAt(2) - (int) placementStringArray[j].charAt(2) == 1)//same column,i below, j top
+                    {
+                        //Determine whether a tile have one or more edges touching a blank edge of another tile
+                        if (getRotatedTile(placementStringArray[i])[1] != 5 && getRotatedTile(placementStringArray[j])[3] != 5) {
+                            return false;
+                        }
+                    } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[j].charAt(2) - (int) placementStringArray[i].charAt(2) == 1)//same column,j below, i top
+                    {
+                        //Determine whether a tile have one or more edges touching a blank edge of another tile
+                        if (getRotatedTile(placementStringArray[j])[1] != 5 && getRotatedTile(placementStringArray[i])[3] != 5) {
+                            return false;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        /*
+        testing are correctly connected to exit
+        String[] highwayExits = {"A1","A5","D0","D6","G1","G5"}; exits with highway
+        String[] railwayExits = {"A3","B0","B6","F0","F6","G3"}; exits with railway
+        */
+
+        int[] tile = new int[4];
+        int b = 0;
+
+        for (int i = 0; i < count; i++) {
+            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
+            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
+
+
+            switch (placementStringArray[i].substring(2, 4)) {
+                case "A1":
+                    b++;
+                    if (tile[1] != 0)
+                        return false;
+                    break;
+                case "A5":
+                    b++;
+                    if (tile[1] != 0)
+                        return false;
+                    break;
+                case "D0":
+                    b++;
+                    if (tile[0] != 0)
+                        return false;
+                    break;
+                case "D6":
+                    b++;
+                    if (tile[2] != 0)
+                        return false;
+                    break;
+                case "G1":
+                    b++;
+                    if (tile[3] != 0)
+                        return false;
+                    break;
+                case "G5":
+                    b++;
+                    if (tile[3] != 0)
+                        return false;
+                    break;
+                case "A3":
+                    b++;
+                    if (tile[1] != 1)
+                        return false;
+                    break;
+                case "B0":
+                    b++;
+                    if (tile[0] != 1)
+                        return false;
+                    break;
+                case "B6":
+                    b++;
+                    if (tile[2] != 1)
+                        return false;
+                    break;
+                case "F0":
+                    b++;
+                    if (tile[0] != 1)
+                        return false;
+                    break;
+                case "F6":
+                    b++;
+                    if (tile[2] != 1)
+                        return false;
+                    break;
+                case "G3":
+                    b++;
+                    if (tile[3] != 1)
+                        return false;
+                    break;
+            }
+        }
+
+        if (b == 0) {
+            return false;
+        }
+        return true;
+
     }
 
     /**
      * Generate a random dice roll as a string of eight characters.
      * Dice A should be rolled three times, dice B should be rolled once.
-     * Die A has faces numbered 0-5.
-     * Die B has faces numbered 0-2.
-     * Each die roll is composed of a character 'A' or 'B' representing the dice,
-     * followed by a digit character representing the face.
+     * Each die has faces numbered 0-5.
+     * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
      *
      * @return a String representing the die roll e.g. A0A4A3B2
      */
@@ -196,4 +435,3 @@ public class RailroadInk {
         return -1;
     }
 }
-
