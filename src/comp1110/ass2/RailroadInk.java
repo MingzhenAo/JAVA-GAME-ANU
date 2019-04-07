@@ -387,7 +387,7 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        return "";
+        return "A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"B"+(int)Math.random()*6;
     }
 
     /**
