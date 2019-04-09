@@ -1,7 +1,14 @@
 package comp1110.ass2;
 
 
+/**
+ * This class provides some methods to rotate or flip the tiles
+ */
+
 public class TileRotate {
+
+
+
     /*
     int A0[] = {1,1,5,5};
     int A1[] = {5,1,5,1};
@@ -21,7 +28,7 @@ public class TileRotate {
     */
 
     /**
-     * AS Shown in Class TileEnum,a[0]:left,a[1]:top,a[2]:right,a[3]:bottom.
+     * AS is shown in Class TileEnum,a[0]:left,a[1]:top,a[2]:right,a[3]:bottom.
      * So, a rotation of 90 degree clockwise means:
      * a[0] to the top, a[1] to the right, a[2] to the bottom, a[3] to the left.
      *
@@ -29,11 +36,7 @@ public class TileRotate {
      * @return
      */
     public int[] rotate90(int[] a) {
-     /*   int m = a[3];
-        a[3] = a[2];
-        a[2] = a[1];
-        a[1] = a[0];
-        a[0] = m;*/
+
         int temp = a[1];
         a[1] = a[0];
         a[0] = a[3];
@@ -44,7 +47,7 @@ public class TileRotate {
     }
 
     /**
-     * AS Shown in Class TileEnum,a[0]:left,a[1]:top,a[2]:right,a[3]:bottom.
+     * AS is shown in Class TileEnum,a[0]:left,a[1]:top,a[2]:right,a[3]:bottom.
      * So, a rotation of 90 degree clockwise means:
      * So, mirroring the original position over the y-axis means:
      * Exchange the value of a[0] and a[2].
@@ -68,18 +71,19 @@ public class TileRotate {
      * @return
      */
     public int[] rotateTime(int[] a, int m) {
-        int[] temp = a;
+        int[] result = a;
 
         if (m > 3) {
-            temp = mirror(a);
+            result = mirror(a);
             m = m - 4;
         }
 
         if (m != 0) {   //Orientation 0 is the unrotated state
             for (int i = 0; i < m; i++) {
-                temp = rotate90(temp);
+                result = rotate90(result);
             }
         }
-        return temp;
+
+        return result;
     }
 }
