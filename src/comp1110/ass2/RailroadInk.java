@@ -1,6 +1,8 @@
 
 package comp1110.ass2;
 
+import java.util.ArrayList;
+
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -392,39 +394,18 @@ public class RailroadInk {
     }
 
     /**
-     * Given the current state of a game board, output an integer representing the sum of all the following factors
-     * that contribute to the player's final score.
-     * <p>
-     * * Number of exits mapped
-     * * Number of centre tiles used
-     * * Number of dead ends in the network
-     *
-     * @param boardString a board string representing a completed game
-     * @return integer (positive or negative) for score *not* considering longest rail/highway
+     * Given the boardString, determine how many connected exits sets were mapped and how many exits in each one
+     * of them are connected
+     * @param boardString
+     * @return every connected exits set in the formation of ArrayList
      */
-    public static int getBasicScore(String boardString) {
-        // FIXME Task 8: compute the basic score
-        int score = 0;
-        /*
-        if (isValidPlacementSequence(boardString)) {
-            score += boardString.length() / 5;
-        }
-        */
-        String[] boardstringarray = getPlacementStringArray(boardString);
-
-        //central tiles
-        for (int i = 0; i < boardstringarray.length; i++) {
-            if (boardstringarray[i].charAt(2) >= 'C' && boardstringarray[i].charAt(2) <= 'E') {
-                if (boardstringarray[i].charAt(3) >= '2' && boardstringarray[i].charAt(3) <= '4') {
-                    score++;
-                }
-            }
-        }
-
-        //exits mapped
+    public static ArrayList<Integer> exitsMapped(String boardString) {
+        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        String[] boardStringArray = getPlacementStringArray(boardString);
+        //exits in total
         int count = 0;
-        for (int i = 0; i < boardstringarray.length; i++) {
-            switch (boardstringarray[i].substring(2, 4)) {
+        for (int i = 0; i < boardStringArray.length; i++) {
+            switch (boardStringArray[i].substring(2, 4)) {
                 case "A1":
                     count ++;
                     break;
@@ -463,6 +444,44 @@ public class RailroadInk {
                     break;
             }
         }
+        //the only tile that's not a station is B2
+        //split sets of exits without the consideration of the tile B2
+        ArrayList<Integer> temporary = new ArrayList<Integer>();
+        while (count != 0){
+            
+        }
+        return arrayList;
+    }
+
+    /**
+     * Given the current state of a game board, output an integer representing the sum of all the following factors
+     * that contribute to the player's final score.
+     * <p>
+     * * Number of exits mapped
+     * * Number of centre tiles used
+     * * Number of dead ends in the network
+     *
+     * @param boardString a board string representing a completed game
+     * @return integer (positive or negative) for score *not* considering longest rail/highway
+     */
+    public static int getBasicScore(String boardString) {
+        // FIXME Task 8: compute the basic score
+        int score = 0;
+        String[] boardStringArray = getPlacementStringArray(boardString);
+
+        //central tiles
+        for (int i = 0; i < boardStringArray.length; i++) {
+            if (boardStringArray[i].charAt(2) >= 'C' && boardStringArray[i].charAt(2) <= 'E') {
+                if (boardStringArray[i].charAt(3) >= '2' && boardStringArray[i].charAt(3) <= '4') {
+                    score++;
+                }
+            }
+        }
+
+        //exits mapped
+
+        //add the score according to the exits mapped
+        /*
         switch (count){
             case 2:
                 score += 4;
@@ -498,19 +517,22 @@ public class RailroadInk {
                 score += 45;
                 break;
         }
+        */
 
         //dead ends
-        for (int i = 0; i < boardstringarray.length; i++) {
-            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).left == 5)
+        for (int i = 0; i < boardStringArray.length; i++) {
+            score -= 4; //assume every time it's got 4 dead ends
+            //get rid of the end that's blank or empty with the number 5
+            if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left == 5)
                 score ++;
-            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).top == 5)
+            if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top == 5)
                 score ++;
-            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).right == 5)
+            if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right == 5)
                 score ++;
-            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).bottom == 5)
+            if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom == 5)
                 score ++;
-            score -= 4;
-            switch (boardstringarray[i].substring(2, 4)) {
+            //if the tile was connected to the exit then plus 1
+            switch (boardStringArray[i].substring(2, 4)) {
                 case "A1":
                     score++;
                     break;
@@ -548,8 +570,9 @@ public class RailroadInk {
                     score++;
                     break;
             }
-            for (int j = 0; j < boardstringarray.length; j++) {
-                if (areConnectedNeighbours(boardstringarray[i], boardstringarray[j]))
+            //any connected neighbors then plus 1
+            for (int j = 0; j < boardStringArray.length; j++) {
+                if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]))
                     score ++;
             }
         }
