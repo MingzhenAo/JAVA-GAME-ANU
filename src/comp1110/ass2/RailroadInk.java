@@ -4,6 +4,7 @@ package comp1110.ass2;
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
+
     /**
      * Determine whether a tile placement string is well-formed:
      * - it consists of exactly 5 characters;
@@ -387,7 +388,7 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        return "A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"B"+(int)Math.random()*6;
+        return "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "B" + (int) Math.random() * 6;
     }
 
     /**
@@ -403,21 +404,157 @@ public class RailroadInk {
      */
     public static int getBasicScore(String boardString) {
         // FIXME Task 8: compute the basic score
-        int a=0;
-        if(isValidPlacementSequence(boardString))
-        {
-            a=a+boardString.length()/5;
+        int score = 0;
+        /*
+        if (isValidPlacementSequence(boardString)) {
+            score += boardString.length() / 5;
         }
-        String []b=getPlacementStringArray(boardString);
+        */
+        String[] boardstringarray = getPlacementStringArray(boardString);
 
-        for(int i=0;i<b.length;i++)
-        { if(b[i].charAt(2)>='C'& b[i].charAt(2)<='E')
-                if(b[i].charAt(3)>=2&b[i].charAt(3)<=4)
-                {
-                       a++;
+        //central tiles
+        for (int i = 0; i < boardstringarray.length; i++) {
+            if (boardstringarray[i].charAt(2) >= 'C' && boardstringarray[i].charAt(2) <= 'E') {
+                if (boardstringarray[i].charAt(3) >= '2' && boardstringarray[i].charAt(3) <= '4') {
+                    score++;
                 }
+            }
         }
-        return a;
+
+        //exits mapped
+        int count = 0;
+        for (int i = 0; i < boardstringarray.length; i++) {
+            switch (boardstringarray[i].substring(2, 4)) {
+                case "A1":
+                    count ++;
+                    break;
+                case "A5":
+                    count ++;
+                    break;
+                case "D0":
+                    count ++;
+                    break;
+                case "D6":
+                    count ++;
+                    break;
+                case "G1":
+                    count ++;
+                    break;
+                case "G5":
+                    count ++;
+                    break;
+                case "A3":
+                    count ++;
+                    break;
+                case "B0":
+                    count ++;
+                    break;
+                case "B6":
+                    count ++;
+                    break;
+                case "F0":
+                    count ++;
+                    break;
+                case "F6":
+                    count ++;
+                    break;
+                case "G3":
+                    count ++;
+                    break;
+            }
+        }
+        switch (count){
+            case 2:
+                score += 4;
+                break;
+            case 3:
+                score += 8;
+                break;
+            case 4:
+                score += 12;
+                break;
+            case 5:
+                score += 16;
+                break;
+            case 6:
+                score += 20;
+                break;
+            case 7:
+                score += 24;
+                break;
+            case 8:
+                score += 28;
+                break;
+            case 9:
+                score += 32;
+                break;
+            case 10:
+                score += 36;
+                break;
+            case 11:
+                score += 40;
+                break;
+            case 12:
+                score += 45;
+                break;
+        }
+
+        //dead ends
+        for (int i = 0; i < boardstringarray.length; i++) {
+            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).left == 5)
+                score ++;
+            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).top == 5)
+                score ++;
+            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).right == 5)
+                score ++;
+            if (TileEnum.valueOf(boardstringarray[i].substring(0, 2)).bottom == 5)
+                score ++;
+            score -= 4;
+            switch (boardstringarray[i].substring(2, 4)) {
+                case "A1":
+                    score++;
+                    break;
+                case "A5":
+                    score++;
+                    break;
+                case "D0":
+                    score++;
+                    break;
+                case "D6":
+                    score++;
+                    break;
+                case "G1":
+                    score++;
+                    break;
+                case "G5":
+                    score++;
+                    break;
+                case "A3":
+                    score++;
+                    break;
+                case "B0":
+                    score++;
+                    break;
+                case "B6":
+                    score++;
+                    break;
+                case "F0":
+                    score++;
+                    break;
+                case "F6":
+                    score++;
+                    break;
+                case "G3":
+                    score++;
+                    break;
+            }
+            for (int j = 0; j < boardstringarray.length; j++) {
+                if (areConnectedNeighbours(boardstringarray[i], boardstringarray[j]))
+                    score ++;
+            }
+        }
+
+        return score;
     }
 
     /**
