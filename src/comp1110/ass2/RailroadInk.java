@@ -387,7 +387,7 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        return "";
+        return "A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"A"+(int)Math.random()*6+"B"+(int)Math.random()*6;
     }
 
     /**
@@ -403,7 +403,21 @@ public class RailroadInk {
      */
     public static int getBasicScore(String boardString) {
         // FIXME Task 8: compute the basic score
-        return -1;
+        int a=0;
+        if(isValidPlacementSequence(boardString))
+        {
+            a=a+boardString.length()/5;
+        }
+        String []b=getPlacementStringArray(boardString);
+
+        for(int i=0;i<b.length;i++)
+        { if(b[i].charAt(2)>='C'& b[i].charAt(2)<='E')
+                if(b[i].charAt(3)>=2&b[i].charAt(3)<=4)
+                {
+                       a++;
+                }
+        }
+        return a;
     }
 
     /**
