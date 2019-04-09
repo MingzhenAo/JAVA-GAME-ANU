@@ -164,6 +164,7 @@ public class RailroadInk {
 
     /**
      * testing are two placement strings are legally connected
+     *
      * @param tilePlacementStringA
      * @param tilePlacementStringB
      * @return fasle if the tiles are highway to railway
@@ -252,7 +253,7 @@ public class RailroadInk {
         //String[] exitshighway = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         //String[] exitsrailway = {"A3","B0","B6","F0","F6","G3"}; exits with railway
         int[] tile = new int[4];
-        int b=0;
+        int b = 0;
         for (int i = 0; i < count; i++) {
             tile[0] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left;
             tile[1] = TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top;
@@ -264,11 +265,11 @@ public class RailroadInk {
                     b++;
                     if (tile[1] != 0)
                         return false;
-                        break;
+                    break;
                 case "A5":
                     b++;
                     if (tile[1] != 0)
-                    return false;
+                        return false;
                     break;
                 case "D0":
                     b++;
@@ -323,8 +324,9 @@ public class RailroadInk {
             }
         }
 
-       if(b==0)
-       {return false;}
+        if (b == 0) {
+            return false;
+        }
         return true;
     }
 
