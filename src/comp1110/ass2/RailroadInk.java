@@ -481,7 +481,7 @@ public class RailroadInk {
         //exits mapped
 
         //add the score according to the exits mapped
-
+        /*
         switch (count){
             case 2:
                 score += 4;
@@ -520,6 +520,7 @@ public class RailroadInk {
         */
 
         //dead ends
+        TileRotate m=new TileRotate();
         for (int i = 0; i < boardStringArray.length; i++) {
             score -= 4; //assume every time it's got 4 dead ends
             //get rid of the end that's blank or empty with the number 5
@@ -534,28 +535,22 @@ public class RailroadInk {
             //if the tile was connected to the exit then plus 1
             switch (boardStringArray[i].substring(2, 3)) {
                 case "A":
-                    TileEnum a = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
-                    if (a.top != 5) {
-                        score++;
-                    }
+                    if(getRotatedTile(boardStringArray[i])[1]!=5)
+                    score++;
                     break;
                 case "G":
-                    TileEnum b = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
-                    if (b.bottom != 5) {
-                        score++;
-                    }
+                    if(getRotatedTile(boardStringArray[i])[3]!=5)
+                    score++;
                     break;
             }
             switch (boardStringArray[i].substring(3, 4)) {
                 case "0":
-                    TileEnum a = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
-
+                    if(getRotatedTile(boardStringArray[i])[0]!=5)
                     score++;
                     break;
                 case "6":
-                    TileEnum b = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
-
-                     score++;
+                    if(getRotatedTile(boardStringArray[i])[2]!=5)
+                    score++;
                     break;
             }
             //any connected neighbors then plus 1
