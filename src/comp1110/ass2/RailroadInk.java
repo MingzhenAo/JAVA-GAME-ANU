@@ -481,7 +481,7 @@ public class RailroadInk {
         //exits mapped
 
         //add the score according to the exits mapped
-        /*
+
         switch (count){
             case 2:
                 score += 4;
@@ -532,46 +532,34 @@ public class RailroadInk {
             if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom == 5)
                 score ++;
             //if the tile was connected to the exit then plus 1
-            switch (boardStringArray[i].substring(2, 4)) {
-                case "A1":
+            switch (boardStringArray[i].substring(2, 3)) {
+                case "A":
+                    TileEnum a = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
+                    if (a.top != 5) {
+                        score++;
+                    }
+                    break;
+                case "G":
+                    TileEnum b = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
+                    if (b.bottom != 5) {
+                        score++;
+                    }
+                    break;
+            }
+            switch (boardStringArray[i].substring(3, 4)) {
+                case "0":
+                    TileEnum a = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
+
                     score++;
                     break;
-                case "A5":
-                    score++;
-                    break;
-                case "D0":
-                    score++;
-                    break;
-                case "D6":
-                    score++;
-                    break;
-                case "G1":
-                    score++;
-                    break;
-                case "G5":
-                    score++;
-                    break;
-                case "A3":
-                    score++;
-                    break;
-                case "B0":
-                    score++;
-                    break;
-                case "B6":
-                    score++;
-                    break;
-                case "F0":
-                    score++;
-                    break;
-                case "F6":
-                    score++;
-                    break;
-                case "G3":
-                    score++;
+                case "6":
+                    TileEnum b = TileEnum.valueOf(boardStringArray[i].substring(0, 2));
+
+                     score++;
                     break;
             }
             //any connected neighbors then plus 1
-            for (int j = 0; j < boardStringArray.length; j++) {
+            for (int j = 0 ; j < boardStringArray.length; j++) {
                 if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]))
                     score ++;
             }
@@ -606,6 +594,7 @@ public class RailroadInk {
      */
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
+
         return -1;
     }
 }
