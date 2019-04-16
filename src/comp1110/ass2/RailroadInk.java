@@ -1,12 +1,12 @@
-
 package comp1110.ass2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
-
     /**
      * Determine whether a tile placement string is well-formed:
      * - it consists of exactly 5 characters;
@@ -50,13 +50,9 @@ public class RailroadInk {
      */
     public static String[] getPlacementStringArray(String boardString) {
         int number = boardString.length() / 5;
-
         String[] placementStringArray = new String[number];
-
         for (int i = 0; i < number; i++) {
-
             placementStringArray[i] = boardString.substring(5 * i, 5 * (i + 1));
-
         }
         return placementStringArray;
     }
@@ -393,65 +389,56 @@ public class RailroadInk {
         return "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "B" + (int) Math.random() * 6;
     }
 
+
+    public static HashMap<String, String> line(String d[], HashMap<String, String> c) {
+        HashMap<String, String> e = new HashMap<>();
+        for (int i = 0; i < d.length; i++) {
+            if (c.get(d[i]) != null) {
+                for (int k = 0; k < d.length; k++) {
+                    if (areConnectedNeighbours(d[i], d[k]) && c.get(d[k]) == null) {
+                        c.put(d[k], d[k].substring(2, 4));
+                        e.put(d[k], d[k].substring(2, 4));
+                        }
+                    }
+            for (int j = 0; j < d.length; j++) {
+                if (c.get(d[j]) != null) {
+                    for (int l = 0; l < d.length; l++) {
+                        if (areConnectedNeighbours(d[j], d[l]) && c.get(d[l]) == null) {
+                            c.put(d[l], d[l].substring(2, 4));
+                            e.put(d[l], d[l].substring(2, 4));
+                            }
+                        }}
+                    }
+                }
+            }
+
+        return c;
+    }
+
     /**
      * Given the boardString, determine how many connected exits sets were mapped and how many exits in each one
      * of them are connected
+     *
      * @param boardString
      * @return every connected exits set in the formation of ArrayList
      */
-    public static ArrayList<Integer> exitsMapped(String boardString) {
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+    public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
-        //exits in total
-        int count = 0;
-        for (int i = 0; i < boardStringArray.length; i++) {
-            switch (boardStringArray[i].substring(2, 4)) {
-                case "A1":
-                    count ++;
-                    break;
-                case "A5":
-                    count ++;
-                    break;
-                case "D0":
-                    count ++;
-                    break;
-                case "D6":
-                    count ++;
-                    break;
-                case "G1":
-                    count ++;
-                    break;
-                case "G5":
-                    count ++;
-                    break;
-                case "A3":
-                    count ++;
-                    break;
-                case "B0":
-                    count ++;
-                    break;
-                case "B6":
-                    count ++;
-                    break;
-                case "F0":
-                    count ++;
-                    break;
-                case "F6":
-                    count ++;
-                    break;
-                case "G3":
-                    count ++;
-                    break;
+        HashMap<String, String> a = new HashMap<>();
+        ArrayList<HashMap<String, String>> b = new ArrayList<>();
+        while (a.size() != boardStringArray.length) {
+            for (int i = 0; i < boardStringArray.length; i++) {
+                if (a.get(boardStringArray[i]) == null) {
+                    a.put(boardStringArray[i], boardStringArray[i].substring(2, 4));
+                    HashMap<String, String> m = line(boardStringArray, a);
+                    m.put(boardStringArray[i], boardStringArray[i].substring(2, 4));
+                    b.add(m);
+                }
             }
         }
-        //the only tile that's not a station is B2
-        //split sets of exits without the consideration of the tile B2
-        ArrayList<Integer> temporary = new ArrayList<Integer>();
-        while (count != 0){
-            
-        }
-        return arrayList;
+        return b;
     }
+
 
     /**
      * Given the current state of a game board, output an integer representing the sum of all the following factors
@@ -468,7 +455,6 @@ public class RailroadInk {
         // FIXME Task 8: compute the basic score
         int score = 0;
         String[] boardStringArray = getPlacementStringArray(boardString);
-
         //central tiles
         for (int i = 0; i < boardStringArray.length; i++) {
             if (boardStringArray[i].charAt(2) >= 'C' && boardStringArray[i].charAt(2) <= 'E') {
@@ -481,82 +467,128 @@ public class RailroadInk {
         //exits mapped
 
         //add the score according to the exits mapped
-        /*
-        switch (count){
-            case 2:
-                score += 4;
-                break;
-            case 3:
-                score += 8;
-                break;
-            case 4:
-                score += 12;
-                break;
-            case 5:
-                score += 16;
-                break;
-            case 6:
-                score += 20;
-                break;
-            case 7:
-                score += 24;
-                break;
-            case 8:
-                score += 28;
-                break;
-            case 9:
-                score += 32;
-                break;
-            case 10:
-                score += 36;
-                break;
-            case 11:
-                score += 40;
-                break;
-            case 12:
-                score += 45;
-                break;
+        ArrayList<Integer> f = new ArrayList<>();
+        for (int i = 0; i < exitsMapped(boardString).size(); i++) {
+            HashMap<String, String> a = exitsMapped(boardString).get(i);
+            int count = 0;
+            for (int j = 0; j < boardStringArray.length; j++) {
+                switch (a.get(boardStringArray[j])) {
+                    case "A1":
+                        count++;
+                        break;
+                    case "A5":
+                        count++;
+                        break;
+                    case "D0":
+                        count++;
+                        break;
+                    case "D6":
+                        count++;
+                        break;
+                    case "G1":
+                        count++;
+                        break;
+                    case "G5":
+                        count++;
+                        break;
+                    case "A3":
+                        count++;
+                        break;
+                    case "B0":
+                        count++;
+                        break;
+                    case "B6":
+                        count++;
+                        break;
+                    case "F0":
+                        count++;
+                        break;
+                    case "F6":
+                        count++;
+                        break;
+                    case "G3":
+                        count++;
+                        break;
+                }
+            }
+            f.add(count);
         }
-        */
 
+        for (int j = 0; j < f.size(); j++) {
+            switch (f.get(j)) {
+                case 2:
+                    score += 4;
+                    break;
+                case 3:
+                    score += 8;
+                    break;
+                case 4:
+                    score += 12;
+                    break;
+                case 5:
+                    score += 16;
+                    break;
+                case 6:
+                    score += 20;
+                    break;
+                case 7:
+                    score += 24;
+                    break;
+                case 8:
+                    score += 28;
+                    break;
+                case 9:
+                    score += 32;
+                    break;
+                case 10:
+                    score += 36;
+                    break;
+                case 11:
+                    score += 40;
+                    break;
+                case 12:
+                    score += 45;
+                    break;
+            }
+        }
         //dead ends
-        TileRotate m=new TileRotate();
+        TileRotate m = new TileRotate();
         for (int i = 0; i < boardStringArray.length; i++) {
             score -= 4; //assume every time it's got 4 dead ends
             //get rid of the end that's blank or empty with the number 5
             if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).left == 5)
-                score ++;
+                score++;
             if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).top == 5)
-                score ++;
+                score++;
             if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).right == 5)
-                score ++;
+                score++;
             if (TileEnum.valueOf(boardStringArray[i].substring(0, 2)).bottom == 5)
-                score ++;
+                score++;
             //if the tile was connected to the exit then plus 1
             switch (boardStringArray[i].substring(2, 3)) {
                 case "A":
-                    if(getRotatedTile(boardStringArray[i])[1]!=5)
-                    score++;
+                    if (getRotatedTile(boardStringArray[i])[1] != 5)
+                        score++;
                     break;
                 case "G":
-                    if(getRotatedTile(boardStringArray[i])[3]!=5)
-                    score++;
+                    if (getRotatedTile(boardStringArray[i])[3] != 5)
+                        score++;
                     break;
             }
             switch (boardStringArray[i].substring(3, 4)) {
                 case "0":
-                    if(getRotatedTile(boardStringArray[i])[0]!=5)
-                    score++;
+                    if (getRotatedTile(boardStringArray[i])[0] != 5)
+                        score++;
                     break;
                 case "6":
-                    if(getRotatedTile(boardStringArray[i])[2]!=5)
-                    score++;
+                    if (getRotatedTile(boardStringArray[i])[2] != 5)
+                        score++;
                     break;
             }
             //any connected neighbors then plus 1
-            for (int j = 0 ; j < boardStringArray.length; j++) {
+            for (int j = 0; j < boardStringArray.length; j++) {
                 if (areConnectedNeighbours(boardStringArray[i], boardStringArray[j]))
-                    score ++;
+                    score++;
             }
         }
 
