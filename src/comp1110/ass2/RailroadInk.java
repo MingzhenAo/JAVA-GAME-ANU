@@ -1,5 +1,6 @@
 package comp1110.ass2;
 
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -415,13 +416,7 @@ public class RailroadInk {
         return c;
     }
 
-    /**
-     * Given the boardString, determine how many connected exits sets were mapped and how many exits in each one
-     * of them are connected
-     *
-     * @param boardString
-     * @return every connected exits set in the formation of ArrayList
-     */
+
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
         HashMap<String, String> a = new HashMap<>();

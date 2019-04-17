@@ -6,7 +6,6 @@ package comp1110.ass2;
 
 public enum TileEnum {
 
-
     //0 represents a highway; 1 represents a railway; 5 represents blank
     A0(1, 1, 5, 5),
     A1(5, 1, 5, 1),

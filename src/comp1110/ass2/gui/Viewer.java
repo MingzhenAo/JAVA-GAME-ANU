@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.RailroadInk.isTilePlacementWellFormed;
 
 /**
@@ -63,6 +64,22 @@ public class Viewer extends Application {
      */
     void makePlacement(String placement) {
         // FIXME Task 4: implement the simple placement viewer
+        if (placement.length() == 5){
+            placing(placement);
+        }
+        else {
+            String[] placementArray = getPlacementStringArray(placement);
+            for (int i = 0; i < placementArray.length; i ++) {
+                placing(placementArray[i]);
+            }
+        }
+    }
+
+    /**
+     * Draw a placement or a sets of placements in the window, this is the method
+     * @param placement
+     */
+    void placing(String placement) {
         if (isTilePlacementWellFormed(placement)){
             int n = 0;
             switch (placement.substring(0,2)){
