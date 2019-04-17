@@ -3,8 +3,7 @@ package comp1110.ass2;
 import java.util.HashMap;
 import java.util.Map;
 
-import static comp1110.ass2.RailroadInk.areConnectedNeighbours;
-import static comp1110.ass2.RailroadInk.getPlacementStringArray;
+import static comp1110.ass2.RailroadInk.*;
 
 public class test {
     public static void main(String[] args) {
@@ -22,65 +21,30 @@ public class test {
         if (head[1].equals(head[2]))
             head[2] = "";
         String[] boardStringArray = getPlacementStringArray(boardString);
-        Map<String, String> tilesMap = new HashMap<>();
+        HashMap<String, String> tilesMap = new HashMap<>();
         for (int i = 0; i < boardStringArray.length; i++) {
             tilesMap.put(boardStringArray[i].substring(2, 4), boardStringArray[i]);
         }
         String check;
-        String checkLeft;
-        String checkUp;
-        String checkRight;
-        String checkDown;
+
         String result = "";
-        for (int j = 0; j < head.length; j++) {
+        for (int j = 0; j < head.length; j ++) {
             if (head[j] == "")
                 continue;
-            for (char row = 'A'; row <= 'G'; row++) {
-                for (int column = 0; column <= 6; column++) {
+            for (char row = 'A'; row <= 'G'; row ++) {
+                for (int column = 0; column <= 6; column ++) {
                     check = "";
                     check += row;
                     check += column;
                     if (tilesMap.containsKey(check))
                         continue;
-                    checkLeft = "";
-                    checkUp = "";
-                    checkRight = "";
-                    checkDown = "";
-                    checkLeft += row;
-                    checkLeft += column - 1;
-                    checkUp += row - 1;
-                    checkUp += column;
-                    checkRight += row;
-                    checkRight += column + 1;
-                    checkDown += row + 1;
-                    checkDown += column;
-                    for (int orientation = 0; orientation <= 7; orientation++) {
-                        if (!tilesMap.containsKey(checkLeft))
-                            if (!tilesMap.containsKey(checkUp))
-                                if (!tilesMap.containsKey(checkRight))
-                                    if (!tilesMap.containsKey(checkDown))
-                                        continue;
-                        if (tilesMap.containsKey(checkLeft)) {
-                            if (!areConnectedNeighbours(tilesMap.get(checkLeft), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkUp)) {
-                            if (!areConnectedNeighbours(tilesMap.get(checkUp), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkRight)) {
-                            if (!areConnectedNeighbours(tilesMap.get(checkRight), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkDown)) {
-                            if (!areConnectedNeighbours(tilesMap.get(checkDown), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        result += head[j] + row + column + orientation;
+                    for (int orientation = 0; orientation <= 7; orientation ++) {
+                        if (canIplacetheStringHere(head[j] + row + column + orientation, tilesMap))
+                            result += head[j] + row + column + orientation;
                     }
                 }
             }
         }
-        System.out.println(result);;
+        System.out.println(result);
     }
 }

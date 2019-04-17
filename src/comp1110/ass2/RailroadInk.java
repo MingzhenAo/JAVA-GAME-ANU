@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static java.lang.Character.charCount;
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -655,6 +656,52 @@ public class RailroadInk {
         return score;
     }
 
+
+    public static boolean canIplacetheStringHere(String boardString, HashMap<String, String> tilesMap){
+        String checkLeft = "";
+        String checkUp = "";
+        String checkRight = "";
+        String checkDown = "";
+        char row = boardString.charAt(2);
+        int column = boardString.charAt(3);
+        checkLeft += row;
+        checkLeft += (char)(column - 1);
+        checkUp += row - 1;
+        checkUp += (char)column;
+        checkRight += row;
+        checkRight += (char)(column + 1);
+        checkDown += row + 1;
+        checkDown += (char)column;
+        boolean b = false;
+        //they should legally connect all the near tiles and have at lest one connected neighbour
+        if (tilesMap.containsKey(checkLeft)){
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+                b = true;
+        }
+        if (tilesMap.containsKey(checkUp)){
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkUp), boardString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+                b = true;
+        }
+        if (tilesMap.containsKey(checkRight)){
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkRight), boardString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+                b = true;
+        }
+        if (tilesMap.containsKey(checkDown)){
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkDown), boardString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+                b = true;
+        }
+        return b;
+    }
+
+
     /**
      * Given a valid boardString and a dice roll for the round,
      * return a String representing an ordered sequence of valid piece placements for the round.
@@ -678,15 +725,11 @@ public class RailroadInk {
         if (head[1].equals(head[2]))
             head[2] = "";
         String[] boardStringArray = getPlacementStringArray(boardString);
-        Map<String, String> tilesMap = new HashMap<>();
+        HashMap<String, String> tilesMap = new HashMap<>();
         for (int i = 0; i < boardStringArray.length; i ++) {
             tilesMap.put(boardStringArray[i].substring(2,4), boardStringArray[i]);
         }
         String check;
-        String checkLeft;
-        String checkUp;
-        String checkRight;
-        String checkDown;
         String result = "";
         for (int j = 0; j < head.length; j ++) {
             if (head[j] == "")
@@ -698,36 +741,9 @@ public class RailroadInk {
                     check += column;
                     if (tilesMap.containsKey(check))
                         continue;
-                    checkLeft = "";
-                    checkUp = "";
-                    checkRight = "";
-                    checkDown = "";
-                    checkLeft += row;
-                    checkLeft += column - 1;
-                    checkUp += row - 1;
-                    checkUp += column;
-                    checkRight += row;
-                    checkRight += column + 1;
-                    checkDown += row + 1;
-                    checkDown += column;
                     for (int orientation = 0; orientation <= 7; orientation ++) {
-                        if (tilesMap.containsKey(checkLeft)){
-                            if (!areConnectedNeighbours(tilesMap.get(checkLeft), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkUp)){
-                            if (!areConnectedNeighbours(tilesMap.get(checkUp), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkRight)){
-                            if (!areConnectedNeighbours(tilesMap.get(checkRight), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        if (tilesMap.containsKey(checkDown)){
-                            if (!areConnectedNeighbours(tilesMap.get(checkDown), head[j] + row + column + orientation))
-                                continue;
-                        }
-                        result += head[j] + row + column + orientation;
+                        if (canIplacetheStringHere(head[j] + row + column + orientation, tilesMap))
+                            result += head[j] + row + column + orientation;
                     }
                 }
             }
