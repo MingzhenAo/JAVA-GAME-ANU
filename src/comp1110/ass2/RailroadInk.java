@@ -391,6 +391,12 @@ public class RailroadInk {
     }
 
 
+    /**
+     *
+     * @param d
+     * @param c
+     * @return
+     */
     public static HashMap<String, String> line(String d[], HashMap<String, String> c) {
         HashMap<String, String> e = new HashMap<>();
         for (int i = 0; i < d.length; i++) {
@@ -399,24 +405,29 @@ public class RailroadInk {
                     if (areConnectedNeighbours(d[i], d[k]) && c.get(d[k]) == null) {
                         c.put(d[k], d[k].substring(2, 4));
                         e.put(d[k], d[k].substring(2, 4));
-                        }
                     }
-            for (int j = 0; j < d.length; j++) {
-                if (c.get(d[j]) != null) {
-                    for (int l = 0; l < d.length; l++) {
-                        if (areConnectedNeighbours(d[j], d[l]) && c.get(d[l]) == null) {
-                            c.put(d[l], d[l].substring(2, 4));
-                            e.put(d[l], d[l].substring(2, 4));
+                }
+                for (int j = 0; j < d.length; j++) {
+                    if (c.get(d[j]) != null) {
+                        for (int l = 0; l < d.length; l++) {
+                            if (areConnectedNeighbours(d[j], d[l]) && c.get(d[l]) == null) {
+                                c.put(d[l], d[l].substring(2, 4));
+                                e.put(d[l], d[l].substring(2, 4));
                             }
-                        }}
+                        }
                     }
                 }
             }
-
+        }
         return c;
     }
 
 
+    /**
+     *
+     * @param boardString
+     * @return
+     */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
         HashMap<String, String> a = new HashMap<>();
