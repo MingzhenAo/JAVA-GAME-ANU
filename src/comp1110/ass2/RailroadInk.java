@@ -145,7 +145,7 @@ public class RailroadInk {
         r.rotateTime(tileB, getNumericValue(b.charAt(4)));
 
 
-        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row; a right; b left.
         {
 
             if (tileA[0] == tileB[2] && tileA[0] != 5)
@@ -156,7 +156,7 @@ public class RailroadInk {
             */
         }
 
-        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row; b right; a left.
         {
             if (tileA[2] == tileB[0] && tileA[2] != 5)
                 return true;
@@ -166,7 +166,7 @@ public class RailroadInk {
             */
         }
 
-        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
+        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column; b above; a below.
         {
             if (tileA[1] == tileB[3] && tileA[1] != 5)
                 return true;
@@ -176,7 +176,7 @@ public class RailroadInk {
             bottom edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
             */
         }
-        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
+        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column; a above; b below
         {
             if (tileA[3] == tileB[1] && tileA[3] != 5)
                 return true;
@@ -188,6 +188,60 @@ public class RailroadInk {
 
         //If all of these above are not satisfied, the placements are not connected neighbours.
         return false;
+    }
+
+
+    /**
+     * it's basically areConnectedNeighbours but the occasion when nothing connects to anything returns true
+     * only when highway connects railway returns false
+     * @param tilePlacementStringA
+     * @param tilePlacementStringB
+     * @return fasle when highway connects railway
+     */
+    public static boolean areLegallyConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
+        String a = tilePlacementStringA;
+        String b = tilePlacementStringB;
+
+         /*
+        a.substring(0, 2) will return the object's name of TileEnum, such as A0, A1 etc.
+        Then, by the method of valueOf(String name), we will get the corresponding object.
+        */
+        TileEnum tA = TileEnum.valueOf(a.substring(0, 2));
+        TileEnum tB = TileEnum.valueOf(b.substring(0, 2));
+
+
+        int[] tileA = {tA.left, tA.top, tA.right, tA.bottom};
+        int[] tileB = {tB.left, tB.top, tB.right, tB.bottom};
+
+        TileRotate r = new TileRotate();
+
+        r.rotateTime(tileA, getNumericValue(a.charAt(4)));
+        r.rotateTime(tileB, getNumericValue(b.charAt(4)));
+
+
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row; a right; b left.
+        {
+            if ((tileA[0] == 1 && tileB[2] == 0) || (tileA[0] == 0 && tileB[2] == 1))
+                return false;
+        }
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row; b right; a left.
+        {
+            if ((tileA[2] == 0 && tileB[0] == 1) || (tileA[2] == 1 && tileB[0] == 0))
+                return false;
+        }
+        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column; b above; a below.
+        {
+            if ((tileA[1] == 0 && tileB[3] == 1) && (tileA[1] == 1 && tileB[3] == 0))
+                return false;
+        }
+        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column; a above; b below
+        {
+            if ((tileA[3] == 0 && tileB[1] == 1) && (tileA[3] == 1 && tileB[1] == 0))
+                return false;
+        }
+
+        //If all of these above are satisfied, the placements are legally connected neighbours.
+        return true;
     }
 
 
@@ -612,7 +666,73 @@ public class RailroadInk {
      */
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
-        return null;
+        String[] head = new String[4];
+        head[0] = diceRoll.substring(0,2);
+        head[1] = diceRoll.substring(2,4);
+        head[2] = diceRoll.substring(4,6);
+        head[3] = diceRoll.substring(6,8);
+        if (head[0].equals(head[1]))
+            head[1] = "";
+        if (head[0].equals(head[2]))
+            head[2] = "";
+        if (head[1].equals(head[2]))
+            head[2] = "";
+        String[] boardStringArray = getPlacementStringArray(boardString);
+        Map<String, String> tilesMap = new HashMap<>();
+        for (int i = 0; i < boardStringArray.length; i ++) {
+            tilesMap.put(boardStringArray[i].substring(2,4), boardStringArray[i]);
+        }
+        String check;
+        String checkLeft;
+        String checkUp;
+        String checkRight;
+        String checkDown;
+        String result = "";
+        for (int j = 0; j < head.length; j ++) {
+            if (head[j] == "")
+                continue;
+            for (char row = 'A'; row <= 'G'; row ++) {
+                for (int column = 0; column <= 6; column ++) {
+                    check = "";
+                    check += row;
+                    check += column;
+                    if (tilesMap.containsKey(check))
+                        continue;
+                    checkLeft = "";
+                    checkUp = "";
+                    checkRight = "";
+                    checkDown = "";
+                    checkLeft += row;
+                    checkLeft += column - 1;
+                    checkUp += row - 1;
+                    checkUp += column;
+                    checkRight += row;
+                    checkRight += column + 1;
+                    checkDown += row + 1;
+                    checkDown += column;
+                    for (int orientation = 0; orientation <= 7; orientation ++) {
+                        if (tilesMap.containsKey(checkLeft)){
+                            if (!areConnectedNeighbours(tilesMap.get(checkLeft), head[j] + row + column + orientation))
+                                continue;
+                        }
+                        if (tilesMap.containsKey(checkUp)){
+                            if (!areConnectedNeighbours(tilesMap.get(checkUp), head[j] + row + column + orientation))
+                                continue;
+                        }
+                        if (tilesMap.containsKey(checkRight)){
+                            if (!areConnectedNeighbours(tilesMap.get(checkRight), head[j] + row + column + orientation))
+                                continue;
+                        }
+                        if (tilesMap.containsKey(checkDown)){
+                            if (!areConnectedNeighbours(tilesMap.get(checkDown), head[j] + row + column + orientation))
+                                continue;
+                        }
+                        result += head[j] + row + column + orientation;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     /**
