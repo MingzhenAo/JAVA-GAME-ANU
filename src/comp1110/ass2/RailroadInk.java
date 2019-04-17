@@ -232,12 +232,12 @@ public class RailroadInk {
         }
         if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column; b above; a below.
         {
-            if ((tileA[1] == 0 && tileB[3] == 1) && (tileA[1] == 1 && tileB[3] == 0))
+            if ((tileA[1] == 0 && tileB[3] == 1) || (tileA[1] == 1 && tileB[3] == 0))
                 return false;
         }
         if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column; a above; b below
         {
-            if ((tileA[3] == 0 && tileB[1] == 1) && (tileA[3] == 1 && tileB[1] == 0))
+            if ((tileA[3] == 0 && tileB[1] == 1) || (tileA[3] == 1 && tileB[1] == 0))
                 return false;
         }
 
@@ -666,11 +666,11 @@ public class RailroadInk {
         int column = boardString.charAt(3);
         checkLeft += row;
         checkLeft += (char)(column - 1);
-        checkUp += row - 1;
+        checkUp += (char)((int)row - 1);
         checkUp += (char)column;
         checkRight += row;
         checkRight += (char)(column + 1);
-        checkDown += row + 1;
+        checkDown += (char)((int)row + 1);
         checkDown += (char)column;
         boolean b = false;
         //they should legally connect all the near tiles and have at lest one connected neighbour
@@ -683,19 +683,20 @@ public class RailroadInk {
         if (tilesMap.containsKey(checkUp)){
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkUp), boardString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkUp), boardString))
                 b = true;
+
         }
         if (tilesMap.containsKey(checkRight)){
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkRight), boardString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkRight), boardString))
                 b = true;
         }
         if (tilesMap.containsKey(checkDown)){
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkDown), boardString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkDown), boardString))
                 b = true;
         }
         return b;
@@ -733,7 +734,7 @@ public class RailroadInk {
         String result = "";
         //basic movements from diceroll
         for (int j = 0; j < head.length; j ++) {
-            if (head[j] == "")
+            if (head[j].equals(""))
                 continue;
             for (char row = 'A'; row <= 'G'; row ++) {
                 for (int column = 0; column <= 6; column ++) {
