@@ -731,6 +731,7 @@ public class RailroadInk {
         }
         String check;
         String result = "";
+        //basic movements from diceroll
         for (int j = 0; j < head.length; j ++) {
             if (head[j] == "")
                 continue;
@@ -744,6 +745,22 @@ public class RailroadInk {
                     for (int orientation = 0; orientation <= 7; orientation ++) {
                         if (canIplacetheStringHere(head[j] + row + column + orientation, tilesMap))
                             result += head[j] + row + column + orientation;
+                    }
+                }
+            }
+        }
+        //advanced movements from S tiles
+        for (int order = 0; order <= 5; order ++){
+            for (char row = 'A'; row <= 'G'; row ++) {
+                for (int column = 0; column <= 6; column++) {
+                    check = "";
+                    check += row;
+                    check += column;
+                    if (tilesMap.containsKey(check))
+                        continue;
+                    for (int orientation = 0; orientation <= 7; orientation++) {
+                        if (canIplacetheStringHere("S" + order + row + column + orientation, tilesMap))
+                            result += "S" + order + row + column + orientation;
                     }
                 }
             }
