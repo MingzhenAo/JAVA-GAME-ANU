@@ -751,17 +751,27 @@ public class RailroadInk {
             }
         }
         //advanced movements from S tiles
-        for (int order = 0; order <= 5; order ++){
-            for (char row = 'A'; row <= 'G'; row ++) {
-                for (int column = 0; column <= 6; column++) {
-                    check = "";
-                    check += row;
-                    check += column;
-                    if (tilesMap.containsKey(check))
-                        continue;
-                    for (int orientation = 0; orientation <= 7; orientation++) {
-                        if (canIplacetheStringHere("S" + order + row + column + orientation, tilesMap))
-                            result += "S" + order + row + column + orientation;
+        HashMap<String, String> specialTilesMap = new HashMap<>();
+        for (int i = 0; i < boardStringArray.length; i ++) {
+            if (boardStringArray[i].substring(0,1).equals("S")) {
+                specialTilesMap.put(boardStringArray[i].substring(0,2), boardStringArray[i]);
+            }
+        }
+        if (specialTilesMap.size() < 3){
+            for (int order = 0; order <= 5; order ++){
+                if (specialTilesMap.containsKey("S" + order))
+                    continue;
+                for (char row = 'A'; row <= 'G'; row ++) {
+                    for (int column = 0; column <= 6; column++) {
+                        check = "";
+                        check += row;
+                        check += column;
+                        if (tilesMap.containsKey(check))
+                            continue;
+                        for (int orientation = 0; orientation <= 7; orientation++) {
+                            if (canIplacetheStringHere("S" + order + row + column + orientation, tilesMap))
+                                result += "S" + order + row + column + orientation;
+                        }
                     }
                 }
             }
