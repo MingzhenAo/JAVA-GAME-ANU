@@ -195,6 +195,7 @@ public class RailroadInk {
     /**
      * it's basically areConnectedNeighbours but the occasion when nothing connects to anything returns true
      * only when highway connects railway returns false
+     *
      * @param tilePlacementStringA
      * @param tilePlacementStringB
      * @return fasle when highway connects railway
@@ -445,9 +446,48 @@ public class RailroadInk {
         return "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "A" + (int) Math.random() * 6 + "B" + (int) Math.random() * 6;
     }
 
+    public static String handle(String a, String b) {
+        if (!b.substring(0, 2).equals("B2")) {
+            return b;
+        } else {
+            if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) {
+                if (getRotatedTile(b)[2] == 0) {
+                    return "A4" + b.substring(2, 5);
+                } else {
+                    return "A1" + b.substring(2, 4) + "1";
+                }
+            }
+            if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1)// same row,j right, i left
+            {
+
+                if (getRotatedTile(b)[0] == 0) {
+                    return "A4" + b.substring(2, 5);
+                } else {
+                    return "A1" + b.substring(2, 4) + "1";
+                }
+            }
+            if (a.charAt(3) == b.charAt(3) && a.charAt(2) - b.charAt(2) == 1)//same column,i below, j top
+            {
+                if (getRotatedTile(b)[3] == 0) {
+                    return "A4" + b.substring(2, 5);
+                } else {
+                    return "A1" + b.substring(2, 4) + "1";
+                }
+            }
+            if (a.charAt(3) == b.charAt(3) && b.charAt(2) - a.charAt(2) == 1)//same column,j below, i top
+            {
+
+                if (getRotatedTile(b)[1] == 0) {
+                    return "A4" + b.substring(2, 5);
+                } else {
+                    return "A1" + b.substring(2, 4) + "1";
+                }
+            }
+        }
+        return b;
+    }
 
     /**
-     *
      * @param d
      * @param c
      * @return
@@ -457,29 +497,47 @@ public class RailroadInk {
         for (int i = 0; i < d.length; i++) {
             if (c.get(d[i]) != null) {
                 for (int k = 0; k < d.length; k++) {
-                    if (areConnectedNeighbours(d[i], d[k]) && c.get(d[k]) == null) {
+                    if (areConnectedNeighbours(d[i], d[k])) {
+                        String m=d[k];
+                        d[k] = handle(d[i], d[k]);
+                        if(!c.containsKey(d[k]))
+                        {
                         c.put(d[k], d[k].substring(2, 4));
                         e.put(d[k], d[k].substring(2, 4));
+                           }
+                        if(m.substring(0,2).equals("B2"))
+                        {
+                            d[k]=m;
+
+                        }
                     }
                 }
                 for (int j = 0; j < d.length; j++) {
                     if (c.get(d[j]) != null) {
                         for (int l = 0; l < d.length; l++) {
-                            if (areConnectedNeighbours(d[j], d[l]) && c.get(d[l]) == null) {
-                                c.put(d[l], d[l].substring(2, 4));
-                                e.put(d[l], d[l].substring(2, 4));
+                            if (areConnectedNeighbours(d[j], d[l])) {
+                                String m=d[l];
+                                d[l] = handle(d[j], d[l]);
+                              if(!c.containsKey(d[l]))
+                                {c.put(d[l], d[l].substring(2, 4));
+                                e.put(d[l], d[l].substring(2, 4));}
+                                if(m.substring(0,2).equals("B2"))
+                                {
+                                    d[l]=m;
+                                }
                             }
+
                         }
                     }
                 }
+
             }
         }
-        return c;
+        return e;
     }
 
 
     /**
-     *
      * @param boardString
      * @return
      */
@@ -487,16 +545,17 @@ public class RailroadInk {
         String[] boardStringArray = getPlacementStringArray(boardString);
         HashMap<String, String> a = new HashMap<>();
         ArrayList<HashMap<String, String>> b = new ArrayList<>();
-        while (a.size() != boardStringArray.length) {
-            for (int i = 0; i < boardStringArray.length; i++) {
-                if (a.get(boardStringArray[i]) == null) {
-                    a.put(boardStringArray[i], boardStringArray[i].substring(2, 4));
-                    HashMap<String, String> m = line(boardStringArray, a);
-                    m.put(boardStringArray[i], boardStringArray[i].substring(2, 4));
-                    b.add(m);
+            for (int h = 0; h < boardStringArray.length; h++) {
+                String c[]=getPlacementStringArray(boardString);
+                if (a.get(c[h]) == null) {
+                    a.put(c[h], c[h].substring(2, 4));
+                    System.out.println(c[h]);
+                    HashMap<String, String> m = line(c, a);
+                    if(m.size()!=0)
+                    {m.put(c[h],c[h].substring(2,4));
+                        b.add(m);}
                 }
             }
-        }
         return b;
     }
 
@@ -532,45 +591,32 @@ public class RailroadInk {
         for (int i = 0; i < exitsMapped(boardString).size(); i++) {
             HashMap<String, String> a = exitsMapped(boardString).get(i);
             int count = 0;
-            for (int j = 0; j < boardStringArray.length; j++) {
-                switch (a.get(boardStringArray[j])) {
-                    case "A1":
-                        count++;
-                        break;
-                    case "A5":
-                        count++;
-                        break;
-                    case "D0":
-                        count++;
-                        break;
-                    case "D6":
-                        count++;
-                        break;
-                    case "G1":
-                        count++;
-                        break;
-                    case "G5":
-                        count++;
-                        break;
-                    case "A3":
-                        count++;
-                        break;
-                    case "B0":
-                        count++;
-                        break;
-                    case "B6":
-                        count++;
-                        break;
-                    case "F0":
-                        count++;
-                        break;
-                    case "F6":
-                        count++;
-                        break;
-                    case "G3":
-                        count++;
-                        break;
-                }
+            for(String key:a.keySet())
+            {
+                if(a.get(key).equals("A1"))
+                    count ++;
+                if(a.get(key).equals("A3"))
+                    count ++;
+                if(a.get(key).equals("A5"))
+                    count ++;
+                if(a.get(key).equals("B0"))
+                    count ++;
+                if(a.get(key).equals("B6"))
+                    count ++;
+                if(a.get(key).equals("D0"))
+                    count ++;
+                if(a.get(key).equals("D6"))
+                    count ++;
+                if(a.get(key).equals("F0"))
+                    count ++;
+                if(a.get(key).equals("F6"))
+                    count ++;
+                if(a.get(key).equals("G1"))
+                    count ++;
+                if(a.get(key).equals("G3"))
+                    count ++;
+                if(a.get(key).equals("G5"))
+                    count ++;
             }
             f.add(count);
         }
@@ -657,7 +703,7 @@ public class RailroadInk {
     }
 
 
-    public static boolean canIplacetheStringHere(String boardString, HashMap<String, String> tilesMap){
+    public static boolean canIplacetheStringHere(String boardString, HashMap<String, String> tilesMap) {
         String checkLeft = "";
         String checkUp = "";
         String checkRight = "";
@@ -665,35 +711,35 @@ public class RailroadInk {
         char row = boardString.charAt(2);
         int column = boardString.charAt(3);
         checkLeft += row;
-        checkLeft += (char)(column - 1);
-        checkUp += (char)((int)row - 1);
-        checkUp += (char)column;
+        checkLeft += (char) (column - 1);
+        checkUp += (char) ((int) row - 1);
+        checkUp += (char) column;
         checkRight += row;
-        checkRight += (char)(column + 1);
-        checkDown += (char)((int)row + 1);
-        checkDown += (char)column;
+        checkRight += (char) (column + 1);
+        checkDown += (char) ((int) row + 1);
+        checkDown += (char) column;
         boolean b = false;
         //they should legally connect all the near tiles and have at lest one connected neighbour
-        if (tilesMap.containsKey(checkLeft)){
+        if (tilesMap.containsKey(checkLeft)) {
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkLeft), boardString))
                 return false;
             if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
                 b = true;
         }
-        if (tilesMap.containsKey(checkUp)){
+        if (tilesMap.containsKey(checkUp)) {
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkUp), boardString))
                 return false;
             if (areConnectedNeighbours(tilesMap.get(checkUp), boardString))
                 b = true;
 
         }
-        if (tilesMap.containsKey(checkRight)){
+        if (tilesMap.containsKey(checkRight)) {
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkRight), boardString))
                 return false;
             if (areConnectedNeighbours(tilesMap.get(checkRight), boardString))
                 b = true;
         }
-        if (tilesMap.containsKey(checkDown)){
+        if (tilesMap.containsKey(checkDown)) {
             if (!areLegallyConnectedNeighbours(tilesMap.get(checkDown), boardString))
                 return false;
             if (areConnectedNeighbours(tilesMap.get(checkDown), boardString))
@@ -715,10 +761,10 @@ public class RailroadInk {
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
         String[] head = new String[4];
-        head[0] = diceRoll.substring(0,2);
-        head[1] = diceRoll.substring(2,4);
-        head[2] = diceRoll.substring(4,6);
-        head[3] = diceRoll.substring(6,8);
+        head[0] = diceRoll.substring(0, 2);
+        head[1] = diceRoll.substring(2, 4);
+        head[2] = diceRoll.substring(4, 6);
+        head[3] = diceRoll.substring(6, 8);
         if (head[0].equals(head[1]))
             head[1] = "";
         if (head[0].equals(head[2]))
@@ -727,23 +773,23 @@ public class RailroadInk {
             head[2] = "";
         String[] boardStringArray = getPlacementStringArray(boardString);
         HashMap<String, String> tilesMap = new HashMap<>();
-        for (int i = 0; i < boardStringArray.length; i ++) {
-            tilesMap.put(boardStringArray[i].substring(2,4), boardStringArray[i]);
+        for (int i = 0; i < boardStringArray.length; i++) {
+            tilesMap.put(boardStringArray[i].substring(2, 4), boardStringArray[i]);
         }
         String check;
         String result = "";
         //basic movements from diceroll
-        for (int j = 0; j < head.length; j ++) {
+        for (int j = 0; j < head.length; j++) {
             if (head[j].equals(""))
                 continue;
-            for (char row = 'A'; row <= 'G'; row ++) {
-                for (int column = 0; column <= 6; column ++) {
+            for (char row = 'A'; row <= 'G'; row++) {
+                for (int column = 0; column <= 6; column++) {
                     check = "";
                     check += row;
                     check += column;
                     if (tilesMap.containsKey(check))
                         continue;
-                    for (int orientation = 0; orientation <= 7; orientation ++) {
+                    for (int orientation = 0; orientation <= 7; orientation++) {
                         if (canIplacetheStringHere(head[j] + row + column + orientation, tilesMap))
                             result += head[j] + row + column + orientation;
                     }
@@ -752,16 +798,16 @@ public class RailroadInk {
         }
         //advanced movements from S tiles
         HashMap<String, String> specialTilesMap = new HashMap<>();
-        for (int i = 0; i < boardStringArray.length; i ++) {
-            if (boardStringArray[i].substring(0,1).equals("S")) {
-                specialTilesMap.put(boardStringArray[i].substring(0,2), boardStringArray[i]);
+        for (int i = 0; i < boardStringArray.length; i++) {
+            if (boardStringArray[i].substring(0, 1).equals("S")) {
+                specialTilesMap.put(boardStringArray[i].substring(0, 2), boardStringArray[i]);
             }
         }
-        if (specialTilesMap.size() < 3){
-            for (int order = 0; order <= 5; order ++){
+        if (specialTilesMap.size() < 3) {
+            for (int order = 0; order <= 5; order++) {
                 if (specialTilesMap.containsKey("S" + order))
                     continue;
-                for (char row = 'A'; row <= 'G'; row ++) {
+                for (char row = 'A'; row <= 'G'; row++) {
                     for (int column = 0; column <= 6; column++) {
                         check = "";
                         check += row;
