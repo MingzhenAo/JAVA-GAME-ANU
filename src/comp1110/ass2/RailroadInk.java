@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-import static java.lang.Character.charCount;
-import static java.lang.Character.getNumericValue;
+import static java.lang.Character.*;
 
 public class RailroadInk {
     /**
@@ -471,7 +470,7 @@ public class RailroadInk {
                 if (getRotatedTile(b)[3] == 0) {
                     return "A4" + b.substring(2, 5);
                 } else {
-                    return "A1" + b.substring(2, 4) + "1";
+                    return "A1" + b.substring(2, 4) + "0";
                 }
             }
             if (a.charAt(3) == b.charAt(3) && b.charAt(2) - a.charAt(2) == 1)//same column,j below, i top
@@ -480,57 +479,63 @@ public class RailroadInk {
                 if (getRotatedTile(b)[1] == 0) {
                     return "A4" + b.substring(2, 5);
                 } else {
-                    return "A1" + b.substring(2, 4) + "1";
+                    return "A1" + b.substring(2, 4) + "0";
                 }
             }
         }
         return b;
     }
-
     /**
      * @param d
      * @param c
      * @return
      */
-    public static HashMap<String, String> line(String d[], HashMap<String, String> c) {
+    public static String add(String  a,String b,HashMap<String,String>c,HashMap<String,String>d)
+    {
+        String l=null;
+        if (areConnectedNeighbours(a,b))
+        {
+        String m=b;
+        b=handle(a,b);
+        if(!c.containsKey(b))
+        {
+            c.put(b, b.substring(2, 4));
+            d.put(b, b.substring(2, 4));
+        }
+        if(m.substring(0,2).equals("B2"))
+        {   l=b;
+            b=m;
+        }
+        }
+        return l;
+    }
+    /**
+     * @param d
+     * @param c
+     * @return
+     */
+    public static HashMap<String, String> line(ArrayList<String> a,HashMap<String, String> c) {
         HashMap<String, String> e = new HashMap<>();
-        for (int i = 0; i < d.length; i++) {
-            if (c.get(d[i]) != null) {
-                for (int k = 0; k < d.length; k++) {
-                    if (areConnectedNeighbours(d[i], d[k])) {
-                        String m=d[k];
-                        d[k] = handle(d[i], d[k]);
-                        if(!c.containsKey(d[k]))
+        for (int i = 0; i < a.size(); i++) {
+            if (c.get(a.get(i)) != null) {
+                for (int k = 0; k < a.size(); k++) {
+                    if (areConnectedNeighbours(a.get(i),a.get(k)))
+                    {
+                        String m=a.get(k);
+                        a.set(k,handle(a.get(i),a.get(k)));
+                        if(!c.containsKey(a.get(k)))
                         {
-                        c.put(d[k], d[k].substring(2, 4));
-                        e.put(d[k], d[k].substring(2, 4));
-                           }
+                            a.add(a.get(k));
+                            c.put(a.get(k), a.get(k).substring(2, 4));
+                            e.put(a.get(k), a.get(k).substring(2, 4));
+                        }
                         if(m.substring(0,2).equals("B2"))
                         {
-                            d[k]=m;
-
+                            a.set(k,m);
                         }
+
                     }
                 }
-                for (int j = 0; j < d.length; j++) {
-                    if (c.get(d[j]) != null) {
-                        for (int l = 0; l < d.length; l++) {
-                            if (areConnectedNeighbours(d[j], d[l])) {
-                                String m=d[l];
-                                d[l] = handle(d[j], d[l]);
-                              if(!c.containsKey(d[l]))
-                                {c.put(d[l], d[l].substring(2, 4));
-                                e.put(d[l], d[l].substring(2, 4));}
-                                if(m.substring(0,2).equals("B2"))
-                                {
-                                    d[l]=m;
-                                }
-                            }
-
-                        }
-                    }
-                }
-
             }
         }
         return e;
@@ -543,17 +548,20 @@ public class RailroadInk {
      */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
+        ArrayList<String> m=new ArrayList<>();
+        for(int i=0;i<boardStringArray.length;i++)
+        {
+            m.add(boardStringArray[i]);
+        }
         HashMap<String, String> a = new HashMap<>();
         ArrayList<HashMap<String, String>> b = new ArrayList<>();
-            for (int h = 0; h < boardStringArray.length; h++) {
-                String c[]=getPlacementStringArray(boardString);
-                if (a.get(c[h]) == null) {
-                    a.put(c[h], c[h].substring(2, 4));
-                    System.out.println(c[h]);
-                    HashMap<String, String> m = line(c, a);
-                    if(m.size()!=0)
-                    {m.put(c[h],c[h].substring(2,4));
-                        b.add(m);}
+            for (int h = 0; h < m.size(); h++) {
+                if (a.get(m.get(h)) == null&&!m.get(h).substring(0,2).equals("B2")) {
+                    a.put(m.get(h),m.get(h).substring(2, 4));
+                    HashMap<String, String> n = line(m, a);
+                    if(n.size()!=0)
+                    {n.put(m.get(h),m.get(h).substring(2,4));
+                        b.add(n);}
                 }
             }
         return b;
@@ -593,29 +601,29 @@ public class RailroadInk {
             int count = 0;
             for(String key:a.keySet())
             {
-                if(a.get(key).equals("A1"))
+                if(a.get(key).equals("A1")&&getRotatedTile(key)[1] != 5)
                     count ++;
-                if(a.get(key).equals("A3"))
+                if(a.get(key).equals("A3")&&getRotatedTile(key)[1] != 5)
                     count ++;
-                if(a.get(key).equals("A5"))
+                if(a.get(key).equals("A5")&&getRotatedTile(key)[1] != 5)
                     count ++;
-                if(a.get(key).equals("B0"))
+                if(a.get(key).equals("B0")&&getRotatedTile(key)[0] != 5)
                     count ++;
-                if(a.get(key).equals("B6"))
+                if(a.get(key).equals("B6")&&getRotatedTile(key)[2] != 5)
                     count ++;
-                if(a.get(key).equals("D0"))
+                if(a.get(key).equals("D0")&&getRotatedTile(key)[0] != 5)
                     count ++;
-                if(a.get(key).equals("D6"))
+                if(a.get(key).equals("D6")&&getRotatedTile(key)[2] != 5)
                     count ++;
-                if(a.get(key).equals("F0"))
+                if(a.get(key).equals("F0")&&getRotatedTile(key)[0] != 5)
                     count ++;
-                if(a.get(key).equals("F6"))
+                if(a.get(key).equals("F6")&&getRotatedTile(key)[2] != 5)
                     count ++;
-                if(a.get(key).equals("G1"))
+                if(a.get(key).equals("G1")&&getRotatedTile(key)[3] != 5)
                     count ++;
-                if(a.get(key).equals("G3"))
+                if(a.get(key).equals("G3")&&getRotatedTile(key)[3] != 5)
                     count ++;
-                if(a.get(key).equals("G5"))
+                if(a.get(key).equals("G5")&&getRotatedTile(key)[3] != 5)
                     count ++;
             }
             f.add(count);
