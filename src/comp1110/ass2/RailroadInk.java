@@ -3,6 +3,7 @@ package comp1110.ass2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static comp1110.ass2.DiceRoll.getMove;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 import static java.lang.Character.getNumericValue;
 
@@ -664,17 +665,19 @@ public class RailroadInk {
 
 
     /**
-     * @param boardString
+     * @param placementString
      * @param tilesMap
      * @return
      */
-    public static boolean canIPlaceTheStringHere(String boardString, HashMap<String, String> tilesMap) {
+    public static boolean canIPlaceTheStringHere(String placementString, HashMap<String, String> tilesMap) {
         String checkLeft = "";
         String checkUp = "";
         String checkRight = "";
         String checkDown = "";
-        char row = boardString.charAt(2);
-        int column = boardString.charAt(3);
+
+        char row = placementString.charAt(2);
+        int column = placementString.charAt(3);
+
         checkLeft += row;
         checkLeft += (char) (column - 1);
         checkUp += (char) ((int) row - 1);
@@ -687,28 +690,28 @@ public class RailroadInk {
 
         //They should legally connect all the near tiles and have at lest one connected neighbour
         if (tilesMap.containsKey(checkLeft)) {
-            if (!areLegallyConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkLeft), placementString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkLeft), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), placementString))
                 b = true;
         }
         if (tilesMap.containsKey(checkUp)) {
-            if (!areLegallyConnectedNeighbours(tilesMap.get(checkUp), boardString))
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkUp), placementString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkUp), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkUp), placementString))
                 b = true;
 
         }
         if (tilesMap.containsKey(checkRight)) {
-            if (!areLegallyConnectedNeighbours(tilesMap.get(checkRight), boardString))
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkRight), placementString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkRight), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkRight), placementString))
                 b = true;
         }
         if (tilesMap.containsKey(checkDown)) {
-            if (!areLegallyConnectedNeighbours(tilesMap.get(checkDown), boardString))
+            if (!areLegallyConnectedNeighbours(tilesMap.get(checkDown), placementString))
                 return false;
-            if (areConnectedNeighbours(tilesMap.get(checkDown), boardString))
+            if (areConnectedNeighbours(tilesMap.get(checkDown), placementString))
                 b = true;
         }
 
@@ -727,11 +730,11 @@ public class RailroadInk {
      */
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
-        String[] head = new String[4];
+        /* String[] head = new String[4];
 
-        /*
+         *//*
          Get dices and the relevant faces
-         */
+         *//*
         head[0] = diceRoll.substring(0, 2);
         head[1] = diceRoll.substring(2, 4);
         head[2] = diceRoll.substring(4, 6);
@@ -801,7 +804,12 @@ public class RailroadInk {
                     }
                 }
             }
-        }
+        }*/
+
+
+        String result = getMove(boardString, diceRoll);
+
+
         return result;
     }
 

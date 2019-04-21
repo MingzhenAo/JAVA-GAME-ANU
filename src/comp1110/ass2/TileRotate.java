@@ -93,14 +93,14 @@ public class TileRotate {
     /**
      * @param placementString
      * @return an int array containing 4 integers.
-     * The fist element represents left;
-     * The second element  represents top;
-     * The third  element represents right;
-     * The forth  element represents bottom;
+     * The fist element represents the left;
+     * The second element  represents the top;
+     * The third  element represents the right;
+     * The forth  element represents the bottom;
      * <p>
      * 0 represents a highway; 1 represents a railway; 5 represents blank
      * <p>
-     * For example if the array is [0,5,1,5],
+     * For example, if the array is [0,5,1,5],
      * it means the tile has a highway in the left, blank for top, a railway for right, blank for bottom
      */
     public static int[] getRotatedTile(String placementString) {
