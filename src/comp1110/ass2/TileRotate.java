@@ -1,6 +1,8 @@
 package comp1110.ass2;
 
 
+import static java.lang.Character.getNumericValue;
+
 /**
  * This class provides some methods to rotate or flip the tiles
  */
@@ -86,4 +88,42 @@ public class TileRotate {
 
         return result;
     }
+
+
+    /**
+     * @param placementString
+     * @return an int array containing 4 integers.
+     * The fist element represents left;
+     * The second element  represents top;
+     * The third  element represents right;
+     * The forth  element represents bottom;
+     * <p>
+     * 0 represents a highway; 1 represents a railway; 5 represents blank
+     * <p>
+     * For example if the array is [0,5,1,5],
+     * it means the tile has a highway in the left, blank for top, a railway for right, blank for bottom
+     */
+    public static int[] getRotatedTile(String placementString) {
+
+        TileRotate r = new TileRotate();
+        int[] tile = new int[4];
+
+        /*
+        placementString.substring(0, 2) will return the object's name of TileEnum, such as A0, A1 etc.
+        Then, by the method of valueOf(String name), we will get the corresponding object.
+        */
+
+        TileEnum tileName = TileEnum.valueOf(placementString.substring(0, 2));
+
+        tile[0] = tileName.left;
+        tile[1] = tileName.top;
+        tile[2] = tileName.right;
+        tile[3] = tileName.bottom;
+
+        r.rotateTime(tile, getNumericValue(placementString.charAt(4)));
+
+        return tile;
+    }
+
+
 }
