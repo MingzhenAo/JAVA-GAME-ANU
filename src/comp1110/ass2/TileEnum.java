@@ -1,7 +1,7 @@
 package comp1110.ass2;
 
 /**
- * the class provides all of the unrotated tiles
+ * This class provides all of the unrotated tiles
  */
 
 public enum TileEnum {

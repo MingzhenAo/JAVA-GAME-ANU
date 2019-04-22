@@ -314,62 +314,62 @@ public class RailroadInk {
             switch (placementStringArray[i].substring(2, 4)) {
                 case "A1":
                     b++;
-                    if (tile[1] != 0)
+                    if (tile[1] != 0 && tile[1] != 5)
                         return false;
                     break;
                 case "A5":
                     b++;
-                    if (tile[1] != 0)
+                    if (tile[1] != 0 && tile[1] != 5)
                         return false;
                     break;
                 case "D0":
                     b++;
-                    if (tile[0] != 0)
+                    if (tile[0] != 0 && tile[0] != 5)
                         return false;
                     break;
                 case "D6":
                     b++;
-                    if (tile[2] != 0)
+                    if (tile[2] != 0 && tile[2] != 5)
                         return false;
                     break;
                 case "G1":
                     b++;
-                    if (tile[3] != 0)
+                    if (tile[3] != 0 && tile[3] != 5)
                         return false;
                     break;
                 case "G5":
                     b++;
-                    if (tile[3] != 0)
+                    if (tile[3] != 0 && tile[3] != 5)
                         return false;
                     break;
                 case "A3":
                     b++;
-                    if (tile[1] != 1)
+                    if (tile[1] != 1 && tile[1] != 5)
                         return false;
                     break;
                 case "B0":
                     b++;
-                    if (tile[0] != 1)
+                    if (tile[0] != 1 && tile[0] != 5)
                         return false;
                     break;
                 case "B6":
                     b++;
-                    if (tile[2] != 1)
+                    if (tile[2] != 1 && tile[2] != 5)
                         return false;
                     break;
                 case "F0":
                     b++;
-                    if (tile[0] != 1)
+                    if (tile[0] != 1 && tile[0] != 5)
                         return false;
                     break;
                 case "F6":
                     b++;
-                    if (tile[2] != 1)
+                    if (tile[2] != 1 && tile[2] != 5)
                         return false;
                     break;
                 case "G3":
                     b++;
-                    if (tile[3] != 1)
+                    if (tile[3] != 1 && tile[3] != 5)
                         return false;
                     break;
             }
@@ -808,7 +808,6 @@ public class RailroadInk {
 
 
         String result = getMove(boardString, diceRoll);
-
 
         return result;
     }
