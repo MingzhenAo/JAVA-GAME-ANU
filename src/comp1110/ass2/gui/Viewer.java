@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.awt.*;
+
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.RailroadInk.isTilePlacementWellFormed;
 
@@ -239,7 +241,11 @@ public class Viewer extends Application {
         }
     }
 
-
+    class piece extends Polygon{
+        double mouseX, mouseY;      // the last known mouse positions (used when dragging)
+        double startX, startY;
+        piece
+    }
 
 
     /**
