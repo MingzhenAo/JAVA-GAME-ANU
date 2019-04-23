@@ -5,6 +5,12 @@ import java.util.*;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
+/**
+ * This class provides a method representing the GameBoard with LinkedHashMap
+ * and some other method operating the linkedHashMap
+ */
+
+
 public class Board {
 
     public static LinkedHashMap<String, int[]> getBoard() {
@@ -73,7 +79,38 @@ public class Board {
     }
 
 
-    public static ArrayList<String> getAllPlacement(String boardString) {
+    /**
+     * 以linkedHashMap的形式表示游戏板
+     *
+     * @param boardString
+     * @return 以linkedHashMap的形式表示的游戏板
+     */
+    public static LinkedHashMap<String, int[]> getPlacementBoard(String boardString) {
+
+        String[] placementStringArray = getPlacementStringArray(boardString);
+
+        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();//获得游戏板
+
+
+        //得到所有放置后的tile,并存入对应的格子里
+
+        for (int i = 0; i < placementStringArray.length; i++) {
+
+            placementBoard.put(placementStringArray[i].substring(2, 4), getRotatedTile(placementStringArray[i]));
+
+        }
+
+        return placementBoard;
+    }
+
+
+    /**
+     * 获取所有格子上的情况，不管格子上有没有贴图
+     *
+     * @param boardString
+     * @return
+     */
+    public static ArrayList<String> getAllGridsCondition(String boardString) {
 
         HashMap<String, int[]> placementBoard = getPlacementBoard(boardString);
 
@@ -91,8 +128,22 @@ public class Board {
             combo.add(key + Arrays.toString(value));
         }
 
+        return combo;
+    }
 
-        //清除所有没有占的格子(一定要倒着遍历，不然会因为索引移动清除不干净)
+
+    /**
+     * 获取所有已经被占用的格子上的tile情况
+     *
+     * @param boardString
+     * @return
+     */
+    public static ArrayList<String> getPlacementGrids(String boardString) {
+        //先获取所有格子的情况
+        ArrayList<String> combo = getAllGridsCondition(boardString);
+
+
+        //清除所有没有被占用的格子(一定要倒着遍历，不然会因为索引移动清除不干净)
         for (int i = combo.size() - 1; i >= 0; i--) {
 
             if (combo.get(i).length() == 5) {
@@ -101,29 +152,19 @@ public class Board {
         }
 
         return combo;
-
-
     }
 
 
-    public static String[] getEmptyGrid(String boardString) {
+    /**
+     * 获得所有未使用的空格，比如A0,B3,C5,D0, etc
+     *
+     * @param boardString
+     * @return
+     */
+    public static String[] getEmptyGrids(String boardString) {
 
-        HashMap<String, int[]> placementBoard = getPlacementBoard(boardString);
-
-        Set<Map.Entry<String, int[]>> set = placementBoard.entrySet();
-
-
-        ArrayList<String> combo = new ArrayList<>();
-
-
-        for (Map.Entry<String, int[]> entry : set) {
-
-            String key = entry.getKey();
-            int[] value = entry.getValue();
-
-            combo.add(key + Arrays.toString(value));
-        }
-
+        //先获取所有格子的情况
+        ArrayList<String> combo = getAllGridsCondition(boardString);
 
         //清除所有已经占用的格子(一定要倒着遍历，不然会因为索引移动清除不干净)
         for (int i = combo.size() - 1; i >= 0; i--) {
@@ -134,38 +175,15 @@ public class Board {
         }
 
 
-        String[] a = new String[combo.size()];
-
+        String[] array = new String[combo.size()];
 
         for (int i = 0; i < combo.size(); i++) {
 
-            a[i] = combo.get(i).substring(0, 2);
+            array[i] = combo.get(i).substring(0, 2);
 
         }
 
-        return a;
-
-    }
-
-
-    public static LinkedHashMap<String, int[]> getPlacementBoard(String boardString) {
-
-        String[] placementStringArray = getPlacementStringArray(boardString);
-
-        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();//获得游戏板
-
-
-        //得到所有放置后的tile,并存入对应的格子里
-
-
-        for (int i = 0; i < placementStringArray.length; i++) {
-
-            placementBoard.put(placementStringArray[i].substring(2, 4), getRotatedTile(placementStringArray[i]));
-
-        }
-
-        return placementBoard;
-
+        return array;
     }
 
 
@@ -215,7 +233,6 @@ public class Board {
             }
 
         }
-
         return result;
     }
 

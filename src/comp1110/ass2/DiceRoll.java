@@ -2,11 +2,16 @@ package comp1110.ass2;
 
 import java.util.ArrayList;
 
-import static comp1110.ass2.Board.getEmptyGrid;
+import static comp1110.ass2.Board.getEmptyGrids;
 import static comp1110.ass2.Board.getValidPlacementString;
 
 
+/**
+ * This class provides all methods about DiceRoll
+ */
+
 public class DiceRoll {
+
 
     //第一个骰子
     public static String dice01(String boardString, String diceRoll) {
@@ -17,7 +22,7 @@ public class DiceRoll {
         head[0] = diceRoll.substring(0, 2);
 
         //找还剩几个空格
-        String[] emptyGrid = getEmptyGrid(boardString);
+        String[] emptyGrid = getEmptyGrids(boardString);
 
         //将所有空格与该骰子的组合下，所有可能贴图放入集合中
         for (int i = 0; i < emptyGrid.length; i++) {
@@ -27,9 +32,9 @@ public class DiceRoll {
 
             }
         }
-
         return getValidPlacementString(boardString, list);
     }
+
 
     //第二个骰子
     public static String dice02(String boardString, String diceRoll) {
@@ -39,7 +44,7 @@ public class DiceRoll {
 
         head[0] = diceRoll.substring(2, 4);
 
-        String[] emptyGrid = getEmptyGrid(boardString);
+        String[] emptyGrid = getEmptyGrids(boardString);
 
         //将所有空格与该骰子的所有可能贴图放入集合中
         for (int i = 0; i < emptyGrid.length; i++) {
@@ -49,10 +54,7 @@ public class DiceRoll {
 
             }
         }
-
         return getValidPlacementString(boardString, list);
-
-
     }
 
 
@@ -65,7 +67,7 @@ public class DiceRoll {
 
         head[0] = diceRoll.substring(4, 6);
 
-        String[] emptyGrid = getEmptyGrid(boardString);
+        String[] emptyGrid = getEmptyGrids(boardString);
 
         //将所有空格与该骰子的所有可能贴图放入集合中
         for (int i = 0; i < emptyGrid.length; i++) {
@@ -75,7 +77,6 @@ public class DiceRoll {
 
             }
         }
-
         return getValidPlacementString(boardString, list);
     }
 
@@ -88,19 +89,18 @@ public class DiceRoll {
 
         head[0] = diceRoll.substring(6, 8);
 
-        String[] emptyGrid = getEmptyGrid(boardString);
+        String[] emptyGrid = getEmptyGrids(boardString);
 
         //将所有空格与该骰子的所有可能贴图放入集合中
         for (int i = 0; i < emptyGrid.length; i++) {
 
             for (int j = 0; j < 8; j++) {
                 list.add("" + head[0] + emptyGrid[i] + j);
-
             }
         }
-
         return getValidPlacementString(boardString, list);
     }
+
 
 
     /**
@@ -565,8 +565,9 @@ public class DiceRoll {
 
         list.add(temp24);
 
-        //最长的一定对
 
+
+        //最长的一定对
         String longest = list.get(0);//将数组的第一个元素赋给max
 
         for (int i = 0; i < list.size(); i++) {
@@ -576,9 +577,7 @@ public class DiceRoll {
 
         }
 
-        //System.out.println(longest.length());
         return longest;
-
     }
 
 }
