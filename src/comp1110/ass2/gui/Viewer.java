@@ -1,6 +1,7 @@
 package comp1110.ass2.gui;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,11 +13,43 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.KeyCode;
+import javafx.scene.media.AudioClip;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.RailroadInk.isTilePlacementWellFormed;
@@ -242,71 +275,7 @@ public class Viewer extends Application {
             }
         }
     }
-    class tile extends Polygon{
-       double mouthX,mouthY;
-       double startX,startY;
-       tile(double startX, double startY, FXTile tile){
-           this.startX = startX;
-           this.startY = startY;
-           setLayoutX(startX);
-           setLayoutY(startY);
-               this.tile = tile;
-           if (tile instanceof DraggableFXtile) {
-               DraggableFXtile draggable = (DraggableFXtile) piece;
-               setOnMousePressed(event -> {      // mouse press indicates begin of drag
-                   mouseX = event.getSceneX();
-                   mouseY = event.getSceneY();
-               });
 
-               setOnMouseDragged(event -> {      // mouse is being dragged
-                   draggable.toFront();
-                   double movementX = event.getSceneX() - mouseX;
-                   double movementY = event.getSceneY() - mouseY;
-                   draggable.drag(movementX, movementY);
-                   mouseX = event.getSceneX();
-                   mouseY = event.getSceneY();
-               });
-
-               setOnMouseReleased(event -> {     // drag is complete
-                   if (draggable.onBoard()) {
-                       draggable.setPosition();
-                       String placementString = getPlacementString();
-                       if (IQStars.isValidPlacement(placementString)) {
-                           // place piece
-                           draggable.snapToGrid();
-                           if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
-                               showCompletion();
-                           }
-                       } else {
-                           piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
-                           draggable.snapToHome();
-                       }
-                   } else {
-                       draggable.snapToHome();
-                   }
-               });
-
-               /* event handlers */
-               setOnScroll(event -> {            // scroll to change orientation
-                   draggable.rotate();
-                   if (draggable.onBoard()) {
-                       draggable.setPosition();
-                       String placementString = getPlacementString();
-                       if (IQStars.isValidPlacement(placementString)) {
-                           // place piece
-                           draggable.snapToGrid();
-                       } else {
-                           piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
-                           draggable.snapToHome();
-                       }
-                   } else {
-                       draggable.snapToHome();
-                   }
-                   event.consume();
-               });
-           }
-       }
-    }
 
 
 
@@ -456,5 +425,140 @@ public class Viewer extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+
+    //test
+
+    class tile extends Polygon{
+        double mouseX,mouseY;
+        double startX,startY;
+        FXTile tile;
+        tile(double startX, double startY, FXTile tile){
+            this.startX = startX;
+            this.startY = startY;
+            setLayoutX(startX);
+            setLayoutY(startY);
+            this.tile = tile;
+            if (tile instanceof DraggableFXTile) {
+                DraggableFXTile draggable = (DraggableFXTile) tile;
+                setOnMousePressed(event -> {      // mouse press indicates begin of drag
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
+                });
+
+                setOnMouseDragged(event -> {      // mouse is being dragged
+                    draggable.toFront();
+                    double movementX = event.getSceneX() - mouseX;
+                    double movementY = event.getSceneY() - mouseY;
+                    draggable.drag(movementX, movementY);
+                    mouseX = event.getSceneX();
+                    mouseY = event.getSceneY();
+                });
+
+                setOnMouseReleased(event -> {     // drag is complete
+                    if (draggable.onBoard()) {
+                        draggable.setPosition();
+                        String placementString = getPlacementString();
+                        if (IQStars.isValidPlacement(placementString)) {
+                            // place piece
+                            draggable.snapToGrid();
+                            if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
+                                showCompletion();
+                            }
+                        } else {
+                            piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
+                            draggable.snapToHome();
+                        }
+                    } else {
+                        draggable.snapToHome();
+                    }
+                });
+
+                /* event handlers */
+                setOnScroll(event -> {            // scroll to change orientation
+                    draggable.rotate();
+                    if (draggable.onBoard()) {
+                        draggable.setPosition();
+                        String placementString = getPlacementString();
+                        if (IQStars.isValidPlacement(placementString)) {
+                            // place piece
+                            draggable.snapToGrid();
+                        } else {
+                            piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
+                            draggable.snapToHome();
+                        }
+                    } else {
+                        draggable.snapToHome();
+                    }
+                    event.consume();
+                });
+            }
+        }
+    }
+
+
+    class DraggableFXTile extends FXTile {
+        double homeX, homeY;         // the position in the window where the piece should be when not on the board
+
+        /**
+         * Construct a draggable piece
+         *
+         * @param id The piece identifier ('A' - 'L')
+         */
+        DraggableFXTile(char id) {
+            super(id);
+
+            int index = id - 'A';
+            int homeCol = (index % PIECES_PER_HOME_ROW);
+            this.homeX = homeCol * HEX_HEIGHT * (Piece.MAX_PIECE_WIDTH + 0.4) + HEX_HEIGHT;
+            int homeRow = index / PIECES_PER_HOME_ROW;
+            this.homeY = BOARD_HEIGHT + MARGIN_Y + HEX_HEIGHT * 0.5 + Piece.MAX_PIECE_WIDTH * HEX_HEIGHT * homeRow;
+
+            snapToHome();
+        }
+
+        protected void drag(double movementX, double movementY) {
+            setLayoutX(getLayoutX() + movementX);
+            setLayoutY(getLayoutY() + movementY);
+            for (Star star : stars) {
+                star.setTranslateX(getLayoutX());
+                star.setTranslateY(getLayoutY());
+                star.setOpacity(0.5);
+                star.toFront();
+            }
+        }
+    }
+
+    class FXTile extends Group {
+        final Tile tile;
+        int col;
+        int row;
+        int rotation;
+        Rotate rotate;
+        List<Star> stars = new ArrayList<>();
+        boolean invisible = false;
+
+        FXTile(char id) {
+            if (!(id >= 'A' && id <= 'L')) {
+                throw new IllegalArgumentException("Bad piece id: '" + id + "'");
+            }
+            piece = Piece.valueOf(String.valueOf(id));
+
+            Color pieceColor = getColorForPiece(piece);
+
+            for (Hex hex : piece.shape) {
+                double xOffset = hex.row % 2 == 0 ? 0 : 0.5;
+                // distance between rows is 3/4 HEX_HEIGHT; distance between columns is HEX_WIDTH
+                Star star = new Star((xOffset + hex.col) * HEX_WIDTH, hex.row * 3.0 / 4 * HEX_HEIGHT, pieceColor, this);
+                stars.add(star);
+                pieces.getChildren().add(star);
+            }
+
+            rotate = new Rotate(); // Pivot X Top-Left corner
+            rotate.setPivotX(0);
+            rotate.setPivotY(0);
+            getTransforms().add(rotate);
+        }
     }
 }
