@@ -10,6 +10,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeType;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,8 +29,8 @@ import static comp1110.ass2.RailroadInk.isTilePlacementWellFormed;
  */
 public class Viewer extends Application {
     /* board layout */
-    private static final int VIEWER_WIDTH = 1400;
-    private static final int VIEWER_HEIGHT = 800;
+    private static final int VIEWER_WIDTH = 1024;
+    private static final int VIEWER_HEIGHT = 798;
 
     private static final String URI_BASE = "assets/";
 
@@ -90,7 +92,7 @@ public class Viewer extends Application {
                     ImageView a0 = new ImageView(A0);
                     a0.setFitHeight(80);
                     a0.setFitWidth(80);
-                    a0.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a0.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a0, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a0);
@@ -100,7 +102,7 @@ public class Viewer extends Application {
                     ImageView a1 = new ImageView(A1);
                     a1.setFitHeight(80);
                     a1.setFitWidth(80);
-                    a1.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a1.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a1, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a1);
@@ -110,7 +112,7 @@ public class Viewer extends Application {
                     ImageView a2 = new ImageView(A2);
                     a2.setFitHeight(80);
                     a2.setFitWidth(80);
-                    a2.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a2.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a2, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a2);
@@ -120,7 +122,7 @@ public class Viewer extends Application {
                     ImageView a3 = new ImageView(A3);
                     a3.setFitHeight(80);
                     a3.setFitWidth(80);
-                    a3.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a3.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a3, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a3);
@@ -130,7 +132,7 @@ public class Viewer extends Application {
                     ImageView a4 = new ImageView(A4);
                     a4.setFitHeight(80);
                     a4.setFitWidth(80);
-                    a4.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a4.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a4, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a4);
@@ -140,7 +142,7 @@ public class Viewer extends Application {
                     ImageView a5 = new ImageView(A5);
                     a5.setFitHeight(80);
                     a5.setFitWidth(80);
-                    a5.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    a5.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     a5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a5, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(a5);
@@ -150,7 +152,7 @@ public class Viewer extends Application {
                     ImageView b0 = new ImageView(B0);
                     b0.setFitHeight(80);
                     b0.setFitWidth(80);
-                    b0.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    b0.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     b0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b0, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(b0);
@@ -160,7 +162,7 @@ public class Viewer extends Application {
                     ImageView b1 = new ImageView(B1);
                     b1.setFitHeight(80);
                     b1.setFitWidth(80);
-                    b1.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    b1.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     b1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b1, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(b1);
@@ -170,7 +172,7 @@ public class Viewer extends Application {
                     ImageView b2 = new ImageView(B2);
                     b2.setFitHeight(80);
                     b2.setFitWidth(80);
-                    b2.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    b2.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     b2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b2, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(b2);
@@ -180,7 +182,7 @@ public class Viewer extends Application {
                     ImageView s0 = new ImageView(S0);
                     s0.setFitHeight(80);
                     s0.setFitWidth(80);
-                    s0.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s0.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s0, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s0);
@@ -190,7 +192,7 @@ public class Viewer extends Application {
                     ImageView s1 = new ImageView(S1);
                     s1.setFitHeight(80);
                     s1.setFitWidth(80);
-                    s1.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s1.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s1, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s1);
@@ -200,7 +202,7 @@ public class Viewer extends Application {
                     ImageView s2 = new ImageView(S2);
                     s2.setFitHeight(80);
                     s2.setFitWidth(80);
-                    s2.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s2.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s2, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s2);
@@ -210,7 +212,7 @@ public class Viewer extends Application {
                     ImageView s3 = new ImageView(S3);
                     s3.setFitHeight(80);
                     s3.setFitWidth(80);
-                    s3.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s3.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s3, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s3);
@@ -220,7 +222,7 @@ public class Viewer extends Application {
                     ImageView s4 = new ImageView(S4);
                     s4.setFitHeight(80);
                     s4.setFitWidth(80);
-                    s4.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s4.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s4, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s4);
@@ -230,7 +232,7 @@ public class Viewer extends Application {
                     ImageView s5 = new ImageView(S5);
                     s5.setFitHeight(80);
                     s5.setFitWidth(80);
-                    s5.setX(450 + 80 * Integer.valueOf(placement.substring(3,4)));
+                    s5.setX(300 + 80 * Integer.valueOf(placement.substring(3,4)));
                     s5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s5, Integer.valueOf(placement.substring(4,5)));
                     root.getChildren().add(s5);
@@ -240,12 +242,73 @@ public class Viewer extends Application {
             }
         }
     }
+    class tile extends Polygon{
+       double mouthX,mouthY;
+       double startX,startY;
+       tile(double startX, double startY, FXTile tile){
+           this.startX = startX;
+           this.startY = startY;
+           setLayoutX(startX);
+           setLayoutY(startY);
+               this.tile = tile;
+           if (tile instanceof DraggableFXtile) {
+               DraggableFXtile draggable = (DraggableFXtile) piece;
+               setOnMousePressed(event -> {      // mouse press indicates begin of drag
+                   mouseX = event.getSceneX();
+                   mouseY = event.getSceneY();
+               });
 
-    class piece extends Polygon{
-        double mouseX, mouseY;      // the last known mouse positions (used when dragging)
-        double startX, startY;
-        piece
+               setOnMouseDragged(event -> {      // mouse is being dragged
+                   draggable.toFront();
+                   double movementX = event.getSceneX() - mouseX;
+                   double movementY = event.getSceneY() - mouseY;
+                   draggable.drag(movementX, movementY);
+                   mouseX = event.getSceneX();
+                   mouseY = event.getSceneY();
+               });
+
+               setOnMouseReleased(event -> {     // drag is complete
+                   if (draggable.onBoard()) {
+                       draggable.setPosition();
+                       String placementString = getPlacementString();
+                       if (IQStars.isValidPlacement(placementString)) {
+                           // place piece
+                           draggable.snapToGrid();
+                           if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
+                               showCompletion();
+                           }
+                       } else {
+                           piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
+                           draggable.snapToHome();
+                       }
+                   } else {
+                       draggable.snapToHome();
+                   }
+               });
+
+               /* event handlers */
+               setOnScroll(event -> {            // scroll to change orientation
+                   draggable.rotate();
+                   if (draggable.onBoard()) {
+                       draggable.setPosition();
+                       String placementString = getPlacementString();
+                       if (IQStars.isValidPlacement(placementString)) {
+                           // place piece
+                           draggable.snapToGrid();
+                       } else {
+                           piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
+                           draggable.snapToHome();
+                       }
+                   } else {
+                       draggable.snapToHome();
+                   }
+                   event.consume();
+               });
+           }
+       }
     }
+
+
 
 
     /**
@@ -282,20 +345,20 @@ public class Viewer extends Application {
             m.getRowConstraints().add(row);
         }
         m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
-        m.setLayoutX(450);
+        m.setLayoutX(300);
         m.setLayoutY(90);
 
         //set highway exits
         Image highexit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
         ImageView viewhigh1 = new ImageView(highexit);
-        viewhigh1.setX(520);
+        viewhigh1.setX(370);
         viewhigh1.setY(20);
         viewhigh1.setFitWidth(100);
         viewhigh1.setFitHeight(100);
         root.getChildren().add(viewhigh1);
 
         ImageView viewhigh2 = new ImageView(highexit);
-        viewhigh2.setX(840);
+        viewhigh2.setX(690);
         viewhigh2.setY(20);
         viewhigh2.setFitWidth(100);
         viewhigh2.setFitHeight(100);
@@ -303,7 +366,7 @@ public class Viewer extends Application {
 
         ImageView viewhigh3 = new ImageView(highexit);
         viewhigh3.setRotate(270);
-        viewhigh3.setX(380);
+        viewhigh3.setX(230);
         viewhigh3.setY(320);
         viewhigh3.setFitWidth(100);
         viewhigh3.setFitHeight(100);
@@ -311,7 +374,7 @@ public class Viewer extends Application {
 
         ImageView viewhigh4 = new ImageView(highexit);
         viewhigh4.setRotate(90);
-        viewhigh4.setX(980);
+        viewhigh4.setX(830);
         viewhigh4.setY(320);
         viewhigh4.setFitWidth(100);
         viewhigh4.setFitHeight(100);
@@ -319,7 +382,7 @@ public class Viewer extends Application {
 
         ImageView viewhigh5 = new ImageView(highexit);
         viewhigh5.setRotate(180);
-        viewhigh5.setX(520);
+        viewhigh5.setX(370);
         viewhigh5.setY(620);
         viewhigh5.setFitWidth(100);
         viewhigh5.setFitHeight(100);
@@ -327,7 +390,7 @@ public class Viewer extends Application {
 
         ImageView viewhigh6 = new ImageView(highexit);
         viewhigh6.setRotate(180);
-        viewhigh6.setX(840);
+        viewhigh6.setX(690);
         viewhigh6.setY(620);
         viewhigh6.setFitWidth(100);
         viewhigh6.setFitHeight(100);
@@ -336,7 +399,7 @@ public class Viewer extends Application {
         //set railway exits
         Image railexit = new Image(Viewer.class.getResource(Viewer.URI_BASE+"RailExit.png").toString());
         ImageView viewrail1 = new ImageView(railexit);
-        viewrail1.setX(680);
+        viewrail1.setX(530);
         viewrail1.setY(20);
         viewrail1.setFitWidth(100);
         viewrail1.setFitHeight(100);
@@ -344,7 +407,7 @@ public class Viewer extends Application {
 
         ImageView viewrail2 = new ImageView(railexit);
         viewrail2.setRotate(270);
-        viewrail2.setX(380);
+        viewrail2.setX(230);
         viewrail2.setY(160);
         viewrail2.setFitWidth(100);
         viewrail2.setFitHeight(100);
@@ -352,7 +415,7 @@ public class Viewer extends Application {
 
         ImageView viewrail3 = new ImageView(railexit);
         viewrail3.setRotate(270);
-        viewrail3.setX(380);
+        viewrail3.setX(230);
         viewrail3.setY(480);
         viewrail3.setFitWidth(100);
         viewrail3.setFitHeight(100);
@@ -360,7 +423,7 @@ public class Viewer extends Application {
 
         ImageView viewrail4 = new ImageView(railexit);
         viewrail4.setRotate(90);
-        viewrail4.setX(980);
+        viewrail4.setX(830);
         viewrail4.setY(160);
         viewrail4.setFitWidth(100);
         viewrail4.setFitHeight(100);
@@ -368,7 +431,7 @@ public class Viewer extends Application {
 
         ImageView viewrail5 = new ImageView(railexit);
         viewrail5.setRotate(90);
-        viewrail5.setX(980);
+        viewrail5.setX(830);
         viewrail5.setY(480);
         viewrail5.setFitWidth(100);
         viewrail5.setFitHeight(100);
@@ -376,7 +439,7 @@ public class Viewer extends Application {
 
         ImageView viewrail6 = new ImageView(railexit);
         viewrail6.setRotate(180);
-        viewrail6.setX(680);
+        viewrail6.setX(530);
         viewrail6.setY(620);
         viewrail6.setFitWidth(100);
         viewrail6.setFitHeight(100);
