@@ -41,6 +41,9 @@ public class Viewer extends Application {
      * @return
      */
     static ImageView rotation(ImageView a, int n) {
+        while (n > 7) {
+            n -= 8;
+        }
         if (n > 3) {
             a.setScaleX(-1);
             n = n - 4;
@@ -397,7 +400,6 @@ public class Viewer extends Application {
         s0.setX(30);
         s0.setY(90);
         dragTile(s0);
-        rotateTile(s0);
         root.getChildren().add(s0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
@@ -407,7 +409,6 @@ public class Viewer extends Application {
         s1.setX(30);
         s1.setY(190);
         dragTile(s1);
-        rotateTile(s1);
         root.getChildren().add(s1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
@@ -417,7 +418,6 @@ public class Viewer extends Application {
         s2.setX(30);
         s2.setY(290);
         dragTile(s2);
-        rotateTile(s2);
         root.getChildren().add(s2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
@@ -427,7 +427,6 @@ public class Viewer extends Application {
         s3.setX(30);
         s3.setY(390);
         dragTile(s3);
-        rotateTile(s3);
         root.getChildren().add(s3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
@@ -437,7 +436,6 @@ public class Viewer extends Application {
         s4.setX(30);
         s4.setY(490);
         dragTile(s4);
-        rotateTile(s4);
         root.getChildren().add(s4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
@@ -447,7 +445,6 @@ public class Viewer extends Application {
         s5.setX(30);
         s5.setY(590);
         dragTile(s5);
-        rotateTile(s5);
         root.getChildren().add(s5);
         //ABs
         String[] rollString = new String[4];
@@ -470,7 +467,6 @@ public class Viewer extends Application {
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
                     dragTile(a0);
-                    rotateTile(a0);
                     root.getChildren().add(a0);
                     break;
                 case "A1":
@@ -481,7 +477,6 @@ public class Viewer extends Application {
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
                     dragTile(a1);
-                    rotateTile(a1);
                     root.getChildren().add(a1);
                     break;
                 case "A2":
@@ -492,7 +487,6 @@ public class Viewer extends Application {
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
                     dragTile(a2);
-                    rotateTile(a2);
                     root.getChildren().add(a2);
                     break;
                 case "A3":
@@ -503,7 +497,6 @@ public class Viewer extends Application {
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
                     dragTile(a3);
-                    rotateTile(a3);
                     root.getChildren().add(a3);
                     break;
                 case "A4":
@@ -514,7 +507,6 @@ public class Viewer extends Application {
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
                     dragTile(a4);
-                    rotateTile(a4);
                     root.getChildren().add(a4);
                     break;
                 case "A5":
@@ -525,7 +517,6 @@ public class Viewer extends Application {
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
                     dragTile(a5);
-                    rotateTile(a5);
                     root.getChildren().add(a5);
                     break;
                 case "B0":
@@ -536,7 +527,6 @@ public class Viewer extends Application {
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
                     dragTile(b0);
-                    rotateTile(b0);
                     root.getChildren().add(b0);
                     break;
                 case "B1":
@@ -547,7 +537,6 @@ public class Viewer extends Application {
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
                     dragTile(b1);
-                    rotateTile(b1);
                     root.getChildren().add(b1);
                     break;
                 case "B2":
@@ -558,7 +547,6 @@ public class Viewer extends Application {
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
                     dragTile(b2);
-                    rotateTile(b2);
                     root.getChildren().add(b2);
                     break;
                 default:
@@ -577,16 +565,29 @@ public class Viewer extends Application {
                 imageView.setY(90);
             }
             */
+            rotateTile(imageView);
             inPosition(imageView);
         });
     }
 
-    //the method to rotate the tiles
+    //the methods to rotate the tiles
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
-            rotation(imageView, 1);
+            imageView.setRotate(imageView.getRotate() + 90);
+            System.out.println(scrollEvent.getTouchCount());
+        });
+        imageView.setOnMouseClicked(mouseEvent -> {
+            while (mouseEvent.isSecondaryButtonDown())
+                imageView.setScaleX(-1);
         });
     }
+    private void mirrorTile(ImageView imageView) {
+        imageView.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.isMiddleButtonDown())
+                imageView.setScaleX(-1);
+        });
+    }
+
 
     //check the tile is in position or not
      private void inPosition(ImageView imageView) {
@@ -600,221 +601,3 @@ public class Viewer extends Application {
          }
     }
 }
-
-
-    //test
-    /*
-    class TileDrag extends Polygon {
-        double mouseX, mouseY;      // the last known mouse positions (used when dragging)
-        double startX, startY;
-        TileDrag(double startX, double startY){
-            this.startX = startX;
-            this.startY = startY;
-            setLayoutX(startX);
-            setLayoutY(startY);
-        }
-        setOnMousePressed(e -> {      // mouse press indicates begin of drag
-            mouseX = e.getSceneX();
-            mouseY = event.getSceneY();
-        });
-
-        setOnMouseDragged(event -> {      // mouse is being dragged
-            draggable.toFront();
-            double movementX = event.getSceneX() - mouseX;
-            double movementY = event.getSceneY() - mouseY;
-            draggable.drag(movementX, movementY);
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-        });
-
-        setOnMouseReleased(event -> {     // drag is complete
-            if (draggable.onBoard()) {
-                draggable.setPosition();
-                String placementString = getPlacementString();
-                if (RailroadInk.isValidPlacementSequence(placementString)) {
-                    // place piece
-                    draggable.snapToGrid();
-                    if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
-                        showCompletion();
-                    }
-                } else {
-                    piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
-                    draggable.snapToHome();
-                }
-            } else {
-                draggable.snapToHome();
-            }
-        });
-
-        /* event handlers */
-/*
-        setOnScroll(event -> {            // scroll to change orientation
-            draggable.rotate();
-            if (draggable.onBoard()) {
-                draggable.setPosition();
-                String placementString = getPlacementString();
-                if (IQStars.isValidPlacement(placementString)) {
-                    // place piece
-                    draggable.snapToGrid();
-                } else {
-                    piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
-                    draggable.snapToHome();
-                }
-            } else {
-                draggable.snapToHome();
-            }
-            event.consume();
-        });
-    }
-
-
-
-    protected void drag(double movementX, double movementY, ImageView imageView) {
-        imageView.setLayoutX(imageView.getLayoutX() + movementX);
-        imageView.setLayoutY(imageView.getLayoutY() + movementY);
-        /*
-        for (Star star : stars) {
-            star.setTranslateX(getLayoutX());
-            star.setTranslateY(getLayoutY());
-        }
-         */
-
-
-
-    //copied from ass1
-/*
-    class tile extends Polygon{
-        double mouseX,mouseY;
-        double startX,startY;
-        FXTile tile;
-        tile(double startX, double startY, FXTile tile){
-            this.startX = startX;
-            this.startY = startY;
-            setLayoutX(startX);
-            setLayoutY(startY);
-            this.tile = tile;
-            if (tile instanceof DraggableFXTile) {
-                DraggableFXTile draggable = (DraggableFXTile) tile;
-                setOnMousePressed(event -> {      // mouse press indicates begin of drag
-                    mouseX = event.getSceneX();
-                    mouseY = event.getSceneY();
-                });
-
-                setOnMouseDragged(event -> {      // mouse is being dragged
-                    draggable.toFront();
-                    double movementX = event.getSceneX() - mouseX;
-                    double movementY = event.getSceneY() - mouseY;
-                    draggable.drag(movementX, movementY);
-                    mouseX = event.getSceneX();
-                    mouseY = event.getSceneY();
-                });
-
-                setOnMouseReleased(event -> {     // drag is complete
-                    if (draggable.onBoard()) {
-                        draggable.setPosition();
-                        String placementString = getPlacementString();
-                        if (RailroadInk.isValidPlacementSequence(placementString)) {
-                            // place piece
-                            draggable.snapToGrid();
-                            if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
-                                showCompletion();
-                            }
-                        } else {
-                            piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
-                            draggable.snapToHome();
-                        }
-                    } else {
-                        draggable.snapToHome();
-                    }
-                });
-
-                /* event handlers */
-/*
-                setOnScroll(event -> {            // scroll to change orientation
-                    draggable.rotate();
-                    if (draggable.onBoard()) {
-                        draggable.setPosition();
-                        String placementString = getPlacementString();
-                        if (IQStars.isValidPlacement(placementString)) {
-                            // place piece
-                            draggable.snapToGrid();
-                        } else {
-                            piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
-                            draggable.snapToHome();
-                        }
-                    } else {
-                        draggable.snapToHome();
-                    }
-                    event.consume();
-                });
-            }
-        }
-    }
-    */
-
-    /*
-    class DraggableFXTile extends FXTile {
-        double homeX, homeY;         // the position in the window where the piece should be when not on the board
-
-        /**
-         * Construct a draggable piece
-         *
-         * @param id The piece identifier ('A' - 'L')
-         */
-/*
-        DraggableFXTile(char id) {
-            super(id);
-
-            int index = id - 'A';
-            int homeCol = (index % PIECES_PER_HOME_ROW);
-            this.homeX = homeCol * HEX_HEIGHT * (Piece.MAX_PIECE_WIDTH + 0.4) + HEX_HEIGHT;
-            int homeRow = index / PIECES_PER_HOME_ROW;
-            this.homeY = BOARD_HEIGHT + MARGIN_Y + HEX_HEIGHT * 0.5 + Piece.MAX_PIECE_WIDTH * HEX_HEIGHT * homeRow;
-
-            snapToHome();
-        }
-
-        protected void drag(double movementX, double movementY) {
-            setLayoutX(getLayoutX() + movementX);
-            setLayoutY(getLayoutY() + movementY);
-            for (Star star : stars) {
-                star.setTranslateX(getLayoutX());
-                star.setTranslateY(getLayoutY());
-                star.setOpacity(0.5);
-                star.toFront();
-            }
-        }
-    }
-
-    class FXTile extends Group {
-        final Tile tile;
-        int col;
-        int row;
-        int rotation;
-        Rotate rotate;
-        List<Star> stars = new ArrayList<>();
-        boolean invisible = false;
-
-        FXTile(char id) {
-            if (!(id >= 'A' && id <= 'L')) {
-                throw new IllegalArgumentException("Bad piece id: '" + id + "'");
-            }
-            piece = Piece.valueOf(String.valueOf(id));
-
-            Color pieceColor = getColorForPiece(piece);
-
-            for (Hex hex : piece.shape) {
-                double xOffset = hex.row % 2 == 0 ? 0 : 0.5;
-                // distance between rows is 3/4 HEX_HEIGHT; distance between columns is HEX_WIDTH
-                Star star = new Star((xOffset + hex.col) * HEX_WIDTH, hex.row * 3.0 / 4 * HEX_HEIGHT, pieceColor, this);
-                stars.add(star);
-                pieces.getChildren().add(star);
-            }
-
-            rotate = new Rotate(); // Pivot X Top-Left corner
-            rotate.setPivotX(0);
-            rotate.setPivotY(0);
-            getTransforms().add(rotate);
-        }
-    }
-    */
