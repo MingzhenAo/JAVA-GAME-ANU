@@ -578,7 +578,7 @@ public class Viewer extends Application {
         imageView.setOnScroll(scrollEvent -> {
             imageView.setRotate(imageView.getRotate() + 90);
         });
-        imageView.setOnMouseClicked(mouseEvent -> {
+        imageView.setOnMouseClicked(mouseEvent -> { 
             if (mouseEvent.getButton() == MouseButton.SECONDARY)
                 imageView.setScaleX(imageView.getScaleX() * (-1));
         });
