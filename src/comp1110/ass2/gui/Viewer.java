@@ -578,23 +578,24 @@ public class Viewer extends Application {
         imageView.setOnScroll(scrollEvent -> {
             imageView.setRotate(imageView.getRotate() + 90);
         });
-        imageView.setOnMouseClicked(mouseEvent -> { 
+        imageView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY)
                 imageView.setScaleX(imageView.getScaleX() * (-1));
         });
     }
 
-    /*
-    private void mirrorTile(ImageView imageView) {
-        imageView.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.isMiddleButtonDown())
-                imageView.setScaleX(-1);
-        });
-    }
-     */
-
     //check the tile is in position or not
      private void inPosition(ImageView imageView) {
+         for (int i = 0; i < 6; i ++){
+                 if (imageView.getX() > 10 && imageView.getX() < 50 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
+                     imageView.setX(30);
+                     imageView.setY(90 + i * 100);}
+         }
+         for (int i = 0; i < 4; i ++){
+             if (imageView.getX() > 110 && imageView.getX() < 150 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
+                 imageView.setX(130);
+                 imageView.setY(90 + i * 100);}
+         }
          for (int i = 0; i < 8; i ++){
              for (int j = 0; j < 8; j ++){
                  if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
