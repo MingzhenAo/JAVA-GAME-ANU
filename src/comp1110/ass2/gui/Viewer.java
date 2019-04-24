@@ -1,9 +1,6 @@
 package comp1110.ass2.gui;
 
-import comp1110.ass2.RailroadInk;
-import comp1110.ass2.TileRotate;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,46 +10,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.KeyCode;
-import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
-import javafx.event.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -437,7 +397,7 @@ public class Viewer extends Application {
         s0.setX(30);
         s0.setY(90);
         //rotation(s0, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s0);
+        dragRotateTile(s0);
         root.getChildren().add(s0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
@@ -447,7 +407,7 @@ public class Viewer extends Application {
         s1.setX(30);
         s1.setY(190);
         //rotation(s1, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s1);
+        dragRotateTile(s1);
         root.getChildren().add(s1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
@@ -457,7 +417,7 @@ public class Viewer extends Application {
         s2.setX(30);
         s2.setY(290);
         //rotation(s2, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s2);
+        dragRotateTile(s2);
         root.getChildren().add(s2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
@@ -467,7 +427,7 @@ public class Viewer extends Application {
         s3.setX(30);
         s3.setY(390);
         //rotation(s3, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s3);
+        dragRotateTile(s3);
         root.getChildren().add(s3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
@@ -477,7 +437,7 @@ public class Viewer extends Application {
         s4.setX(30);
         s4.setY(490);
         //rotation(s4, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s4);
+        dragRotateTile(s4);
         root.getChildren().add(s4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
@@ -487,7 +447,7 @@ public class Viewer extends Application {
         s5.setX(30);
         s5.setY(590);
         //rotation(s5, Integer.valueOf(placement.substring(4,5)));
-        dragTile(s5);
+        dragRotateTile(s5);
         root.getChildren().add(s5);
         //ABs
         String[] rollString = new String[4];
@@ -510,7 +470,7 @@ public class Viewer extends Application {
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
                     //rotation(a0, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a0);
+                    dragRotateTile(a0);
                     root.getChildren().add(a0);
                     break;
                 case "A1":
@@ -521,7 +481,7 @@ public class Viewer extends Application {
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
                     //rotation(a1, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a1);
+                    dragRotateTile(a1);
                     root.getChildren().add(a1);
                     break;
                 case "A2":
@@ -532,7 +492,7 @@ public class Viewer extends Application {
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
                     //rotation(a2, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a2);
+                    dragRotateTile(a2);
                     root.getChildren().add(a2);
                     break;
                 case "A3":
@@ -543,7 +503,7 @@ public class Viewer extends Application {
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
                     //rotation(a3, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a3);
+                    dragRotateTile(a3);
                     root.getChildren().add(a3);
                     break;
                 case "A4":
@@ -554,7 +514,7 @@ public class Viewer extends Application {
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
                     //rotation(a4, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a4);
+                    dragRotateTile(a4);
                     root.getChildren().add(a4);
                     break;
                 case "A5":
@@ -565,7 +525,7 @@ public class Viewer extends Application {
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
                     //rotation(a5, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(a5);
+                    dragRotateTile(a5);
                     root.getChildren().add(a5);
                     break;
                 case "B0":
@@ -576,7 +536,7 @@ public class Viewer extends Application {
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
                     //rotation(b0, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(b0);
+                    dragRotateTile(b0);
                     root.getChildren().add(b0);
                     break;
                 case "B1":
@@ -587,7 +547,7 @@ public class Viewer extends Application {
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
                     //rotation(b1, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(b1);
+                    dragRotateTile(b1);
                     root.getChildren().add(b1);
                     break;
                 case "B2":
@@ -598,7 +558,7 @@ public class Viewer extends Application {
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
                     //rotation(b2, Integer.valueOf(placement.substring(4,5)));
-                    dragTile(b2);
+                    dragRotateTile(b2);
                     root.getChildren().add(b2);
                     break;
                 default:
@@ -606,14 +566,30 @@ public class Viewer extends Application {
             }
         }
     }
-
-    private void dragTile(ImageView imageView) {
+    //the method to drag and rotate the tiles
+    private void dragRotateTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
             imageView.setX(mouseEvent.getX() - 40);
             imageView.setY(mouseEvent.getY() - 40);
+            if (imageView.getX() > 20 && imageView.getX() < 40 && imageView.getY() > 80 && imageView.getY() < 100){
+                imageView.setX(30);
+                imageView.setY(90);
+            }
+            inPosition(imageView);
         });
     }
 
+    //check the tile is in position or not
+     private void inPosition(ImageView imageView) {
+         for (int i = 0; i < 8; i ++){
+             for (int j = 0; j < 8; j ++){
+                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                     imageView.setX(300 + i * 80);
+                     imageView.setY(90 + j * 80);
+                 }
+             }
+         }
+    }
 }
 
 
