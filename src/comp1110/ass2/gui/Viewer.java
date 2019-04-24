@@ -425,10 +425,8 @@ public class Viewer extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
+    }}
 
-
-    //test
 
     class tile extends Polygon{
         double mouseX,mouseY;
@@ -475,7 +473,8 @@ public class Viewer extends Application {
                     }
                 });
 
-                /* event handlers */
+              /* event handlers */
+   /*
                 setOnScroll(event -> {            // scroll to change orientation
                     draggable.rotate();
                     if (draggable.onBoard()) {
@@ -506,6 +505,7 @@ public class Viewer extends Application {
          *
          * @param id The piece identifier ('A' - 'L')
          */
+   /*
         DraggableFXTile(char id) {
             super(id);
 
@@ -562,3 +562,4 @@ public class Viewer extends Application {
         }
     }
 }
+*/
