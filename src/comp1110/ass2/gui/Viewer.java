@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -451,12 +452,14 @@ public class Viewer extends Application {
         for (int i = 0; i < 4; i++) {
             rollString[i] = diceRoll.substring(2 * i, 2 * i + 2);
         }
+        /*
         if (rollString[0] == rollString[1])
             rollString[1] = "";
         if (rollString[0] == rollString[2])
             rollString[2] = "";
         if (rollString[1] == rollString[2])
             rollString[2] = "";
+         */
         for (int i = 0; i < 4; i++) {
             switch (rollString[i]) {
                 case "A0":
@@ -574,20 +577,21 @@ public class Viewer extends Application {
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
             imageView.setRotate(imageView.getRotate() + 90);
-            System.out.println(scrollEvent.getTouchCount());
         });
         imageView.setOnMouseClicked(mouseEvent -> {
-            while (mouseEvent.isSecondaryButtonDown())
-                imageView.setScaleX(-1);
+            if (mouseEvent.getButton() == MouseButton.SECONDARY)
+                imageView.setScaleX(imageView.getScaleX() * (-1));
         });
     }
+
+    /*
     private void mirrorTile(ImageView imageView) {
         imageView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.isMiddleButtonDown())
                 imageView.setScaleX(-1);
         });
     }
-
+     */
 
     //check the tile is in position or not
      private void inPosition(ImageView imageView) {
