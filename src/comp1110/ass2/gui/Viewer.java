@@ -444,8 +444,8 @@ public class Viewer extends Application {
         });
          */
         s0.setOnMouseDragged(mouseEvent -> {
-            s0.setX(mouseEvent.getX());
-            s0.setY(mouseEvent.getY());
+            s0.setX(mouseEvent.getX() - 40);
+            s0.setY(mouseEvent.getY() - 40);
         });
         root.getChildren().add(s0);
         //S1
