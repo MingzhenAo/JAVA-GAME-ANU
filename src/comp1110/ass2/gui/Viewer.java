@@ -1,7 +1,6 @@
 package comp1110.ass2.gui;
 
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,48 +10,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.KeyCode;
-import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static comp1110.ass2.RailroadInk.getPlacementStringArray;
-import static comp1110.ass2.RailroadInk.isTilePlacementWellFormed;
+import static comp1110.ass2.RailroadInk.*;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -77,8 +39,11 @@ public class Viewer extends Application {
      * @param n
      * @return
      */
-    static ImageView rotation(ImageView a, int n){
-        if (n > 3){
+    static ImageView rotation(ImageView a, int n) {
+        while (n > 7) {
+            n -= 8;
+        }
+        if (n > 3) {
             a.setScaleX(-1);
             n = n - 4;
         }
@@ -425,141 +390,216 @@ public class Viewer extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-    }}
+    }
 
-
-    class tile extends Polygon{
-        double mouseX,mouseY;
-        double startX,startY;
-        FXTile tile;
-        tile(double startX, double startY, FXTile tile){
-            this.startX = startX;
-            this.startY = startY;
-            setLayoutX(startX);
-            setLayoutY(startY);
-            this.tile = tile;
-            if (tile instanceof DraggableFXTile) {
-                DraggableFXTile draggable = (DraggableFXTile) tile;
-                setOnMousePressed(event -> {      // mouse press indicates begin of drag
-                    mouseX = event.getSceneX();
-                    mouseY = event.getSceneY();
-                });
-
-                setOnMouseDragged(event -> {      // mouse is being dragged
-                    draggable.toFront();
-                    double movementX = event.getSceneX() - mouseX;
-                    double movementY = event.getSceneY() - mouseY;
-                    draggable.drag(movementX, movementY);
-                    mouseX = event.getSceneX();
-                    mouseY = event.getSceneY();
-                });
-
-                setOnMouseReleased(event -> {     // drag is complete
-                    if (draggable.onBoard()) {
-                        draggable.setPosition();
-                        String placementString = getPlacementString();
-                        if (IQStars.isValidPlacement(placementString)) {
-                            // place piece
-                            draggable.snapToGrid();
-                            if (IQStars.fixOrientations(placementString) != null && IQStars.fixOrientations(placementString).equals(iqStars.getSolution())) {
-                                showCompletion();
-                            }
-                        } else {
-                            piecePlacements[piece.piece.ordinal()] = IQStars.NOT_PLACED;
-                            draggable.snapToHome();
-                        }
-                    } else {
-                        draggable.snapToHome();
-                    }
-                });
-
-              /* event handlers */
-   /*
-                setOnScroll(event -> {            // scroll to change orientation
-                    draggable.rotate();
-                    if (draggable.onBoard()) {
-                        draggable.setPosition();
-                        String placementString = getPlacementString();
-                        if (IQStars.isValidPlacement(placementString)) {
-                            // place piece
-                            draggable.snapToGrid();
-                        } else {
-                            piecePlacements[draggable.piece.ordinal()] = IQStars.NOT_PLACED;
-                            draggable.snapToHome();
-                        }
-                    } else {
-                        draggable.snapToHome();
-                    }
-                    event.consume();
-                });
+    //show dragable tiles
+    void showTiles(String diceRoll) {
+        //S0
+        Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S0.png").toString());
+        ImageView s0 = new ImageView(S0);
+        s0.setFitHeight(80);
+        s0.setFitWidth(80);
+        s0.setX(30);
+        s0.setY(90);
+        dragTile(s0);
+        root.getChildren().add(s0);
+        //S1
+        Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
+        ImageView s1 = new ImageView(S1);
+        s1.setFitHeight(80);
+        s1.setFitWidth(80);
+        s1.setX(30);
+        s1.setY(190);
+        dragTile(s1);
+        root.getChildren().add(s1);
+        //S2
+        Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
+        ImageView s2 = new ImageView(S2);
+        s2.setFitHeight(80);
+        s2.setFitWidth(80);
+        s2.setX(30);
+        s2.setY(290);
+        dragTile(s2);
+        root.getChildren().add(s2);
+        //S3
+        Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
+        ImageView s3 = new ImageView(S3);
+        s3.setFitHeight(80);
+        s3.setFitWidth(80);
+        s3.setX(30);
+        s3.setY(390);
+        dragTile(s3);
+        root.getChildren().add(s3);
+        //S4
+        Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
+        ImageView s4 = new ImageView(S4);
+        s4.setFitHeight(80);
+        s4.setFitWidth(80);
+        s4.setX(30);
+        s4.setY(490);
+        dragTile(s4);
+        root.getChildren().add(s4);
+        //S5
+        Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
+        ImageView s5 = new ImageView(S5);
+        s5.setFitHeight(80);
+        s5.setFitWidth(80);
+        s5.setX(30);
+        s5.setY(590);
+        dragTile(s5);
+        root.getChildren().add(s5);
+        //ABs
+        String[] rollString = new String[4];
+        for (int i = 0; i < 4; i++) {
+            rollString[i] = diceRoll.substring(2 * i, 2 * i + 2);
+        }
+        if (rollString[0] == rollString[1])
+            rollString[1] = "";
+        if (rollString[0] == rollString[2])
+            rollString[2] = "";
+        if (rollString[1] == rollString[2])
+            rollString[2] = "";
+        for (int i = 0; i < 4; i++) {
+            switch (rollString[i]) {
+                case "A0":
+                    Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A0.png").toString());
+                    ImageView a0 = new ImageView(A0);
+                    a0.setFitHeight(80);
+                    a0.setFitWidth(80);
+                    a0.setX(130);
+                    a0.setY(90 + 100 * i);
+                    dragTile(a0);
+                    root.getChildren().add(a0);
+                    break;
+                case "A1":
+                    Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A1.png").toString());
+                    ImageView a1 = new ImageView(A1);
+                    a1.setFitHeight(80);
+                    a1.setFitWidth(80);
+                    a1.setX(130);
+                    a1.setY(90 + 100 * i);
+                    dragTile(a1);
+                    root.getChildren().add(a1);
+                    break;
+                case "A2":
+                    Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A2.png").toString());
+                    ImageView a2 = new ImageView(A2);
+                    a2.setFitHeight(80);
+                    a2.setFitWidth(80);
+                    a2.setX(130);
+                    a2.setY(90 + 100 * i);
+                    dragTile(a2);
+                    root.getChildren().add(a2);
+                    break;
+                case "A3":
+                    Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A3.png").toString());
+                    ImageView a3 = new ImageView(A3);
+                    a3.setFitHeight(80);
+                    a3.setFitWidth(80);
+                    a3.setX(130);
+                    a3.setY(90 + 100 * i);
+                    dragTile(a3);
+                    root.getChildren().add(a3);
+                    break;
+                case "A4":
+                    Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A4.png").toString());
+                    ImageView a4 = new ImageView(A4);
+                    a4.setFitHeight(80);
+                    a4.setFitWidth(80);
+                    a4.setX(130);
+                    a4.setY(90 + 100 * i);
+                    dragTile(a4);
+                    root.getChildren().add(a4);
+                    break;
+                case "A5":
+                    Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A5.png").toString());
+                    ImageView a5 = new ImageView(A5);
+                    a5.setFitHeight(80);
+                    a5.setFitWidth(80);
+                    a5.setX(130);
+                    a5.setY(90 + 100 * i);
+                    dragTile(a5);
+                    root.getChildren().add(a5);
+                    break;
+                case "B0":
+                    Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B0.png").toString());
+                    ImageView b0 = new ImageView(B0);
+                    b0.setFitHeight(80);
+                    b0.setFitWidth(80);
+                    b0.setX(130);
+                    b0.setY(90 + 100 * i);
+                    dragTile(b0);
+                    root.getChildren().add(b0);
+                    break;
+                case "B1":
+                    Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B1.png").toString());
+                    ImageView b1 = new ImageView(B1);
+                    b1.setFitHeight(80);
+                    b1.setFitWidth(80);
+                    b1.setX(130);
+                    b1.setY(90 + 100 * i);
+                    dragTile(b1);
+                    root.getChildren().add(b1);
+                    break;
+                case "B2":
+                    Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B2.png").toString());
+                    ImageView b2 = new ImageView(B2);
+                    b2.setFitHeight(80);
+                    b2.setFitWidth(80);
+                    b2.setX(130);
+                    b2.setY(90 + 100 * i);
+                    dragTile(b2);
+                    root.getChildren().add(b2);
+                    break;
+                default:
+                    break;
             }
         }
     }
-
-
-    class DraggableFXTile extends FXTile {
-        double homeX, homeY;         // the position in the window where the piece should be when not on the board
-
-        /**
-         * Construct a draggable piece
-         *
-         * @param id The piece identifier ('A' - 'L')
-         */
-   /*
-        DraggableFXTile(char id) {
-            super(id);
-
-            int index = id - 'A';
-            int homeCol = (index % PIECES_PER_HOME_ROW);
-            this.homeX = homeCol * HEX_HEIGHT * (Piece.MAX_PIECE_WIDTH + 0.4) + HEX_HEIGHT;
-            int homeRow = index / PIECES_PER_HOME_ROW;
-            this.homeY = BOARD_HEIGHT + MARGIN_Y + HEX_HEIGHT * 0.5 + Piece.MAX_PIECE_WIDTH * HEX_HEIGHT * homeRow;
-
-            snapToHome();
-        }
-
-        protected void drag(double movementX, double movementY) {
-            setLayoutX(getLayoutX() + movementX);
-            setLayoutY(getLayoutY() + movementY);
-            for (Star star : stars) {
-                star.setTranslateX(getLayoutX());
-                star.setTranslateY(getLayoutY());
-                star.setOpacity(0.5);
-                star.toFront();
+    //the method to drag the tiles
+    private void dragTile(ImageView imageView) {
+        imageView.setOnMouseDragged(mouseEvent -> {
+            imageView.setX(mouseEvent.getX() - 40);
+            imageView.setY(mouseEvent.getY() - 40);
+            /*
+            if (imageView.getX() > 20 && imageView.getX() < 40 && imageView.getY() > 80 && imageView.getY() < 100){
+                imageView.setX(30);
+                imageView.setY(90);
             }
-        }
+            */
+            rotateTile(imageView);
+            inPosition(imageView);
+        });
     }
 
-    class FXTile extends Group {
-        final Tile tile;
-        int col;
-        int row;
-        int rotation;
-        Rotate rotate;
-        List<Star> stars = new ArrayList<>();
-        boolean invisible = false;
+    //the methods to rotate the tiles
+    private void rotateTile(ImageView imageView) {
+        imageView.setOnScroll(scrollEvent -> {
+            imageView.setRotate(imageView.getRotate() + 90);
+            System.out.println(scrollEvent.getTouchCount());
+        });
+        imageView.setOnMouseClicked(mouseEvent -> {
+            while (mouseEvent.isSecondaryButtonDown())
+                imageView.setScaleX(-1);
+        });
+    }
+    private void mirrorTile(ImageView imageView) {
+        imageView.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.isMiddleButtonDown())
+                imageView.setScaleX(-1);
+        });
+    }
 
-        FXTile(char id) {
-            if (!(id >= 'A' && id <= 'L')) {
-                throw new IllegalArgumentException("Bad piece id: '" + id + "'");
-            }
-            piece = Piece.valueOf(String.valueOf(id));
 
-            Color pieceColor = getColorForPiece(piece);
-
-            for (Hex hex : piece.shape) {
-                double xOffset = hex.row % 2 == 0 ? 0 : 0.5;
-                // distance between rows is 3/4 HEX_HEIGHT; distance between columns is HEX_WIDTH
-                Star star = new Star((xOffset + hex.col) * HEX_WIDTH, hex.row * 3.0 / 4 * HEX_HEIGHT, pieceColor, this);
-                stars.add(star);
-                pieces.getChildren().add(star);
-            }
-
-            rotate = new Rotate(); // Pivot X Top-Left corner
-            rotate.setPivotX(0);
-            rotate.setPivotY(0);
-            getTransforms().add(rotate);
-        }
+    //check the tile is in position or not
+     private void inPosition(ImageView imageView) {
+         for (int i = 0; i < 8; i ++){
+             for (int j = 0; j < 8; j ++){
+                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                     imageView.setX(300 + i * 80);
+                     imageView.setY(90 + j * 80);
+                 }
+             }
+         }
     }
 }
-*/
