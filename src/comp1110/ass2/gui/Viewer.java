@@ -387,6 +387,7 @@ public class Viewer extends Application {
         root.getChildren().add(controls);
 
         makeControls();
+        showTiles(generateDiceRoll());
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -575,18 +576,10 @@ public class Viewer extends Application {
     //the methods to rotate the tiles
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
+            imageView.setScaleX(imageView.getScaleX() * (-1));
+        });
+        imageView.setOnMouseClicked(mouseEvent -> {
             imageView.setRotate(imageView.getRotate() + 90);
-            System.out.println(scrollEvent.getTouchCount());
-        });
-        imageView.setOnMouseClicked(mouseEvent -> {
-            while (mouseEvent.isSecondaryButtonDown())
-                imageView.setScaleX(-1);
-        });
-    }
-    private void mirrorTile(ImageView imageView) {
-        imageView.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.isMiddleButtonDown())
-                imageView.setScaleX(-1);
         });
     }
 
