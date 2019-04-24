@@ -264,6 +264,7 @@ public class Viewer extends Application {
         controls.getChildren().add(hb);
     }
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         //set board
@@ -280,6 +281,16 @@ public class Viewer extends Application {
         m.setStyle("-fx-background-color: white; -fx-grid-lines-visible: true");
         m.setLayoutX(300);
         m.setLayoutY(90);
+
+        //set inner area
+        GridPane h = new GridPane();
+        ColumnConstraints column = new ColumnConstraints(240);
+        h.getColumnConstraints().add(column);
+        RowConstraints row = new RowConstraints(240);
+        h.getRowConstraints().add(row);
+        h.setStyle("-fx-border-color: red; -fx-border-width: 1; -fx-background-color: transparent; -fx-grid-lines-visible: false;");
+        h.setLayoutX(459);
+        h.setLayoutY(249);
 
         //set highway exits
         Image highexit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
@@ -381,18 +392,38 @@ public class Viewer extends Application {
 
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
+        //set board
         root.getChildren().add(m);
+        root.getChildren().add(h);
+
         root.getChildren().add(controls);
 
         makeControls();
-        showTiles(generateDiceRoll());
+
+        //show my stuff
+        showSpecialTiles();
+        endRound();
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    //show dragable tiles
-    void showTiles(String diceRoll) {
+    //create the button for next round
+    private void endRound() {
+        Button button = new Button("Next Round");
+        button.setOnAction(e -> {
+            showTiles(generateDiceRoll());
+        });
+        HBox hb = new HBox();
+        hb.getChildren().addAll(button);
+        hb.setSpacing(10);
+        hb.setLayoutX(130);
+        hb.setLayoutY(520);
+        controls.getChildren().add(hb);
+    }
+
+    //show Ss tiles
+    void showSpecialTiles() {
         //S0
         Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S0.png").toString());
         ImageView s0 = new ImageView(S0);
@@ -447,6 +478,10 @@ public class Viewer extends Application {
         s5.setY(590);
         dragTile(s5);
         root.getChildren().add(s5);
+    }
+
+    //show ABs dragable tiles
+    void showTiles(String diceRoll) {
         //ABs
         String[] rollString = new String[4];
         for (int i = 0; i < 4; i++) {
@@ -460,6 +495,8 @@ public class Viewer extends Application {
         if (rollString[1] == rollString[2])
             rollString[2] = "";
          */
+        Group group = new Group();
+        root.getChildren().add(group);
         for (int i = 0; i < 4; i++) {
             switch (rollString[i]) {
                 case "A0":
@@ -470,7 +507,7 @@ public class Viewer extends Application {
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
                     dragTile(a0);
-                    root.getChildren().add(a0);
+                    group.getChildren().add(a0);
                     break;
                 case "A1":
                     Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A1.png").toString());
@@ -480,7 +517,7 @@ public class Viewer extends Application {
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
                     dragTile(a1);
-                    root.getChildren().add(a1);
+                    group.getChildren().add(a1);
                     break;
                 case "A2":
                     Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A2.png").toString());
@@ -490,7 +527,7 @@ public class Viewer extends Application {
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
                     dragTile(a2);
-                    root.getChildren().add(a2);
+                    group.getChildren().add(a2);
                     break;
                 case "A3":
                     Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A3.png").toString());
@@ -500,7 +537,7 @@ public class Viewer extends Application {
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
                     dragTile(a3);
-                    root.getChildren().add(a3);
+                    group.getChildren().add(a3);
                     break;
                 case "A4":
                     Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A4.png").toString());
@@ -510,7 +547,7 @@ public class Viewer extends Application {
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
                     dragTile(a4);
-                    root.getChildren().add(a4);
+                    group.getChildren().add(a4);
                     break;
                 case "A5":
                     Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A5.png").toString());
@@ -520,7 +557,7 @@ public class Viewer extends Application {
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
                     dragTile(a5);
-                    root.getChildren().add(a5);
+                    group.getChildren().add(a5);
                     break;
                 case "B0":
                     Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B0.png").toString());
@@ -530,7 +567,7 @@ public class Viewer extends Application {
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
                     dragTile(b0);
-                    root.getChildren().add(b0);
+                    group.getChildren().add(b0);
                     break;
                 case "B1":
                     Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B1.png").toString());
@@ -540,7 +577,7 @@ public class Viewer extends Application {
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
                     dragTile(b1);
-                    root.getChildren().add(b1);
+                    group.getChildren().add(b1);
                     break;
                 case "B2":
                     Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B2.png").toString());
@@ -550,13 +587,14 @@ public class Viewer extends Application {
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
                     dragTile(b2);
-                    root.getChildren().add(b2);
+                    group.getChildren().add(b2);
                     break;
                 default:
                     break;
             }
         }
     }
+
     //the method to drag the tiles
     private void dragTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
@@ -585,24 +623,26 @@ public class Viewer extends Application {
     }
 
     //check the tile is in position or not
-     private void inPosition(ImageView imageView) {
-         for (int i = 0; i < 6; i ++){
-                 if (imageView.getX() > 10 && imageView.getX() < 50 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
-                     imageView.setX(30);
-                     imageView.setY(90 + i * 100);}
-         }
-         for (int i = 0; i < 4; i ++){
-             if (imageView.getX() > 110 && imageView.getX() < 150 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
-                 imageView.setX(130);
-                 imageView.setY(90 + i * 100);}
-         }
-         for (int i = 0; i < 8; i ++){
-             for (int j = 0; j < 8; j ++){
-                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                     imageView.setX(300 + i * 80);
-                     imageView.setY(90 + j * 80);
-                 }
-             }
-         }
+    private void inPosition(ImageView imageView) {
+        for (int i = 0; i < 6; i++) {
+            if (imageView.getX() > 10 && imageView.getX() < 50 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
+                imageView.setX(30);
+                imageView.setY(90 + i * 100);
+            }
+        }
+        for (int i = 0; i < 4; i++) {
+            if (imageView.getX() > 110 && imageView.getX() < 150 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
+                imageView.setX(130);
+                imageView.setY(90 + i * 100);
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                    imageView.setX(300 + i * 80);
+                    imageView.setY(90 + j * 80);
+                }
+            }
+        }
     }
 }
