@@ -431,7 +431,7 @@ public class Viewer extends Application {
         s0.setFitWidth(80);
         s0.setX(30);
         s0.setY(90);
-        dragTile(s0);
+        moveTile(s0);
         root.getChildren().add(s0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
@@ -440,7 +440,7 @@ public class Viewer extends Application {
         s1.setFitWidth(80);
         s1.setX(30);
         s1.setY(190);
-        dragTile(s1);
+        moveTile(s1);
         root.getChildren().add(s1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
@@ -449,7 +449,7 @@ public class Viewer extends Application {
         s2.setFitWidth(80);
         s2.setX(30);
         s2.setY(290);
-        dragTile(s2);
+        moveTile(s2);
         root.getChildren().add(s2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
@@ -458,7 +458,7 @@ public class Viewer extends Application {
         s3.setFitWidth(80);
         s3.setX(30);
         s3.setY(390);
-        dragTile(s3);
+        moveTile(s3);
         root.getChildren().add(s3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
@@ -467,7 +467,7 @@ public class Viewer extends Application {
         s4.setFitWidth(80);
         s4.setX(30);
         s4.setY(490);
-        dragTile(s4);
+        moveTile(s4);
         root.getChildren().add(s4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
@@ -476,7 +476,7 @@ public class Viewer extends Application {
         s5.setFitWidth(80);
         s5.setX(30);
         s5.setY(590);
-        dragTile(s5);
+        moveTile(s5);
         root.getChildren().add(s5);
     }
 
@@ -506,7 +506,7 @@ public class Viewer extends Application {
                     a0.setFitWidth(80);
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
-                    dragTile(a0);
+                    moveTile(a0);
                     group.getChildren().add(a0);
                     break;
                 case "A1":
@@ -516,7 +516,7 @@ public class Viewer extends Application {
                     a1.setFitWidth(80);
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
-                    dragTile(a1);
+                    moveTile(a1);
                     group.getChildren().add(a1);
                     break;
                 case "A2":
@@ -526,7 +526,7 @@ public class Viewer extends Application {
                     a2.setFitWidth(80);
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
-                    dragTile(a2);
+                    moveTile(a2);
                     group.getChildren().add(a2);
                     break;
                 case "A3":
@@ -536,7 +536,7 @@ public class Viewer extends Application {
                     a3.setFitWidth(80);
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
-                    dragTile(a3);
+                    moveTile(a3);
                     group.getChildren().add(a3);
                     break;
                 case "A4":
@@ -546,7 +546,7 @@ public class Viewer extends Application {
                     a4.setFitWidth(80);
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
-                    dragTile(a4);
+                    moveTile(a4);
                     group.getChildren().add(a4);
                     break;
                 case "A5":
@@ -556,7 +556,7 @@ public class Viewer extends Application {
                     a5.setFitWidth(80);
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
-                    dragTile(a5);
+                    moveTile(a5);
                     group.getChildren().add(a5);
                     break;
                 case "B0":
@@ -566,7 +566,7 @@ public class Viewer extends Application {
                     b0.setFitWidth(80);
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
-                    dragTile(b0);
+                    moveTile(b0);
                     group.getChildren().add(b0);
                     break;
                 case "B1":
@@ -576,7 +576,7 @@ public class Viewer extends Application {
                     b1.setFitWidth(80);
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
-                    dragTile(b1);
+                    moveTile(b1);
                     group.getChildren().add(b1);
                     break;
                 case "B2":
@@ -586,7 +586,7 @@ public class Viewer extends Application {
                     b2.setFitWidth(80);
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
-                    dragTile(b2);
+                    moveTile(b2);
                     group.getChildren().add(b2);
                     break;
                 default:
@@ -595,18 +595,17 @@ public class Viewer extends Application {
         }
     }
 
+    //the method to move the tiles properly
+    private void moveTile(ImageView imageView) {
+        dragTile(imageView);
+        rotateTile(imageView);
+    }
+
     //the method to drag the tiles
     private void dragTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
-            imageView.setX(mouseEvent.getX() - 40);
-            imageView.setY(mouseEvent.getY() - 40);
-            /*
-            if (imageView.getX() > 20 && imageView.getX() < 40 && imageView.getY() > 80 && imageView.getY() < 100){
-                imageView.setX(30);
-                imageView.setY(90);
-            }
-            */
-            rotateTile(imageView);
+            imageView.setX(mouseEvent.getSceneX() - 40);
+            imageView.setY(mouseEvent.getSceneY() - 40);
             inPosition(imageView);
         });
     }
