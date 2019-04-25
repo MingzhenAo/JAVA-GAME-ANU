@@ -595,10 +595,16 @@ public class Viewer extends Application {
         }
     }
 
+    //the placement string when dragging and rotating
+    String placementStringDragging = "";
+    //the rotate status
+    int rotate = 0;
+    //the boardString of the game
+    String boardString = "";
+
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
         dragTile(imageView);
-        rotateTile(imageView);
     }
 
     //the method to drag the tiles
@@ -606,20 +612,57 @@ public class Viewer extends Application {
         imageView.setOnMouseDragged(mouseEvent -> {
             imageView.setX(mouseEvent.getSceneX() - 40);
             imageView.setY(mouseEvent.getSceneY() - 40);
+            placementStringDragging = "";
+            placementStringDragging += imageView.getImage().getUrl().substring(113, 115);
+            placementStringDragging.toUpperCase();
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                        placementStringDragging += (char)((int)'A' + j);
+                        placementStringDragging += i;
+                    }
+                }
+            }
+            rotateTile(imageView);
             inPosition(imageView);
         });
     }
 
+    //the parameter to record the scroll count
+    int rotationCount = 0;
+
     //the methods to rotate the tiles
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
+            rotationCount ++;
+            while (rotationCount > 7)
+                rotationCount -= 8;
+            rotation(imageView, rotationCount);
+            placementStringDragging = placementStringDragging.substring(0, 4);
+            placementStringDragging += rotationCount;
+            //boardString += placementStringDragging;
+            //System.out.println(placementStringDragging);
+        });
+    }
+    /*
+    private void rotateTile(ImageView imageView) {
+        imageView.setOnScroll(scrollEvent -> {
             imageView.setRotate(imageView.getRotate() + 90);
+            rotate = (int)imageView.getRotate() / 90;
+            placementStringDragging += rotate;
         });
         imageView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.SECONDARY)
+            {
                 imageView.setScaleX(imageView.getScaleX() * (-1));
+                if (imageView.getScaleX() == -1){
+                    rotate += 4;
+                }
+            }
         });
     }
+     */
+
 
     //check the tile is in position or not
     private void inPosition(ImageView imageView) {
@@ -638,8 +681,11 @@ public class Viewer extends Application {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    imageView.setX(300 + i * 80);
-                    imageView.setY(90 + j * 80);
+                    if (isValidPlacementSequence(placementStringDragging)){
+                        imageView.setX(300 + i * 80);
+                        imageView.setY(90 + j * 80);
+                        boardString += placementStringDragging;
+                    }
                 }
             }
         }
