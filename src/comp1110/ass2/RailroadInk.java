@@ -392,10 +392,16 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        return "A" + (int) (Math.random() * 6) + "A" + (int) (Math.random() * 6) + "A" + (int) (Math.random() * 6) + "B" + (int) (Math.random() * 3);
+        int[] m=new int[3];
+        String a="";
+        for(int i=0;i<3;i++)
+        {
+            m[i]=(int)(Math.random()*6);
+            a=a+"A"+m[i];
+        }
+        a=a+"B"+(int)(Math.random()*3);
+        return a;
     }
-
-
     /**
      * @param s1
      * @param s2
