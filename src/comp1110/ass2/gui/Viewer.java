@@ -681,13 +681,14 @@ public class Viewer extends Application {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    if (isValidPlacementSequence(placementStringDragging)){
+                    //if (isValidPlacementSequence(placementStringDragging)){
                         imageView.setX(300 + i * 80);
                         imageView.setY(90 + j * 80);
-                        boardString += placementStringDragging;
-                    }
+                       // boardString += placementStringDragging;
+                    //}
                 }
             }
         }
     }
 }
+
