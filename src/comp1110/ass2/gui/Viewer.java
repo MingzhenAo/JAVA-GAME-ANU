@@ -641,7 +641,7 @@ public class Viewer extends Application {
             placementStringDragging = placementStringDragging.substring(0, 4);
             placementStringDragging += rotationCount;
             //boardString += placementStringDragging;
-            //System.out.println(placementStringDragging);
+            System.out.println(placementStringDragging);
         });
     }
     /*
