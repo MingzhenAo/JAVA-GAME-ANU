@@ -1,9 +1,8 @@
 package comp1110.ass2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import static comp1110.ass2.ConnextedNeighbours.connectedneighbersornot;
+import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 import static comp1110.ass2.getbasicscore.*;
@@ -126,7 +125,7 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-        return connectedneighbersornot(tilePlacementStringA,tilePlacementStringB);
+        return connectedNeighboursOrNot(tilePlacementStringA,tilePlacementStringB);
     }
 
 

@@ -2,8 +2,8 @@ package comp1110.ass2;
 
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
-public class ConnextedNeighbours {
-    public static boolean connectedneighbersornot(String a, String b) {
+public class ConnectedNeighbours {
+    public static boolean connectedNeighboursOrNot(String a, String b) {
         int[] tileA = getRotatedTile(a);
         int[] tileB = getRotatedTile(b);
 
