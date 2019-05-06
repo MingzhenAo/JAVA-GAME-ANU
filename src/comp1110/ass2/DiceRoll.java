@@ -3,7 +3,7 @@ package comp1110.ass2;
 import java.util.ArrayList;
 
 import static comp1110.ass2.Board.getEmptyGrids;
-import static comp1110.ass2.Board.getValidPlacementString;
+import static comp1110.ass2.Board.getFirstValidPlacementString;
 
 
 /**
@@ -34,7 +34,7 @@ public class DiceRoll {
         }
 
         //return those tiles that really can use
-        return getValidPlacementString(boardString, list);
+        return getFirstValidPlacementString(boardString, list);
     }
 
 
@@ -56,7 +56,7 @@ public class DiceRoll {
 
             }
         }
-        return getValidPlacementString(boardString, list);
+        return getFirstValidPlacementString(boardString, list);
     }
 
 
@@ -79,7 +79,7 @@ public class DiceRoll {
 
             }
         }
-        return getValidPlacementString(boardString, list);
+        return getFirstValidPlacementString(boardString, list);
     }
 
 
@@ -100,7 +100,7 @@ public class DiceRoll {
                 list.add("" + head[0] + emptyGrid[i] + j);
             }
         }
-        return getValidPlacementString(boardString, list);
+        return getFirstValidPlacementString(boardString, list);
     }
 
 

@@ -156,7 +156,7 @@ public class Board {
      * @param list        a list containing all placementString that theoretically a dice can generate
      * @return
      */
-    public static String getValidPlacementString(String boardString, ArrayList<String> list) {
+    public static String getFirstValidPlacementString(String boardString, ArrayList<String> list) {
 
 
         String result = "";

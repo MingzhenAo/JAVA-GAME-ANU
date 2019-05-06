@@ -9,8 +9,6 @@ import static java.lang.Character.getNumericValue;
 
 public class TileRotate {
 
-
-
     /*
     int A0[] = {1,1,5,5};
     int A1[] = {5,1,5,1};
