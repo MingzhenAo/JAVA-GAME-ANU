@@ -13,30 +13,32 @@ import static comp1110.ass2.Board.getValidPlacementString;
 public class DiceRoll {
 
 
-    //第一个骰子
+    //This first dice
     public static String dice01(String boardString, String diceRoll) {
 
-        String[] head = new String[1];
+        String[] head = new String[1];//A or B
         ArrayList<String> list = new ArrayList();
 
-        head[0] = diceRoll.substring(0, 2);
+        head[0] = diceRoll.substring(0, 2);//e.g. A1
 
-        //找还剩几个空格
+        //找还剩几个空格,也就是还可以放置的地方
         String[] emptyGrid = getEmptyGrids(boardString);
 
-        //将所有空格与该骰子的组合下，所有可能贴图放入集合中
+        //将所有空格与该骰子的组合下，所有可能贴图放入集合中,e.g.A1A53
         for (int i = 0; i < emptyGrid.length; i++) {
 
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j < 8; j++) {//j is the 8 kinds of orientation
                 list.add("" + head[0] + emptyGrid[i] + j);
 
             }
         }
+
+        //return those tiles that really can use
         return getValidPlacementString(boardString, list);
     }
 
 
-    //第二个骰子
+    //This second dice
     public static String dice02(String boardString, String diceRoll) {
 
         String[] head = new String[1];
@@ -58,7 +60,7 @@ public class DiceRoll {
     }
 
 
-    //第三个骰子
+    //This third dice
     public static String dice03(String boardString, String diceRoll) {
 
         String[] head = new String[1];
@@ -81,7 +83,7 @@ public class DiceRoll {
     }
 
 
-    //第四个骰子
+    //This fourth dice
     public static String dice04(String boardString, String diceRoll) {
 
         String[] head = new String[1];
@@ -100,7 +102,6 @@ public class DiceRoll {
         }
         return getValidPlacementString(boardString, list);
     }
-
 
 
     /**
@@ -566,8 +567,7 @@ public class DiceRoll {
         list.add(temp24);
 
 
-
-        //最长的一定对
+        //the longest one must be true
         String longest = list.get(0);//将数组的第一个元素赋给max
 
         for (int i = 0; i < list.size(); i++) {
