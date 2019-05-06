@@ -43,20 +43,19 @@ public class Board {
 
 
     /**
-     * 根据boardingString 返回当前放置贴图情况下的游戏板 According to the boardString passed, return a board represented by linkedHashMap reflecting the present position.
+     * 根据boardingString 返回当前放置贴图情况下的游戏板 According to the boardString passed, return a board represented by linkedHashMap reflecting the present condition.
      *
      * @param boardString
-     * @return 以linkedHashMap的形式表示的游戏板
+     * @return a placementBoard represented by linkedHashMap
      */
     public static LinkedHashMap<String, int[]> getPlacementBoard(String boardString) {
 
         String[] placementStringArray = getPlacementStringArray(boardString);
 
-        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();//获得游戏板
+        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();
 
 
-        //得到所有放置后的tile,并存入对应的格子里
-
+        //Get all tile has been placed, and put them into relevant grids
         for (int i = 0; i < placementStringArray.length; i++) {
 
             placementBoard.put(placementStringArray[i].substring(2, 4), getRotatedTile(placementStringArray[i]));

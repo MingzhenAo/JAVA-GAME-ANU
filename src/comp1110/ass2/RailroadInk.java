@@ -371,7 +371,7 @@ public class RailroadInk {
         //add the score according to the exits mapped
         score+=exitsScore(boardString);
         //dead ends
-        score+=getendScore(boardString);
+        score+= getEndScore(boardString);
         return score;
     }
 

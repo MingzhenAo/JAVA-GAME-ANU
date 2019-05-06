@@ -6,14 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -618,7 +617,7 @@ public class Viewer extends Application {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                        placementStringDragging += (char)((int)'A' + j);
+                        placementStringDragging += (char) ((int) 'A' + j);
                         placementStringDragging += i;
                     }
                 }
@@ -634,7 +633,7 @@ public class Viewer extends Application {
     //the methods to rotate the tiles
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
-            rotationCount ++;
+            rotationCount++;
             while (rotationCount > 7)
                 rotationCount -= 8;
             rotation(imageView, rotationCount);
@@ -681,7 +680,7 @@ public class Viewer extends Application {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    if (isValidPlacementSequence(placementStringDragging)){
+                    if (isValidPlacementSequence(placementStringDragging)) {
                         imageView.setX(300 + i * 80);
                         imageView.setY(90 + j * 80);
                         boardString += placementStringDragging;

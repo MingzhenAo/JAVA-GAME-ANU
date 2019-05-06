@@ -191,7 +191,7 @@ public class getbasicscore {
     }
 
 
-    public static int getendScore(String boardString) {
+    public static int getEndScore(String boardString) {
         String[] placementStringArray = getPlacementStringArray(boardString);
         int score = 0;
         for (int i = 0; i < placementStringArray.length; i++) {
