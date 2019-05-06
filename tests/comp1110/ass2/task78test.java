@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 import static comp1110.ass2.RailroadInk.generateDiceRoll;
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
-import static comp1110.ass2.getbasicscore.*;
+import static comp1110.ass2.getBasicScore.*;
 import static org.junit.Assert.*;
 
 public class task78test {
@@ -35,7 +35,7 @@ public class task78test {
             if (k.substring(1, 2).equals("0")) {
                 b++;
             }
-            if (k.substring(3, 4).equals("5") ) {
+            if (k.substring(3, 4).equals("5")) {
                 c++;
             }
             if (k.substring(3, 4).equals("0")) {
@@ -66,20 +66,20 @@ public class task78test {
                 error++;
             }
         }
-        assertFalse("out of range",error>0);
-        assertTrue("don't include all range",a>0&&b>0&&c>0&&d>0&&e>0&&f>0&&g>0&&h>0);
+        assertFalse("out of range", error > 0);
+        assertTrue("don't include all range", a > 0 && b > 0 && c > 0 && d > 0 && e > 0 && f > 0 && g > 0 && h > 0);
     }
 
     @Test
     public void testcentraltilesScore() {
         String a = "A2F45A1F51A1F61";
         String b = "A3C31A3C20A5D21S2D33B2C41B2D41A5E40A3E33B2E21A4D51A4D61";
-        assertEquals("a is not in central", centraltilesScore(a), 0);
+        assertEquals("a is not in central", centralTilesScore(a), 0);
         a += "B2E45";
-        assertEquals("one member in centre", centraltilesScore(a), 1);
+        assertEquals("one member in centre", centralTilesScore(a), 1);
         a += "A3E20A3E31";
-        assertEquals("three memebers in centre", centraltilesScore(a), 3);
-        assertEquals("b contains all the centraltiles", centraltilesScore(b), 9);
+        assertEquals("three memebers in centre", centralTilesScore(a), 3);
+        assertEquals("b contains all the centraltiles", centralTilesScore(b), 9);
 
     }
 
@@ -132,13 +132,13 @@ public class task78test {
         for (int i = 0; i < d11.length; i++) {
             b.put(d11[i], d11[i].substring(2, 4));
         }
-        assertFalse("the first line", !b.equals(d.get(0)));
+        assertFalse("the first line should be A5A11S2A23A4B20A3C31A3C20A5D21A4C41", !b.equals(d.get(0)));
         String d2 = "A5E40A3E33A4E21A5D42A4D51A4D61";
         String[] d22 = getPlacementStringArray(d2);
         for (int i = 0; i < d22.length; i++) {
             b1.put(d22[i], d22[i].substring(2, 4));
         }
-        assertFalse("the second line", !b1.equals(d.get(1)));
+        assertFalse("the second line should be A5E40A3E33A4E21A5D42A4D51A4D61", !b1.equals(d.get(1)));
     }
 
     @Test
@@ -156,9 +156,9 @@ public class task78test {
     @Test
     public void getendScorestest() {
         String a = "A4A12B2B16A1B01A1B23S1B32A1A32B1B44B2A44A4C16A3D15A4D01A5D23A4E20B1F24A2F17A1F01B0G16A5C34A4C43A5C53A3D50A4D61S4E50A0F51A1F67S2E46B1E31A1F30A2G36A1G41B1G52";
-        assertFalse("5 dead lines", getendScore(a) != -5);
+        assertFalse("5 dead lines", getEndScore(a) != -5);
         String b = "A4A50A1F61A0B61S5F50B1F46A1F01S1F12A2F23A1E20B2D21A3D03A1C20A0B22B1A61A4D11A4G10B1G44A2G30A3C01A3C12B0B31A1B01A4B50B0C50A2F32A0E32A0E40A4D31B1D47A1B11";
-        assertEquals(getendScore(b), -8);
+        assertEquals("8 dead lines",getEndScore(b), -8);
     }
 }
 

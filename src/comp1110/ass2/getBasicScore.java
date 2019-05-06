@@ -7,9 +7,9 @@ import static comp1110.ass2.RailroadInk.areConnectedNeighbours;
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
-public class getbasicscore {
+public class getBasicScore {
 
-    public static int centraltilesScore(String boardString) {
+    public static int centralTilesScore(String boardString) {
         int score = 0;
         String[] placementStringArray = getPlacementStringArray(boardString);
         //central tiles
@@ -191,7 +191,7 @@ public class getbasicscore {
     }
 
 
-    public static int getendScore(String boardString) {
+    public static int getEndScore(String boardString) {
         String[] placementStringArray = getPlacementStringArray(boardString);
         int score = 0;
         for (int i = 0; i < placementStringArray.length; i++) {

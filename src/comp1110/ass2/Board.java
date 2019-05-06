@@ -13,87 +13,49 @@ import static comp1110.ass2.TileRotate.getRotatedTile;
 
 public class Board {
 
+    /**
+     * This method use likedHashMap to provide a game board that all grids are empty.
+     * If a grid is empty, after the grid position(e.g. A0, B0) it shows [0]. For example, String "A0[0]" means that the grid A0 has not been placed a tile.
+     * If a grid has been placed a tiLe, after the grid, there exist an array with 4 elements. For example, String "B1[5,0,1,5]" means that in the grid B1, there is a tile which is empty in its left, with a highway in the top, with a railway in the right, and empty in the bottom.
+     *
+     * @return
+     */
+
     public static LinkedHashMap<String, int[]> getBoard() {
 
         LinkedHashMap<String, int[]> board = new LinkedHashMap<>();
         int[] temp = {0};
 
-        board.put("A0", temp);
-        board.put("A1", temp);
-        board.put("A2", temp);
-        board.put("A3", temp);
-        board.put("A4", temp);
-        board.put("A5", temp);
-        board.put("A6", temp);
+        String[] first = {"A", "B", "C", "D", "E", "F", "G"};
+        String[] second = {"0", "1", "2", "3", "4", "5", "6"};
 
-        board.put("B0", temp);
-        board.put("B1", temp);
-        board.put("B2", temp);
-        board.put("B3", temp);
-        board.put("B4", temp);
-        board.put("B5", temp);
-        board.put("B6", temp);
+        for (int i = 0; i < second.length; i++) {
+            for (int j = 0; j < first.length; j++) {
 
-        board.put("C0", temp);
-        board.put("C1", temp);
-        board.put("C2", temp);
-        board.put("C3", temp);
-        board.put("C4", temp);
-        board.put("C5", temp);
-        board.put("C6", temp);
+                String s = first[i] + second[j];
+                board.put(s, temp);
 
-        board.put("D0", temp);
-        board.put("D1", temp);
-        board.put("D2", temp);
-        board.put("D3", temp);
-        board.put("D4", temp);
-        board.put("D5", temp);
-        board.put("D6", temp);
+            }
 
-        board.put("E0", temp);
-        board.put("E1", temp);
-        board.put("E2", temp);
-        board.put("E3", temp);
-        board.put("E4", temp);
-        board.put("E5", temp);
-        board.put("E6", temp);
-
-        board.put("F0", temp);
-        board.put("F1", temp);
-        board.put("F2", temp);
-        board.put("F3", temp);
-        board.put("F4", temp);
-        board.put("F5", temp);
-        board.put("F6", temp);
-
-        board.put("G0", temp);
-        board.put("G1", temp);
-        board.put("G2", temp);
-        board.put("G3", temp);
-        board.put("G4", temp);
-        board.put("G5", temp);
-        board.put("G6", temp);
-
+        }
         return board;
-
     }
 
 
     /**
-     * 以linkedHashMap的形式表示游戏板
+     * 根据boardingString 返回当前放置贴图情况下的游戏板 According to the boardString passed, return a board represented by linkedHashMap reflecting the present condition.
      *
      * @param boardString
-     * @return 以linkedHashMap的形式表示的游戏板
+     * @return a placementBoard represented by linkedHashMap
      */
     public static LinkedHashMap<String, int[]> getPlacementBoard(String boardString) {
 
         String[] placementStringArray = getPlacementStringArray(boardString);
 
-        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();//获得游戏板
+        LinkedHashMap<String, int[]> placementBoard = Board.getBoard();
 
 
-        //得到所有放置后的tile,并存入对应的格子里
-
+        //Get all tile has been placed, and put them into relevant grids
         for (int i = 0; i < placementStringArray.length; i++) {
 
             placementBoard.put(placementStringArray[i].substring(2, 4), getRotatedTile(placementStringArray[i]));
@@ -105,7 +67,7 @@ public class Board {
 
 
     /**
-     * 获取所有格子上的情况，不管格子上有没有贴图
+     * Get all grids whether it is empty or not
      *
      * @param boardString
      * @return
@@ -133,40 +95,40 @@ public class Board {
 
 
     /**
-     * 获取所有已经被占用的格子上的tile情况
+     * Get all grids that has been placed a tile
      *
      * @param boardString
      * @return
      */
     public static ArrayList<String> getPlacementGrids(String boardString) {
-        //先获取所有格子的情况
-        ArrayList<String> combo = getAllGridsCondition(boardString);
+
+        ArrayList<String> condition = getAllGridsCondition(boardString);
 
 
-        //清除所有没有被占用的格子(一定要倒着遍历，不然会因为索引移动清除不干净)
-        for (int i = combo.size() - 1; i >= 0; i--) {
+        //Remove all empty grids
+        for (int i = condition.size() - 1; i >= 0; i--) {
 
-            if (combo.get(i).length() == 5) {
-                combo.remove(i);
+            if (condition.get(i).length() == 5) {
+                condition.remove(i);
             }
         }
 
-        return combo;
+        return condition;
     }
 
 
     /**
-     * 获得所有未使用的空格，比如A0,B3,C5,D0, etc
+     * Return all empty grids
      *
      * @param boardString
      * @return
      */
     public static String[] getEmptyGrids(String boardString) {
 
-        //先获取所有格子的情况
+        //Get all grids whether it is empty or not
         ArrayList<String> combo = getAllGridsCondition(boardString);
 
-        //清除所有已经占用的格子(一定要倒着遍历，不然会因为索引移动清除不干净)
+        //Remove those grids that has been placed a tile
         for (int i = combo.size() - 1; i >= 0; i--) {
 
             if (combo.get(i).length() != 5) {
@@ -188,10 +150,10 @@ public class Board {
 
 
     /**
-     * 根据boardingString，返回第一个可以拼接的placementString
+     * According to the boardingString passed, return the first placementString that can be connected.
      *
-     * @param boardString 当前boardString,能反映还剩哪些空格，以及被占空格上贴纸的情况
-     * @param list        该骰子理论上能过出现的所有placementString的集合
+     * @param boardString
+     * @param list        a list containing all placementString that theoretically a dice can generate
      * @return
      */
     public static String getValidPlacementString(String boardString, ArrayList<String> list) {
@@ -199,18 +161,19 @@ public class Board {
 
         String result = "";
 
-        //获得所有placementString,放在一个数组中
+        //Get a String array that containing all placementString
         String[] placementStringArray = getPlacementStringArray(boardString);
 
-        //定义一个容器list
+        //Get a String ArrayList
         List<String> placementList = new ArrayList<>();
 
-        //使用for循环将placementString数组，转换为存放字符串的list集合中
+        //Take all elements in the placementStringArray to the list
         for (String str : placementStringArray) {
             placementList.add(str);
         }
 
-        //遍历，找出合规的字符串
+
+        //find all valid String
         for (int i = 0; i < list.size(); i++) {
 
             boolean flag;
@@ -220,7 +183,8 @@ public class Board {
                 flag = areConnectedNeighbours(list.get(i), placementList.get(j));
 
                 if (flag) {
-                    //判断添加新placementString后,新的完整的boardString字符串是否合规
+
+                    //Determine whether a new boardString is valid, after added a new placementString
                     boolean b = isValidPlacementSequence(boardString + list.get(i));
 
                     if (b) {
@@ -233,6 +197,7 @@ public class Board {
             }
 
         }
+
         return result;
     }
 

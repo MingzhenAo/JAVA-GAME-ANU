@@ -3,10 +3,10 @@ package comp1110.ass2;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static comp1110.ass2.ConnextedNeighbours.connectedneighbersornot;
+import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
 import static comp1110.ass2.TileRotate.getRotatedTile;
-import static comp1110.ass2.getbasicscore.*;
+import static comp1110.ass2.getBasicScore.*;
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -126,7 +126,7 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-        return connectedneighbersornot(tilePlacementStringA,tilePlacementStringB);
+        return connectedNeighboursOrNot(tilePlacementStringA,tilePlacementStringB);
     }
 
 
@@ -367,12 +367,12 @@ public class RailroadInk {
         // FIXME Task 8: compute the basic score
         int score = 0;
         //central tiles
-        score+=centraltilesScore(boardString);
+        score+= centralTilesScore(boardString);
         //exits mapped
         //add the score according to the exits mapped
         score+=exitsScore(boardString);
         //dead ends
-        score+=getendScore(boardString);
+        score+= getEndScore(boardString);
         return score;
     }
 
@@ -538,7 +538,44 @@ public class RailroadInk {
      */
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
-
         return -1;
+    }
+
+    public static int getLongestRailway(String boardString) {
+        String[] boardStringArray = getPlacementStringArray(boardString);
+        /*
+        ArrayList<String> railwayList = new ArrayList<>();
+        railwayList.add("B0");
+        railwayList.add("F0");
+        railwayList.add("A3");
+        railwayList.add("G3");
+        railwayList.add("B6");
+        railwayList.add("F6");
+         */
+        ArrayList<String> railwayTileList = new ArrayList<>();
+        railwayTileList.add("S0");
+        railwayTileList.add("S1");
+        railwayTileList.add("S3");
+        railwayTileList.add("S4");
+        railwayTileList.add("S5");
+        railwayTileList.add("A0");
+        railwayTileList.add("A1");
+        railwayTileList.add("A2");
+        railwayTileList.add("B0");
+        railwayTileList.add("B1");
+        railwayTileList.add("B2");
+        ArrayList<String> routList = new ArrayList<>();
+        HashMap<String, ArrayList<String>> routMap = new HashMap<>();
+        for (var v : boardStringArray){
+            if (railwayTileList.contains(v.substring(0, 2))){
+                for (var v2 : boardStringArray){
+                    routList.clear();
+                    if (areConnectedNeighbours(v2, v)){
+
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }
