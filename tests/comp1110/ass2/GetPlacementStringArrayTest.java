@@ -4,13 +4,62 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Random;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class GetPlacementStringArrayTest {
     @Rule
     public Timeout globalTimeout = Timeout.millis(2000);
+
+    @Test
+    public void testCutRandomQuantity(){
+        Random r = new Random();
+        int random = 0;
+        for (int i = 0; i < 100; i ++){
+            random = r.nextInt(101);
+            byte[] array = new byte[random];
+            new Random().nextBytes(array);
+            String testString = new String(array, Charset.forName("UTF-8"));
+            int validLength = testString.length() / 5;
+            testCutRandom(testString, validLength);
+        }
+    }
+
+    private void testCutRandom(String testString, int validLength){
+        String[] resultString = RailroadInk.getPlacementStringArray(testString);
+        assertTrue("RailroadInk.getPlacementStringArray(\"" + testString + "\") returned invalid cuts length: " + resultString.length, resultString.length == validLength);
+    }
+
+    @Test
+    public void testCutStringSize(){
+        Random r = new Random();
+        int random = 0;
+        for (int i = 0; i < 100; i ++){
+            random = r.nextInt(101);
+            byte[] array = new byte[random];
+            new Random().nextBytes(array);
+            String testString = new String(array, Charset.forName("UTF-8"));
+            testCutSize(testString);
+        }
+    }
+
+    private void testCutSize(String testString){
+        String[] resultString = RailroadInk.getPlacementStringArray(testString);
+        boolean b = true;
+        int size = 0;
+        for (int i = 0; i < resultString.length; i ++){
+            if (resultString[i].length() != 5){
+                b = false;
+                size = resultString[i].length();
+                break;
+            }
+        }
+        assertTrue("RailroadInk.getPlacementStringArray(\"" + testString + "\") returned invalid string length: " + size, b);
+    }
 
     @Test
     public void testCutString(){
