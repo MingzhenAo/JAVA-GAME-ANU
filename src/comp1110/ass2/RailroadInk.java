@@ -126,9 +126,8 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-        return connectedNeighboursOrNot(tilePlacementStringA,tilePlacementStringB);
+        return connectedNeighboursOrNot(tilePlacementStringA, tilePlacementStringB);
     }
-
 
 
     /**
@@ -149,102 +148,10 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
-        int count = boardString.length() / 5;
-
-        String[] placementStringArray = getPlacementStringArray(boardString);
-
-        TileRotate r = new TileRotate();
-
-
-
-        if(!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
+        if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
-
-
-        /*
-        testing are correctly connected to exit
-        String[] highwayExits = {"A1","A5","D0","D6","G1","G5"}; exits with highway
-        String[] railwayExits = {"A3","B0","B6","F0","F6","G3"}; exits with railway
-        */
-
-        int[] tile = new int[4];
-        int b = 0;
-
-        for (int i = 0; i < count; i++) {
-            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
-            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
-            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
-            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
-            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
-
-
-            switch (placementStringArray[i].substring(2, 4)) {
-                case "A1":
-                    b++;
-                    if (tile[1] != 0 && tile[1] != 5)
-                        return false;
-                    break;
-                case "A5":
-                    b++;
-                    if (tile[1] != 0 && tile[1] != 5)
-                        return false;
-                    break;
-                case "D0":
-                    b++;
-                    if (tile[0] != 0 && tile[0] != 5)
-                        return false;
-                    break;
-                case "D6":
-                    b++;
-                    if (tile[2] != 0 && tile[2] != 5)
-                        return false;
-                    break;
-                case "G1":
-                    b++;
-                    if (tile[3] != 0 && tile[3] != 5)
-                        return false;
-                    break;
-                case "G5":
-                    b++;
-                    if (tile[3] != 0 && tile[3] != 5)
-                        return false;
-                    break;
-                case "A3":
-                    b++;
-                    if (tile[1] != 1 && tile[1] != 5)
-                        return false;
-                    break;
-                case "B0":
-                    b++;
-                    if (tile[0] != 1 && tile[0] != 5)
-                        return false;
-                    break;
-                case "B6":
-                    b++;
-                    if (tile[2] != 1 && tile[2] != 5)
-                        return false;
-                    break;
-                case "F0":
-                    b++;
-                    if (tile[0] != 1 && tile[0] != 5)
-                        return false;
-                    break;
-                case "F6":
-                    b++;
-                    if (tile[2] != 1 && tile[2] != 5)
-                        return false;
-                    break;
-                case "G3":
-                    b++;
-                    if (tile[3] != 1 && tile[3] != 5)
-                        return false;
-                    break;
-            }
-        }
-
-        if (b == 0) {
+        if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
-        }
         return true;
 
     }
@@ -259,16 +166,16 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        int[] m=new int[3];
-        String a="";
-        for(int i=0;i<3;i++)
-        {
-            m[i]=(int)(Math.random()*6);
-            a=a+"A"+m[i];
+        int[] m = new int[3];
+        String a = "";
+        for (int i = 0; i < 3; i++) {
+            m[i] = (int) (Math.random() * 6);
+            a = a + "A" + m[i];
         }
-        a=a+"B"+(int)(Math.random()*3);
+        a = a + "B" + (int) (Math.random() * 3);
         return a;
     }
+
     /**
      * Given the current state of a game board, output an integer representing the sum of all the following factors
      * that contribute to the player's final score.
@@ -284,12 +191,12 @@ public class RailroadInk {
         // FIXME Task 8: compute the basic score
         int score = 0;
         //central tiles
-        score+= centralTilesScore(boardString);
+        score += centralTilesScore(boardString);
         //exits mapped
         //add the score according to the exits mapped
-        score+=exitsScore(boardString);
+        score += exitsScore(boardString);
         //dead ends
-        score+= getEndScore(boardString);
+        score += getEndScore(boardString);
         return score;
     }
 
@@ -406,11 +313,11 @@ public class RailroadInk {
         railwayTileList.add("B2");
         ArrayList<String> routList = new ArrayList<>();
         HashMap<String, ArrayList<String>> routMap = new HashMap<>();
-        for (var v : boardStringArray){
-            if (railwayTileList.contains(v.substring(0, 2))){
-                for (var v2 : boardStringArray){
+        for (var v : boardStringArray) {
+            if (railwayTileList.contains(v.substring(0, 2))) {
+                for (var v2 : boardStringArray) {
                     routList.clear();
-                    if (areConnectedNeighbours(v2, v)){
+                    if (areConnectedNeighbours(v2, v)) {
 
                     }
                 }
