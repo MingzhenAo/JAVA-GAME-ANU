@@ -4,7 +4,6 @@ import static java.lang.Character.getNumericValue;
 
 public class AreLegallyConnectedToExits {
     public static boolean areLegallyConnectedToExits (String boardString){
-        int count = boardString.length() / 5;
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
         TileRotate r = new TileRotate();
 
@@ -17,7 +16,7 @@ public class AreLegallyConnectedToExits {
         int[] tile = new int[4];
         int b = 0;
 
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < placementStringArray.length; i++) {
             tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
             tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
             tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
