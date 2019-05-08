@@ -2,12 +2,12 @@ package comp1110.ass2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
+import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static comp1110.ass2.TileRotate.getRotatedTile;
 import static comp1110.ass2.getBasicScore.*;
-import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
     /**
@@ -148,12 +148,21 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
+
+        /*
+        Each grid can be used once only.
+        */
+        ArrayList<String> placementSequenceList = getPlacementSequence(boardString);
+
+        boolean isRepeat = placementSequenceList.size() != new HashSet<>(placementSequenceList).size();
+        if (isRepeat)
+            return false;
+
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
         return true;
-
     }
 
     /**

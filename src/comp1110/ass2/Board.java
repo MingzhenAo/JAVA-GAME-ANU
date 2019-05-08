@@ -202,4 +202,24 @@ public class Board {
     }
 
 
+    /**
+     * This method will return a list in which the elements are sorted as their sequence to be placed
+     * @param boardString
+     * @return
+     */
+    public static ArrayList<String> getPlacementSequence(String boardString) {
+
+        ArrayList<String> list = new ArrayList<>();
+
+        String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
+
+        for (int i = 0; i < placementStringArray.length; i++) {
+
+            list.add(placementStringArray[i].substring(2, 4));
+        }
+
+        return list;
+    }
+
+
 }

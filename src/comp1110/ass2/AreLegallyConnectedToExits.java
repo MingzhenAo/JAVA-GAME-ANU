@@ -3,7 +3,8 @@ package comp1110.ass2;
 import static java.lang.Character.getNumericValue;
 
 public class AreLegallyConnectedToExits {
-    public static boolean areLegallyConnectedToExits (String boardString){
+
+    public static boolean areLegallyConnectedToExits(String boardString) {
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
         TileRotate r = new TileRotate();
 
