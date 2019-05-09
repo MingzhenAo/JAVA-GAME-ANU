@@ -652,7 +652,7 @@ public class Viewer extends Application {
             System.out.println(placementStringDragging);
         });
     }
-    
+
     //check the tile is in position or not
     private void inPosition(ImageView imageView) {
         for (int i = 0; i < 6; i++) {
