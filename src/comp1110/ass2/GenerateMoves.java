@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GenerateMoves {
-    public static ArrayList<String> generateValidMoves(String boardString, String diceRoll){
+    public static ArrayList<String> generateValidMoves(String boardString, String diceRoll) {
         ArrayList<String> resultList = new ArrayList<>();
         String[] head = new String[4];
-        head[0] = diceRoll.substring(0,2);
-        head[1] = diceRoll.substring(2,4);
-        head[2] = diceRoll.substring(4,6);
-        head[3] = diceRoll.substring(6,8);
+        head[0] = diceRoll.substring(0, 2);
+        head[1] = diceRoll.substring(2, 4);
+        head[2] = diceRoll.substring(4, 6);
+        head[3] = diceRoll.substring(6, 8);
         if (head[0].equals(head[1]))
             head[1] = "";
         if (head[0].equals(head[2]))
@@ -19,22 +19,22 @@ public class GenerateMoves {
             head[2] = "";
         String[] boardStringArray = RailroadInk.getPlacementStringArray(boardString);
         HashMap<String, String> tilesMap = new HashMap<>();
-        for (int i = 0; i < boardStringArray.length; i ++) {
-            tilesMap.put(boardStringArray[i].substring(2,4), boardStringArray[i]);
+        for (int i = 0; i < boardStringArray.length; i++) {
+            tilesMap.put(boardStringArray[i].substring(2, 4), boardStringArray[i]);
         }
         String check;
         //basic ABs movements from diceRoll
-        for (int j = 0; j < head.length; j ++) {
+        for (int j = 0; j < head.length; j++) {
             if (head[j].equals(""))
                 continue;
-            for (char row = 'A'; row <= 'G'; row ++) {
-                for (int column = 0; column <= 6; column ++) {
+            for (char row = 'A'; row <= 'G'; row++) {
+                for (int column = 0; column <= 6; column++) {
                     check = "";
                     check += row;
                     check += column;
                     if (tilesMap.containsKey(check))
                         continue;
-                    for (int orientation = 0; orientation <= 7; orientation ++) {
+                    for (int orientation = 0; orientation <= 7; orientation++) {
                         String finalString = boardString;
                         String placementString = head[j] + row + column + orientation;
                         finalString += placementString;
@@ -46,16 +46,16 @@ public class GenerateMoves {
         }
         //advanced movements from S tiles
         HashMap<String, String> specialTilesMap = new HashMap<>();
-        for (int i = 0; i < boardStringArray.length; i ++) {
-            if (boardStringArray[i].substring(0,1).equals("S")) {
-                specialTilesMap.put(boardStringArray[i].substring(0,2), boardStringArray[i]);
+        for (int i = 0; i < boardStringArray.length; i++) {
+            if (boardStringArray[i].substring(0, 1).equals("S")) {
+                specialTilesMap.put(boardStringArray[i].substring(0, 2), boardStringArray[i]);
             }
         }
-        if (specialTilesMap.size() < 3){
-            for (int order = 0; order <= 5; order ++){
+        if (specialTilesMap.size() < 3) {
+            for (int order = 0; order <= 5; order++) {
                 if (specialTilesMap.containsKey("S" + order))
                     continue;
-                for (char row = 'A'; row <= 'G'; row ++) {
+                for (char row = 'A'; row <= 'G'; row++) {
                     for (int column = 0; column <= 6; column++) {
                         check = "";
                         check += row;
@@ -77,7 +77,9 @@ public class GenerateMoves {
     }
 
     public static void main(String[] args) {
-        System.out.println(generateValidMoves("","A0A2A3B1"));
+        String boardString = "A0F00A0B00A0A31B1A14A0B61A0F61A0G32B1D61A0G43A0A62A0E61B1G56S1G60A0E03A0A03B1G12A0G02S0A50A0B50A5D03B1B40";
+
+        System.out.println(generateValidMoves(boardString, "A0A0A0B1"));
     }
 
 }

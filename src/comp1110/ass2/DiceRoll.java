@@ -1,6 +1,7 @@
 package comp1110.ass2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 import static comp1110.ass2.Board.getEmptyGrids;
@@ -81,6 +82,7 @@ public class DiceRoll {
 
             }
         }
+
         return getFirstValidPlacementString(boardString, list);
     }
 
@@ -102,23 +104,32 @@ public class DiceRoll {
                 list.add("" + head[0] + emptyGrid[i] + j);
             }
         }
+
         return getFirstValidPlacementString(boardString, list);
     }
 
 
     /**
-     * Get an array containing 4 dices
+     * This method give a random new order for a list
      *
-     * @param diceRoll
+     * @param list
      * @return
      */
-    public static String[] getDiceStringArray(String diceRoll) {
-        int number = diceRoll.length() / 2;
-        String[] diceRollStringArray = new String[number];
-        for (int i = 0; i < number; i++) {
-            diceRollStringArray[i] = diceRoll.substring(2 * i, 2 * (i + 1));
+    public static void randomListSort(ArrayList<String> list) {
+        //Increase randomness
+        Random r = new Random();
+        int time = 0;
+        while (time < list.size()) {
+
+            int a = r.nextInt(list.size());
+
+            String temp;
+            temp = list.get(a);
+            list.remove(list.get(a));
+            list.add(temp);
+
+            time++;
         }
-        return diceRollStringArray;
     }
 
     /**
@@ -130,20 +141,7 @@ public class DiceRoll {
     public static String getValidStringForEmptyBoardString(ArrayList<String> list) {
 
         //Increase randomness
-        Random r = new Random();
-        int time = 0;
-        while (time < list.size()) {
-
-            int a = r.nextInt(list.size());
-
-            String temp;
-            temp = list.get(a);
-            list.add(temp);
-            list.remove(list.get(a));
-
-            time++;
-        }
-
+        randomListSort(list);
 
         ArrayList<int[]> tileList = new ArrayList<>();
 
@@ -698,7 +696,8 @@ public class DiceRoll {
 
 
         //the longest one must be true
-        String longest = list.get(0);//将数组的第一个元素赋给max
+        String longest = list.get(0);//将集合的第一个元素赋给longest
+
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).length() > longest.length()) {//如果arr[i]大于最大值，就将arr[i]赋给最大值
@@ -707,7 +706,24 @@ public class DiceRoll {
 
         }
 
-        return longest;
+        ArrayList<String> tempList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).length() == longest.length()) {
+                tempList.add(list.get(i));
+            }
+
+        }
+
+        HashSet<String> set = new HashSet<>(tempList);
+        //Get a new list after removing duplicate elements
+        ArrayList<String> answerList = new ArrayList<>(set);
+
+        //Increase randomness
+        Random r = new Random();
+        int a = r.nextInt(answerList.size());
+
+        return answerList.get(a);
     }
 
 }

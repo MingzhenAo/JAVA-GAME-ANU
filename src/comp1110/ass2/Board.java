@@ -173,7 +173,8 @@ public class Board {
         String result = "";
 
         //Get a String ArrayList
-        List<String> placementList = new ArrayList<>();
+        ArrayList<String> placementList = new ArrayList<>();
+
 
         //Take all elements in the placementStringArray to the list
         for (String str : placementStringArray) {
