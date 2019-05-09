@@ -660,7 +660,7 @@ public class Viewer extends Application {
             }
         });
     }
-     */
+     */ 
 
 
     //check the tile is in position or not
