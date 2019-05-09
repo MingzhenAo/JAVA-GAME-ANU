@@ -1,5 +1,6 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -13,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -411,7 +414,10 @@ public class Viewer extends Application {
     private void endRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            showTiles(generateDiceRoll());
+            diceRoll = "";
+            diceRoll = generateDiceRoll();
+            showTiles(diceRoll);
+            validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
@@ -594,10 +600,12 @@ public class Viewer extends Application {
         }
     }
 
+    //store the diceRoll String for each round
+    String diceRoll = "";
+    //store the valid move option for each round
+    ArrayList<String>  validMoves = new ArrayList<>();
     //the placement string when dragging and rotating
     String placementStringDragging = "";
-    //the rotate status
-    int rotate = 0;
     //the boardString of the game
     String boardString = "";
 
@@ -619,6 +627,7 @@ public class Viewer extends Application {
                     if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
                         placementStringDragging += (char) ((int) 'A' + j);
                         placementStringDragging += i;
+                        placementStringDragging += rotationCount;
                     }
                 }
             }
@@ -640,29 +649,10 @@ public class Viewer extends Application {
             placementStringDragging = placementStringDragging.substring(0, 4);
             placementStringDragging += rotationCount;
             //boardString += placementStringDragging;
-            //System.out.println(placementStringDragging);
+            System.out.println(placementStringDragging);
         });
     }
-    /*
-    private void rotateTile(ImageView imageView) {
-        imageView.setOnScroll(scrollEvent -> {
-            imageView.setRotate(imageView.getRotate() + 90);
-            rotate = (int)imageView.getRotate() / 90;
-            placementStringDragging += rotate;
-        });
-        imageView.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton() == MouseButton.SECONDARY)
-            {
-                imageView.setScaleX(imageView.getScaleX() * (-1));
-                if (imageView.getScaleX() == -1){
-                    rotate += 4;
-                }
-            }
-        });
-    }
-     */ 
-
-
+    
     //check the tile is in position or not
     private void inPosition(ImageView imageView) {
         for (int i = 0; i < 6; i++) {
@@ -677,16 +667,19 @@ public class Viewer extends Application {
                 imageView.setY(90 + i * 100);
             }
         }
+        if (validMoves.contains(placementStringDragging)){
+            imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
+            imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
+        }
+        /*
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    if (isValidPlacementSequence(placementStringDragging)) {
-                        imageView.setX(300 + i * 80);
-                        imageView.setY(90 + j * 80);
-                        boardString += placementStringDragging;
-                    }
+                    imageView.setX(300 + i * 80);
+                    imageView.setY(90 + j * 80);
                 }
             }
         }
+         */
     }
 }
