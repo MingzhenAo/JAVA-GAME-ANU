@@ -728,6 +728,28 @@ public class Viewer extends Application {
                 }
             }
         }
+        for (var v : root.getChildren()) {
+            if (v instanceof Group){
+                for (var v2 : ((Group) v).getChildren()){
+                    if (v2 instanceof ImageView) {
+                        if (((ImageView) v2).getX() >= 300 && ((ImageView) v2).getX() <= 860 && ((ImageView) v2).getY() >= 90 && ((ImageView) v2).getY() <= 650) {
+                            for (int i = 0; i < 8; i++) {
+                                for (int j = 0; j < 8; j++) {
+                                    if (((ImageView) v2).getY() == 90 + i * 80) {
+                                        if (((ImageView) v2).getX() == 300 + j * 80) {
+                                            boardString += ((ImageView) v2).getImage().getUrl().substring(113, 115).toUpperCase();
+                                            boardString += (char) ((int) 'A' + i);
+                                            boardString += j;
+                                            boardString += reverseRotation((ImageView) v2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         System.out.println(boardString);
     }
 
