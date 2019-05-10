@@ -2,6 +2,7 @@ package comp1110.ass2;
 
 import java.util.*;
 
+import static comp1110.ass2.DiceRoll.getValidStringForEmptyBoardString;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
@@ -158,14 +159,22 @@ public class Board {
      */
     public static String getFirstValidPlacementString(String boardString, ArrayList<String> list) {
 
-
-        String result = "";
-
         //Get a String array that containing all placementString
         String[] placementStringArray = getPlacementStringArray(boardString);
 
+        //The boardString may be ""
+        if (placementStringArray.length == 0) {
+
+            return getValidStringForEmptyBoardString(list);
+
+        }
+
+
+        String result = "";
+
         //Get a String ArrayList
-        List<String> placementList = new ArrayList<>();
+        ArrayList<String> placementList = new ArrayList<>();
+
 
         //Take all elements in the placementStringArray to the list
         for (String str : placementStringArray) {
@@ -204,6 +213,7 @@ public class Board {
 
     /**
      * This method will return a list in which the elements are sorted as their sequence to be placed
+     *
      * @param boardString
      * @return
      */

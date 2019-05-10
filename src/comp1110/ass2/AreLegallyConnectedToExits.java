@@ -6,6 +6,7 @@ public class AreLegallyConnectedToExits {
 
     public static boolean areLegallyConnectedToExits(String boardString) {
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
+
         TileRotate r = new TileRotate();
 
         /*
@@ -13,9 +14,8 @@ public class AreLegallyConnectedToExits {
         String[] highwayExits = {"A1","A5","D0","D6","G1","G5"}; exits with highway
         String[] railwayExits = {"A3","B0","B6","F0","F6","G3"}; exits with railway
         */
-
-        int[] tile = new int[4];
         int b = 0;
+        int[] tile = new int[4];
 
         for (int i = 0; i < placementStringArray.length; i++) {
             tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
@@ -23,7 +23,6 @@ public class AreLegallyConnectedToExits {
             tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
             tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
             r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
-
 
             switch (placementStringArray[i].substring(2, 4)) {
                 case "A1":
