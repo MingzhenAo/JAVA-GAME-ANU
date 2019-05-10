@@ -630,6 +630,9 @@ public class Viewer extends Application {
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
         dragTile(imageView);
+        imageView.setOnMouseReleased(mouseEvent -> {
+            updateBoardString();
+        });
     }
 
     //the method to drag the tiles
@@ -699,14 +702,13 @@ public class Viewer extends Application {
             imageView.setY(((int) placementStringDragging.charAt(2) - 65) * 80 + 90);
         }
 
-        updateBoardString();
     }
 
     private void updateBoardString() {
         //initialise boardString
         boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
-        root.setOnMouseReleased(mouseEvent -> {
+        //root.setOnMouseReleased(mouseEvent -> {
             for (var v : root.getChildren()) {
                 if (v instanceof ImageView) {
                     if (((ImageView) v).getImage().getUrl().length() < 120) {
@@ -727,7 +729,7 @@ public class Viewer extends Application {
                     }
                 }
             }
-        });
+        //});
         System.out.println(boardString);
     }
 
@@ -742,6 +744,6 @@ public class Viewer extends Application {
             count += 2;
         if (imageView.getRotate() == 270)
             count += 3;
-        return 0;
+        return count;
     }
 }
