@@ -2,6 +2,7 @@ package comp1110.ass2.gui;
 
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+
+
+import java.util.ArrayList;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -620,11 +624,12 @@ public class Viewer extends Application {
     String placementStringDragging = "";
     //the boardString of the game
     String boardString = "";
+    //boardString arrayList
+    ArrayList<String> boardStringList = new ArrayList<>();
 
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
         dragTile(imageView);
-        //updateBoardString();
     }
 
     //the method to drag the tiles
@@ -661,8 +666,7 @@ public class Viewer extends Application {
             rotation(imageView, rotationCount);
             placementStringDragging = placementStringDragging.substring(0, 4);
             placementStringDragging += rotationCount;
-            //boardString += placementStringDragging;
-            System.out.println(placementStringDragging);
+            //System.out.println(placementStringDragging);
         });
     }
 
@@ -690,38 +694,54 @@ public class Viewer extends Application {
 
         //task 6 way to implement inPlace
 
-        if (isValidPlacementSequence(boardString + placementStringDragging)){
-            imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
-            imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
+        if (isValidPlacementSequence(boardString + placementStringDragging)) {
+            imageView.setX(Integer.valueOf(placementStringDragging.substring(3, 4)) * 80 + 300);
+            imageView.setY(((int) placementStringDragging.charAt(2) - 65) * 80 + 90);
         }
 
-
-        /*
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    imageView.setX(300 + i * 80);
-                    imageView.setY(90 + j * 80);
-                }
-            }
-        }
-         */
+        updateBoardString();
     }
 
-    private void updateBoardString(){
-        /*
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    imageView.setX(300 + i * 80);
-                    imageView.setY(90 + j * 80);
-                }
-            }
-        }
-         */
+    private void updateBoardString() {
+        //initialise boardString
+        boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
-
+        root.setOnMouseReleased(mouseEvent -> {
+            for (var v : root.getChildren()) {
+                if (v instanceof ImageView) {
+                    if (((ImageView) v).getImage().getUrl().length() < 120) {
+                        if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
+                            for (int i = 0; i < 8; i++) {
+                                for (int j = 0; j < 8; j++) {
+                                    if (((ImageView) v).getY() == 90 + i * 80) {
+                                        if (((ImageView) v).getX() == 300 + j * 80) {
+                                            boardString += ((ImageView) v).getImage().getUrl().substring(113, 115).toUpperCase();
+                                            boardString += (char) ((int) 'A' + i);
+                                            boardString += j;
+                                            boardString += reverseRotation((ImageView) v);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        System.out.println(boardString);
     }
 
-
+    //reverse the rotation process and get the rotation count value
+    private int reverseRotation(ImageView imageView){
+        int count = 0;
+        if (imageView.getScaleX() == -1)
+            count += 4;
+        if (imageView.getRotate() == 90)
+            count += 1;
+        if (imageView.getRotate() == 180)
+            count += 2;
+        if (imageView.getRotate() == 270)
+            count += 3;
+        return 0;
+    }
 }
