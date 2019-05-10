@@ -417,7 +417,10 @@ public class Viewer extends Application {
             diceRoll = "";
             diceRoll = generateDiceRoll();
             showTiles(diceRoll);
-            validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
+            //my new task 10 version
+            //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
+            //my old task 10 version
+            //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
@@ -603,7 +606,7 @@ public class Viewer extends Application {
     //store the diceRoll String for each round
     String diceRoll = "";
     //store the valid move option for each round
-    ArrayList<String>  validMoves = new ArrayList<>();
+    //ArrayList<String>  validMoves = new ArrayList<>();
     //the placement string when dragging and rotating
     String placementStringDragging = "";
     //the boardString of the game
@@ -612,6 +615,7 @@ public class Viewer extends Application {
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
         dragTile(imageView);
+        //updateBoardString();
     }
 
     //the method to drag the tiles
@@ -667,10 +671,22 @@ public class Viewer extends Application {
                 imageView.setY(90 + i * 100);
             }
         }
+        //task 10 way to implement inPlace
+        /*
         if (validMoves.contains(placementStringDragging)){
             imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
             imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
         }
+         */
+
+        //task 6 way to implement inPlace
+
+        if (isValidPlacementSequence(boardString + placementStringDragging)){
+            imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
+            imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
+        }
+
+
         /*
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -682,4 +698,20 @@ public class Viewer extends Application {
         }
          */
     }
+
+    /*
+    private void updateBoardString(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                    imageView.setX(300 + i * 80);
+                    imageView.setY(90 + j * 80);
+                }
+            }
+        }
+    }
+     */
+
+
 }
