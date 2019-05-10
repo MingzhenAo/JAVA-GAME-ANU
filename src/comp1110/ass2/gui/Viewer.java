@@ -41,12 +41,8 @@ public class Viewer extends Application {
      * @return
      */
     static ImageView rotation(ImageView a, int n) {
-        while (n > 7) {
-            n -= 8;
-        }
-        if (n > 3) {
-            a.setScaleX(-1);
-            n = n - 4;
+        if (n == 0) {
+            a.setRotate(0);
         }
         if (n == 1) {
             a.setRotate(90);
@@ -55,6 +51,22 @@ public class Viewer extends Application {
             a.setRotate(180);
         }
         if (n == 3) {
+            a.setRotate(270);
+        }
+        if (n == 4) {
+            a.setScaleX(-1);
+            a.setRotate(0);
+        }
+        if (n == 5) {
+            a.setScaleX(-1);
+            a.setRotate(90);
+        }
+        if (n == 6) {
+            a.setScaleX(-1);
+            a.setRotate(180);
+        }
+        if (n == 7) {
+            a.setScaleX(-1);
             a.setRotate(270);
         }
         return a;
@@ -403,12 +415,6 @@ public class Viewer extends Application {
         showSpecialTiles();
         endRound();
 
-        //listen on mouse release, each time mouse released scan the whole screen to give the boardString
-        scene.setOnMouseReleased(event ->{
-            boardString += placementStringDragging;
-            System.out.println(boardString);
-        });
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -702,19 +708,20 @@ public class Viewer extends Application {
          */
     }
 
-    /*
     private void updateBoardString(){
+        /*
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
                     imageView.setX(300 + i * 80);
                     imageView.setY(90 + j * 80);
                 }
             }
         }
+         */
+        //listen on mouse release, each time mouse released scan the whole screen to give the boardString
+
     }
-     */
 
 
 }
