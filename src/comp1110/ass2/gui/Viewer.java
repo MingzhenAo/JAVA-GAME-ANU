@@ -708,20 +708,18 @@ public class Viewer extends Application {
         //initialise boardString
         boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
-        //root.setOnMouseReleased(mouseEvent -> {
-            for (var v : root.getChildren()) {
-                if (v instanceof ImageView) {
-                    if (((ImageView) v).getImage().getUrl().length() < 120) {
-                        if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
-                            for (int i = 0; i < 8; i++) {
-                                for (int j = 0; j < 8; j++) {
-                                    if (((ImageView) v).getY() == 90 + i * 80) {
-                                        if (((ImageView) v).getX() == 300 + j * 80) {
-                                            boardString += ((ImageView) v).getImage().getUrl().substring(113, 115).toUpperCase();
-                                            boardString += (char) ((int) 'A' + i);
-                                            boardString += j;
-                                            boardString += reverseRotation((ImageView) v);
-                                        }
+        for (var v : root.getChildren()) {
+            if (v instanceof ImageView) {
+                if (((ImageView) v).getImage().getUrl().length() < 120) {
+                    if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                if (((ImageView) v).getY() == 90 + i * 80) {
+                                    if (((ImageView) v).getX() == 300 + j * 80) {
+                                        boardString += ((ImageView) v).getImage().getUrl().substring(113, 115).toUpperCase();
+                                        boardString += (char) ((int) 'A' + i);
+                                        boardString += j;
+                                        boardString += reverseRotation((ImageView) v);
                                     }
                                 }
                             }
@@ -729,7 +727,7 @@ public class Viewer extends Application {
                     }
                 }
             }
-        //});
+        }
         System.out.println(boardString);
     }
 
