@@ -1,6 +1,5 @@
 package comp1110.ass2.gui;
 
-import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,8 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -406,6 +403,12 @@ public class Viewer extends Application {
         showSpecialTiles();
         endRound();
 
+        //listen on mouse release, each time mouse released scan the whole screen to give the boardString
+        scene.setOnMouseReleased(event ->{
+            boardString += placementStringDragging;
+            System.out.println(boardString);
+        });
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -416,7 +419,7 @@ public class Viewer extends Application {
         button.setOnAction(e -> {
             diceRoll = "";
             diceRoll = generateDiceRoll();
-            showTiles(diceRoll);
+            showNormalTiles(diceRoll);
             //my new task 10 version
             //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
             //my old task 10 version
@@ -488,8 +491,8 @@ public class Viewer extends Application {
         root.getChildren().add(s5);
     }
 
-    //show ABs dragable tiles
-    void showTiles(String diceRoll) {
+    //show ABs draggable tiles
+    void showNormalTiles(String diceRoll) {
         //ABs
         String[] rollString = new String[4];
         for (int i = 0; i < 4; i++) {

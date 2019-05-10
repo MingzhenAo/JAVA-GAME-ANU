@@ -97,7 +97,7 @@ public class GenerateMoves {
             tilesMap.put(boardStringArray[i].substring(2,4), boardStringArray[i]);
         }
         String check;
-        //basic movements from diceroll
+        //basic movements from diceRoll
         for (int j = 0; j < head.length; j ++) {
             if (head[j].equals(""))
                 continue;
