@@ -2,17 +2,18 @@ package comp1110.ass2.gui;
 
 import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
+import java.util.Optional;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -413,14 +414,18 @@ public class Viewer extends Application {
 
         //show my stuff
         showSpecialTiles();
-        endRound();
+        nextRound();
+
+        //end the game if there is no more valid moves
+        //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
+            //endGame(primaryStage);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     //create the button for next round
-    private void endRound() {
+    private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
             roundCount ++;
@@ -428,9 +433,6 @@ public class Viewer extends Application {
             diceRoll = generateDiceRoll();
             showNormalTiles(diceRoll);
             setRoundCount();
-            //end the game if there is no more valid moves
-            //if (GenerateMoves.generateStrictMoves(boardString, diceRoll).size() == 0)
-                //endGame();
             //my new task 10 version
             //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
             //my old task 10 version
@@ -445,10 +447,20 @@ public class Viewer extends Application {
     }
 
     //the method to end the game
-    //private void endGame(){
-        //Dialog endGame = new Dialog();
+    private void endGame(Stage primaryStage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("You have completed the game");
+        alert.setHeaderText("You have completed the game, the basic score you got is: " + getBasicScore(boardString));
+        alert.setContentText("Do you want to start a new game?");
 
-    //}
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            primaryStage.close();
+        }
+        else{
+            primaryStage.close();
+        }
+    }
 
 
     //the parameter that stores which round we are at
