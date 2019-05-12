@@ -476,8 +476,7 @@ public class Viewer extends Application {
         s0.setFitWidth(80);
         s0.setX(30);
         s0.setY(90);
-        while (roundCount > 0)
-            moveTile(s0);
+        moveTile(s0);
         root.getChildren().add(s0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
@@ -486,8 +485,7 @@ public class Viewer extends Application {
         s1.setFitWidth(80);
         s1.setX(30);
         s1.setY(190);
-        while (roundCount > 0)
-            moveTile(s1);
+        moveTile(s1);
         root.getChildren().add(s1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
@@ -496,8 +494,7 @@ public class Viewer extends Application {
         s2.setFitWidth(80);
         s2.setX(30);
         s2.setY(290);
-        while (roundCount > 0)
-            moveTile(s2);
+        moveTile(s2);
         root.getChildren().add(s2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
@@ -506,8 +503,7 @@ public class Viewer extends Application {
         s3.setFitWidth(80);
         s3.setX(30);
         s3.setY(390);
-        while (roundCount > 0)
-            moveTile(s3);
+        moveTile(s3);
         root.getChildren().add(s3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
@@ -516,8 +512,7 @@ public class Viewer extends Application {
         s4.setFitWidth(80);
         s4.setX(30);
         s4.setY(490);
-        while (roundCount > 0)
-            moveTile(s4);
+        moveTile(s4);
         root.getChildren().add(s4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
@@ -526,8 +521,7 @@ public class Viewer extends Application {
         s5.setFitWidth(80);
         s5.setX(30);
         s5.setY(590);
-        while (roundCount > 0)
-            moveTile(s5);
+        moveTile(s5);
         root.getChildren().add(s5);
     }
 
@@ -659,13 +653,20 @@ public class Viewer extends Application {
 
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
+        /*
+        if (roundCount != 0){
+            if (!imageView.getImage().getUrl().substring(113,114).equals("s") && Integer.valueOf(boardString.substring(boardString.length() - 1, boardString.length())) < 3){
+
+            }
+        }
+         */
         dragTile(imageView);
         imageView.setOnMouseReleased(mouseEvent -> {
             updateBoardString();
         });
     }
 
-    //the method to drag the tiles
+    //the method to drag the tiles, adding the function to only use one special tile each round, maximum 3
     private void dragTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
             imageView.setX(mouseEvent.getSceneX() - 40);
@@ -738,6 +739,9 @@ public class Viewer extends Application {
         //initialise boardString
         boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
+        //record how many S tile are in the board
+        int sCount = 0;
+        //for S
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
                 if (((ImageView) v).getImage().getUrl().length() < 120) {
@@ -750,6 +754,7 @@ public class Viewer extends Application {
                                         boardString += (char) ((int) 'A' + i);
                                         boardString += j;
                                         boardString += reverseRotation((ImageView) v);
+                                        sCount ++;
                                     }
                                 }
                             }
@@ -758,6 +763,7 @@ public class Viewer extends Application {
                 }
             }
         }
+        //for Abs
         for (var v : root.getChildren()) {
             if (v instanceof Group){
                 for (var v2 : ((Group) v).getChildren()){
@@ -780,7 +786,10 @@ public class Viewer extends Application {
                 }
             }
         }
-        System.out.println(boardString);
+        //recording which round we are at
+        boardString += roundCount;
+        boardString += sCount;
+        //System.out.println(boardString);
     }
 
     //reverse the rotation process and get the rotation count value
