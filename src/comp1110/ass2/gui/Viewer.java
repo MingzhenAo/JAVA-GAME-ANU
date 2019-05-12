@@ -1,8 +1,8 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +13,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
-import java.util.ArrayList;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -430,6 +428,9 @@ public class Viewer extends Application {
             diceRoll = generateDiceRoll();
             showNormalTiles(diceRoll);
             setRoundCount();
+            //end the game if there is no more valid moves
+            //if (GenerateMoves.generateStrictMoves(boardString, diceRoll).size() == 0)
+                //endGame();
             //my new task 10 version
             //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
             //my old task 10 version
@@ -442,6 +443,13 @@ public class Viewer extends Application {
         hb.setLayoutY(520);
         controls.getChildren().add(hb);
     }
+
+    //the method to end the game
+    //private void endGame(){
+        //Dialog endGame = new Dialog();
+
+    //}
+
 
     //the parameter that stores which round we are at
     int roundCount = 0;
@@ -740,7 +748,7 @@ public class Viewer extends Application {
         boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
         //record how many S tile are in the board
-        int sCount = 0;
+        //int sCount = 0;
         //for S
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
@@ -754,7 +762,7 @@ public class Viewer extends Application {
                                         boardString += (char) ((int) 'A' + i);
                                         boardString += j;
                                         boardString += reverseRotation((ImageView) v);
-                                        sCount ++;
+                                        //sCount ++;
                                     }
                                 }
                             }
@@ -787,8 +795,8 @@ public class Viewer extends Application {
             }
         }
         //recording which round we are at
-        boardString += roundCount;
-        boardString += sCount;
+        //boardString += roundCount;
+        //boardString += sCount;
         //System.out.println(boardString);
     }
 
