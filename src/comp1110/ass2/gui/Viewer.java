@@ -9,10 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -427,9 +425,11 @@ public class Viewer extends Application {
     private void endRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
+            roundCount ++;
             diceRoll = "";
             diceRoll = generateDiceRoll();
             showNormalTiles(diceRoll);
+            setRoundCount();
             //my new task 10 version
             //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
             //my old task 10 version
@@ -443,6 +443,30 @@ public class Viewer extends Application {
         controls.getChildren().add(hb);
     }
 
+    //the parameter that stores which round we are at
+    int roundCount = 0;
+
+    //set the label of roundCount
+    private void setRoundCount() {
+        /*
+        for (var v : root.getChildren()) {
+            if (v instanceof HBox) {
+                if (v.getLayoutX() == 30)
+                    root.getChildren().remove(v);
+            }
+        }
+         */
+        Label labelRound = new Label("Round " + roundCount);
+        labelRound.setFont(new Font("Verdana", 50));
+        HBox roundBox = new HBox();
+        roundBox.setStyle("-fx-background-color: #FFFFFF;");
+        roundBox.getChildren().add(labelRound);
+        roundBox.setSpacing(30);
+        roundBox.setLayoutX(30);
+        roundBox.setLayoutY(10);
+        root.getChildren().add(roundBox);
+    }
+
     //show Ss tiles
     void showSpecialTiles() {
         //S0
@@ -452,7 +476,8 @@ public class Viewer extends Application {
         s0.setFitWidth(80);
         s0.setX(30);
         s0.setY(90);
-        moveTile(s0);
+        while (roundCount > 0)
+            moveTile(s0);
         root.getChildren().add(s0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
@@ -461,7 +486,8 @@ public class Viewer extends Application {
         s1.setFitWidth(80);
         s1.setX(30);
         s1.setY(190);
-        moveTile(s1);
+        while (roundCount > 0)
+            moveTile(s1);
         root.getChildren().add(s1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
@@ -470,7 +496,8 @@ public class Viewer extends Application {
         s2.setFitWidth(80);
         s2.setX(30);
         s2.setY(290);
-        moveTile(s2);
+        while (roundCount > 0)
+            moveTile(s2);
         root.getChildren().add(s2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
@@ -479,7 +506,8 @@ public class Viewer extends Application {
         s3.setFitWidth(80);
         s3.setX(30);
         s3.setY(390);
-        moveTile(s3);
+        while (roundCount > 0)
+            moveTile(s3);
         root.getChildren().add(s3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
@@ -488,7 +516,8 @@ public class Viewer extends Application {
         s4.setFitWidth(80);
         s4.setX(30);
         s4.setY(490);
-        moveTile(s4);
+        while (roundCount > 0)
+            moveTile(s4);
         root.getChildren().add(s4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
@@ -497,7 +526,8 @@ public class Viewer extends Application {
         s5.setFitWidth(80);
         s5.setX(30);
         s5.setY(590);
-        moveTile(s5);
+        while (roundCount > 0)
+            moveTile(s5);
         root.getChildren().add(s5);
     }
 
@@ -625,7 +655,7 @@ public class Viewer extends Application {
     //the boardString of the game
     String boardString = "";
     //boardString arrayList
-    ArrayList<String> boardStringList = new ArrayList<>();
+    //ArrayList<String> boardStringList = new ArrayList<>();
 
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
