@@ -724,6 +724,7 @@ public class Viewer extends Application {
             rotateTile(imageView);
             inPosition(imageView);
         });
+        
     }
 
     //the parameter to record the scroll count
