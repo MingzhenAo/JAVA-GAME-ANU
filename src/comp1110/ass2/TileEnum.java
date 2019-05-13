@@ -1,11 +1,10 @@
 package comp1110.ass2;
 
 /**
- * the class provides all of the unrotated tiles
+ * This class provides all of the unrotated tiles
  */
 
 public enum TileEnum {
-
 
     //0 represents a highway; 1 represents a railway; 5 represents blank
     A0(1, 1, 5, 5),

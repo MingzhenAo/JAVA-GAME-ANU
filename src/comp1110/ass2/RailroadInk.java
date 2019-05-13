@@ -1,6 +1,12 @@
-
 package comp1110.ass2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
+import static comp1110.ass2.DiceRoll.getMove;
+import static comp1110.ass2.TileRotate.getRotatedTile;
+import static comp1110.ass2.getBasicScore.*;
 import static java.lang.Character.getNumericValue;
 
 public class RailroadInk {
@@ -47,13 +53,9 @@ public class RailroadInk {
      */
     public static String[] getPlacementStringArray(String boardString) {
         int number = boardString.length() / 5;
-
         String[] placementStringArray = new String[number];
-
         for (int i = 0; i < number; i++) {
-
             placementStringArray[i] = boardString.substring(5 * i, 5 * (i + 1));
-
         }
         return placementStringArray;
     }
@@ -124,100 +126,7 @@ public class RailroadInk {
      */
     public static boolean areConnectedNeighbours(String tilePlacementStringA, String tilePlacementStringB) {
         // FIXME Task 5: determine whether neighbouring placements are connected
-
-        String a = tilePlacementStringA;
-        String b = tilePlacementStringB;
-
-         /*
-        a.substring(0, 2) will return the object's name of TileEnum, such as A0, A1 etc.
-        Then, by the method of valueOf(String name), we will get the corresponding object.
-        */
-        TileEnum tA = TileEnum.valueOf(a.substring(0, 2));
-        TileEnum tB = TileEnum.valueOf(b.substring(0, 2));
-
-
-        int[] tileA = {tA.left, tA.top, tA.right, tA.bottom};
-        int[] tileB = {tB.left, tB.top, tB.right, tB.bottom};
-
-        TileRotate r = new TileRotate();
-
-        r.rotateTime(tileA, getNumericValue(a.charAt(4)));
-        r.rotateTime(tileB, getNumericValue(b.charAt(4)));
-
-
-        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row;a right;b left.
-        {
-
-            if (tileA[0] == tileB[2] && tileA[0] != 5)
-                return true;
-            /*
-            It means that only the left edge of tilePlacementStringA should be the same with the
-            right edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
-            */
-        }
-
-        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row;b right;a left.
-        {
-            if (tileA[2] == tileB[0] && tileA[2] != 5)
-                return true;
-              /*
-            It means that only the right edge of tilePlacementStringA should be the same with the
-            left edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
-            */
-        }
-
-        if (a.charAt(3) == b.charAt(3) && (int) a.charAt(2) - (int) b.charAt(2) == 1) // same column;b above; a below.
-        {
-            if (tileA[1] == tileB[3] && tileA[1] != 5)
-                return true;
-
-            /*
-            It means that only the top edge of tilePlacementStringA should be the same with the
-            bottom edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
-            */
-        }
-        if (a.charAt(3) == b.charAt(3) && (int) b.charAt(2) - (int) a.charAt(2) == 1) //same column;a above; b below
-        {
-            if (tileA[3] == tileB[1] && tileA[3] != 5)
-                return true;
-              /*
-            It means that only the bottom edge of tilePlacementStringA should be the same with the
-            top edge of tilePlacementStringB and the edges must exist(but we only need to determine one of them here).
-            */
-        }
-
-        //If all of these above are not satisfied, the placements are not connected neighbours.
-        return false;
-    }
-
-
-    /**
-     * @param placementString
-     * @return an int array containing 4 integers.
-     * The fist element represents left;
-     * The second element  represents top;
-     * The third  element represents right;
-     * The forth  element represents bottom;
-     * <p>
-     * 0 represents a highway; 1 represents a railway; 5 represents blank
-     * <p>
-     * For example if the array is [0,5,1,5],
-     * it means the tile has a highway in the left, blank for top, a railway for right, blank for bottom
-     */
-    public static int[] getRotatedTile(String placementString) {
-
-        TileRotate r = new TileRotate();
-        int[] tile = new int[4];
-        TileEnum tileName = TileEnum.valueOf(placementString.substring(0, 2));
-
-        tile[0] = tileName.left;
-        tile[1] = tileName.top;
-        tile[2] = tileName.right;
-        tile[3] = tileName.bottom;
-
-        r.rotateTime(tile, getNumericValue(placementString.charAt(4)));
-
-        return tile;
+        return connectedNeighboursOrNot(tilePlacementStringA, tilePlacementStringB);
     }
 
 
@@ -239,140 +148,10 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
-        int count = boardString.length() / 5;
-
-        String[] placementStringArray = getPlacementStringArray(boardString);
-
-        TileRotate r = new TileRotate();
-
-
-        //testing are legal connected
-        for (int i = 0; i < count - 1; i++) {
-
-            for (int j = i + 1; j < count; j++) {
-
-                if (areConnectedNeighbours(placementStringArray[i], placementStringArray[j]) == false) {//说明两个tile不是相邻且连接的
-
-                    /*
-                     * A tile may have one or more edges touching a blank edge of another tile; this is referred to as disconnected,
-                     * but the placement is still legal.
-                     *
-                     */
-                    if (placementStringArray[i].charAt(2) == placementStringArray[j].charAt(2) && placementStringArray[i].charAt(3) - placementStringArray[j].charAt(3) == 1) //same row,i right, j left
-                    {
-                        //Determine whether a tile have one or more edges touching a blank edge of another tile
-                        if (getRotatedTile(placementStringArray[i])[0] != 5 && getRotatedTile(placementStringArray[j])[2] != 5) {
-                            return false;
-                        }
-
-                    } else if (placementStringArray[i].charAt(2) == placementStringArray[j].charAt(2) && placementStringArray[j].charAt(3) - placementStringArray[i].charAt(3) == 1)// same row,j right, i left
-                    {
-                        //Determine whether a tile have one or more edges touching a blank edge of another tile
-                        if (getRotatedTile(placementStringArray[j])[0] != 5 && getRotatedTile(placementStringArray[i])[2] != 5) {
-                            return false;
-                        }
-                    } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[i].charAt(2) - (int) placementStringArray[j].charAt(2) == 1)//same column,i below, j top
-                    {
-                        //Determine whether a tile have one or more edges touching a blank edge of another tile
-                        if (getRotatedTile(placementStringArray[i])[1] != 5 && getRotatedTile(placementStringArray[j])[3] != 5) {
-                            return false;
-                        }
-                    } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[j].charAt(2) - (int) placementStringArray[i].charAt(2) == 1)//same column,j below, i top
-                    {
-                        //Determine whether a tile have one or more edges touching a blank edge of another tile
-                        if (getRotatedTile(placementStringArray[j])[1] != 5 && getRotatedTile(placementStringArray[i])[3] != 5) {
-                            return false;
-                        }
-
-                    }
-                }
-            }
-        }
-
-        /*
-        testing are correctly connected to exit
-        String[] highwayExits = {"A1","A5","D0","D6","G1","G5"}; exits with highway
-        String[] railwayExits = {"A3","B0","B6","F0","F6","G3"}; exits with railway
-        */
-
-        int[] tile = new int[4];
-        int b = 0;
-
-        for (int i = 0; i < count; i++) {
-            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
-            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
-            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
-            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
-            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
-
-
-            switch (placementStringArray[i].substring(2, 4)) {
-                case "A1":
-                    b++;
-                    if (tile[1] != 0)
-                        return false;
-                    break;
-                case "A5":
-                    b++;
-                    if (tile[1] != 0)
-                        return false;
-                    break;
-                case "D0":
-                    b++;
-                    if (tile[0] != 0)
-                        return false;
-                    break;
-                case "D6":
-                    b++;
-                    if (tile[2] != 0)
-                        return false;
-                    break;
-                case "G1":
-                    b++;
-                    if (tile[3] != 0)
-                        return false;
-                    break;
-                case "G5":
-                    b++;
-                    if (tile[3] != 0)
-                        return false;
-                    break;
-                case "A3":
-                    b++;
-                    if (tile[1] != 1)
-                        return false;
-                    break;
-                case "B0":
-                    b++;
-                    if (tile[0] != 1)
-                        return false;
-                    break;
-                case "B6":
-                    b++;
-                    if (tile[2] != 1)
-                        return false;
-                    break;
-                case "F0":
-                    b++;
-                    if (tile[0] != 1)
-                        return false;
-                    break;
-                case "F6":
-                    b++;
-                    if (tile[2] != 1)
-                        return false;
-                    break;
-                case "G3":
-                    b++;
-                    if (tile[3] != 1)
-                        return false;
-                    break;
-            }
-        }
-
-        if (b == 0) {
+        if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
-        }
+        if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
+            return false;
         return true;
 
     }
@@ -387,7 +166,14 @@ public class RailroadInk {
      */
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
-        return "";
+        int[] m = new int[3];
+        String a = "";
+        for (int i = 0; i < 3; i++) {
+            m[i] = (int) (Math.random() * 6);
+            a = a + "A" + m[i];
+        }
+        a = a + "B" + (int) (Math.random() * 3);
+        return a;
     }
 
     /**
@@ -403,8 +189,72 @@ public class RailroadInk {
      */
     public static int getBasicScore(String boardString) {
         // FIXME Task 8: compute the basic score
-        return -1;
+        int score = 0;
+        //central tiles
+        score += centralTilesScore(boardString);
+        //exits mapped
+        //add the score according to the exits mapped
+        score += exitsScore(boardString);
+        //dead ends
+        score += getEndScore(boardString);
+        return score;
     }
+
+
+    /**
+     * @param placementString
+     * @param tilesMap
+     * @return
+     */
+    public static boolean canIPlaceTheStringHere(String placementString, HashMap<String, String> tilesMap) {
+        String checkLeft = "";
+        String checkUp = "";
+        String checkRight = "";
+        String checkDown = "";
+
+        char row = placementString.charAt(2);
+        int column = placementString.charAt(3);
+
+        checkLeft += row;
+        checkLeft += (char) (column - 1);
+        checkUp += (char) ((int) row - 1);
+        checkUp += (char) column;
+        checkRight += row;
+        checkRight += (char) (column + 1);
+        checkDown += (char) ((int) row + 1);
+        checkDown += (char) column;
+        boolean b = false;
+
+        //They should legally connect all the near tiles and have at lest one connected neighbour
+        if (tilesMap.containsKey(checkLeft)) {
+            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkLeft), placementString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkLeft), placementString))
+                b = true;
+        }
+        if (tilesMap.containsKey(checkUp)) {
+            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkUp), placementString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkUp), placementString))
+                b = true;
+
+        }
+        if (tilesMap.containsKey(checkRight)) {
+            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkRight), placementString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkRight), placementString))
+                b = true;
+        }
+        if (tilesMap.containsKey(checkDown)) {
+            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkDown), placementString))
+                return false;
+            if (areConnectedNeighbours(tilesMap.get(checkDown), placementString))
+                b = true;
+        }
+
+        return b;
+    }
+
 
     /**
      * Given a valid boardString and a dice roll for the round,
@@ -417,8 +267,11 @@ public class RailroadInk {
      */
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
-        return null;
+        String result = getMove(boardString, diceRoll);
+
+        return result;
     }
+
 
     /**
      * Given the current state of a game board, output an integer representing the sum of all the factors contributing
@@ -433,5 +286,43 @@ public class RailroadInk {
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
         return -1;
+    }
+
+    public static int getLongestRailway(String boardString) {
+        String[] boardStringArray = getPlacementStringArray(boardString);
+        /*
+        ArrayList<String> railwayList = new ArrayList<>();
+        railwayList.add("B0");
+        railwayList.add("F0");
+        railwayList.add("A3");
+        railwayList.add("G3");
+        railwayList.add("B6");
+        railwayList.add("F6");
+         */
+        ArrayList<String> railwayTileList = new ArrayList<>();
+        railwayTileList.add("S0");
+        railwayTileList.add("S1");
+        railwayTileList.add("S3");
+        railwayTileList.add("S4");
+        railwayTileList.add("S5");
+        railwayTileList.add("A0");
+        railwayTileList.add("A1");
+        railwayTileList.add("A2");
+        railwayTileList.add("B0");
+        railwayTileList.add("B1");
+        railwayTileList.add("B2");
+        ArrayList<String> routList = new ArrayList<>();
+        HashMap<String, ArrayList<String>> routMap = new HashMap<>();
+        for (var v : boardStringArray) {
+            if (railwayTileList.contains(v.substring(0, 2))) {
+                for (var v2 : boardStringArray) {
+                    routList.clear();
+                    if (areConnectedNeighbours(v2, v)) {
+
+                    }
+                }
+            }
+        }
+        return 0;
     }
 }

@@ -6,12 +6,12 @@ import org.junit.rules.Timeout;
 
 import static org.junit.Assert.assertTrue;
 
-public class AreConnectedNeighboursTest {
+public class ConnectedNeighboursTest {
     @Rule
     public Timeout globalTimeout = Timeout.millis(2000);
 
     @Test
-    public void testJavadocExamples() {
+    public void testAreConnectedNeighbours() {
         testExpected("A3C10", "A3C23", true);
         testExpected("A3C23", "B1B20", false);
         testExpected("A0B30", "A3B23", false);
@@ -117,7 +117,7 @@ public class AreConnectedNeighboursTest {
     }
 
     private void testExpected(String placementA, String placementB, boolean expected) {
-        boolean result = RailroadInk.areConnectedNeighbours(placementA, placementB);
+        boolean result = ConnectedNeighbours.connectedNeighboursOrNot(placementA, placementB);
         assertTrue("RailroadInk.areConnectedNeighbours(" + placementA + ", " + placementB + ") expected " + expected + " but returned " + result, result == expected);
 
     }
