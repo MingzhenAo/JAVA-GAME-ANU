@@ -14,10 +14,8 @@ public class AreLegallyConnectedNeighbours {
 
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
 
-        TileRotate r = new TileRotate();
 
-
-        //testing are legal connected
+        //以下代码只能保证所有的tile都合法相邻，但不能保证放置顺序正确
         for (int i = 0; i < count - 1; i++) {
 
             for (int j = i + 1; j < count; j++) {

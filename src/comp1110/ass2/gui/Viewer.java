@@ -1,18 +1,19 @@
 package comp1110.ass2.gui;
 
+import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+
+import java.util.Optional;
 
 import static comp1110.ass2.RailroadInk.*;
 
@@ -41,12 +42,8 @@ public class Viewer extends Application {
      * @return
      */
     static ImageView rotation(ImageView a, int n) {
-        while (n > 7) {
-            n -= 8;
-        }
-        if (n > 3) {
-            a.setScaleX(-1);
-            n = n - 4;
+        if (n == 0) {
+            a.setRotate(0);
         }
         if (n == 1) {
             a.setRotate(90);
@@ -55,6 +52,22 @@ public class Viewer extends Application {
             a.setRotate(180);
         }
         if (n == 3) {
+            a.setRotate(270);
+        }
+        if (n == 4) {
+            a.setScaleX(-1);
+            a.setRotate(0);
+        }
+        if (n == 5) {
+            a.setScaleX(-1);
+            a.setRotate(90);
+        }
+        if (n == 6) {
+            a.setScaleX(-1);
+            a.setRotate(180);
+        }
+        if (n == 7) {
+            a.setScaleX(-1);
             a.setRotate(270);
         }
         return a;
@@ -401,17 +414,40 @@ public class Viewer extends Application {
 
         //show my stuff
         showSpecialTiles();
-        endRound();
+        nextRound();
+
+        //end the game if there is no more valid moves
+        //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
+            //endGame(primaryStage);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     //create the button for next round
-    private void endRound() {
+    private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            showTiles(generateDiceRoll());
+            System.out.println(boardString + "s");
+            if (isValidPlacementSequence(boardString)){
+                roundCount ++;
+                diceRoll = "";
+                diceRoll = generateDiceRoll();
+                clearNormalTiles();
+                showNormalTiles(diceRoll);
+                setRoundCount();
+                //my new task 10 version
+                //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
+                //my old task 10 version
+                //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("InValid Placement");
+                alert.setHeaderText(null);
+                alert.setContentText("Can't go to next round because the placement is not valid, please recheck!");
+                alert.showAndWait();
+            }
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
@@ -419,6 +455,62 @@ public class Viewer extends Application {
         hb.setLayoutX(130);
         hb.setLayoutY(520);
         controls.getChildren().add(hb);
+    }
+
+    //the method to clear the norma tiles at the beginning of each round
+    private void clearNormalTiles(){
+        for (var v : root.getChildren()) {
+            if (v instanceof Group){
+                for (var v2 : ((Group) v).getChildren()){
+                    if (v2 instanceof ImageView) {
+                        if (((ImageView) v2).getX() >= 110 && ((ImageView) v2).getX() <= 150 && ((ImageView) v2).getY() >= 70 && ((ImageView) v2).getY() <= 510) {
+                            ((Group) v).getChildren().remove(v2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //the method to end the game
+    private void endGame(Stage primaryStage){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("You have completed the game");
+        alert.setHeaderText("You have completed the game, the basic score you got is: " + getBasicScore(boardString));
+        alert.setContentText("Do you want to start a new game?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            primaryStage.close();
+        }
+        else{
+            primaryStage.close();
+        }
+    }
+
+
+    //the parameter that stores which round we are at
+    int roundCount = 0;
+
+    //set the label of roundCount
+    private void setRoundCount() {
+        /*
+        for (var v : root.getChildren()) {
+            if (v instanceof HBox) {
+                if (v.getLayoutX() == 30)
+                    root.getChildren().remove(v);
+            }
+        }
+         */
+        Label labelRound = new Label("Round " + roundCount);
+        labelRound.setFont(new Font("Verdana", 50));
+        HBox roundBox = new HBox();
+        roundBox.setStyle("-fx-background-color: #FFFFFF;");
+        roundBox.getChildren().add(labelRound);
+        roundBox.setSpacing(30);
+        roundBox.setLayoutX(30);
+        roundBox.setLayoutY(10);
+        root.getChildren().add(roundBox);
     }
 
     //show Ss tiles
@@ -479,21 +571,13 @@ public class Viewer extends Application {
         root.getChildren().add(s5);
     }
 
-    //show ABs dragable tiles
-    void showTiles(String diceRoll) {
+    //show ABs draggable tiles
+    void showNormalTiles(String diceRoll) {
         //ABs
         String[] rollString = new String[4];
         for (int i = 0; i < 4; i++) {
             rollString[i] = diceRoll.substring(2 * i, 2 * i + 2);
         }
-        /*
-        if (rollString[0] == rollString[1])
-            rollString[1] = "";
-        if (rollString[0] == rollString[2])
-            rollString[2] = "";
-        if (rollString[1] == rollString[2])
-            rollString[2] = "";
-         */
         Group group = new Group();
         root.getChildren().add(group);
         for (int i = 0; i < 4; i++) {
@@ -594,19 +678,33 @@ public class Viewer extends Application {
         }
     }
 
+    //store the diceRoll String for each round
+    String diceRoll = "";
+    //store the valid move option for each round
+    //ArrayList<String>  validMoves = new ArrayList<>();
     //the placement string when dragging and rotating
     String placementStringDragging = "";
-    //the rotate status
-    int rotate = 0;
     //the boardString of the game
     String boardString = "";
+    //boardString arrayList
+    //ArrayList<String> boardStringList = new ArrayList<>();
 
     //the method to move the tiles properly
     private void moveTile(ImageView imageView) {
+        /*
+        if (roundCount != 0){
+            if (!imageView.getImage().getUrl().substring(113,114).equals("s") && Integer.valueOf(boardString.substring(boardString.length() - 1, boardString.length())) < 3){
+
+            }
+        }
+         */
         dragTile(imageView);
+        imageView.setOnMouseReleased(mouseEvent -> {
+            updateBoardString();
+        });
     }
 
-    //the method to drag the tiles
+    //the method to drag the tiles, adding the function to only use one special tile each round, maximum 3
     private void dragTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
             imageView.setX(mouseEvent.getSceneX() - 40);
@@ -619,12 +717,14 @@ public class Viewer extends Application {
                     if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
                         placementStringDragging += (char) ((int) 'A' + j);
                         placementStringDragging += i;
+                        placementStringDragging += rotationCount;
                     }
                 }
             }
             rotateTile(imageView);
             inPosition(imageView);
         });
+        
     }
 
     //the parameter to record the scroll count
@@ -639,32 +739,13 @@ public class Viewer extends Application {
             rotation(imageView, rotationCount);
             placementStringDragging = placementStringDragging.substring(0, 4);
             placementStringDragging += rotationCount;
-            //boardString += placementStringDragging;
-            //System.out.println(placementStringDragging);
+            System.out.println(placementStringDragging);
         });
     }
-    /*
-    private void rotateTile(ImageView imageView) {
-        imageView.setOnScroll(scrollEvent -> {
-            imageView.setRotate(imageView.getRotate() + 90);
-            rotate = (int)imageView.getRotate() / 90;
-            placementStringDragging += rotate;
-        });
-        imageView.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton() == MouseButton.SECONDARY)
-            {
-                imageView.setScaleX(imageView.getScaleX() * (-1));
-                if (imageView.getScaleX() == -1){
-                    rotate += 4;
-                }
-            }
-        });
-    }
-     */
-
 
     //check the tile is in position or not
     private void inPosition(ImageView imageView) {
+        //origin slots in place
         for (int i = 0; i < 6; i++) {
             if (imageView.getX() > 10 && imageView.getX() < 50 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
                 imageView.setX(30);
@@ -677,16 +758,107 @@ public class Viewer extends Application {
                 imageView.setY(90 + i * 100);
             }
         }
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        //task 10 way to implement inPlace
+        /*
+        if (validMoves.contains(placementStringDragging)){
+            imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
+            imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
+        }
+         */
+
+        //task 6 way to implement inPlace
+        /*
+        if (isValidPlacementSequence(boardString + placementStringDragging)) {
+            imageView.setX(Integer.valueOf(placementStringDragging.substring(3, 4)) * 80 + 300);
+            imageView.setY(((int) placementStringDragging.charAt(2) - 65) * 80 + 90);
+        }
+         */
+
+        //always in place,adds flexibility
+        for (int i = 0; i < 8; i ++){
+            for (int j = 0; j < 8; j ++){
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
-                    if (isValidPlacementSequence(placementStringDragging)) {
-                        imageView.setX(300 + i * 80);
-                        imageView.setY(90 + j * 80);
-                        boardString += placementStringDragging;
-                    }
+                    imageView.setX(300 + i * 80);
+                    imageView.setY(90 + j * 80);
                 }
             }
         }
     }
+
+    private void updateBoardString() {
+        //initialise boardString
+        boardString = "";
+        //listen on mouse release, each time mouse released scan the whole screen to give the boardString
+        //record how many S tile are in the board
+        //int sCount = 0;
+        //for S
+        for (var v : root.getChildren()) {
+            if (v instanceof ImageView) {
+                if (((ImageView) v).getImage().getUrl().length() < 120) {
+                    if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
+                        for (int i = 0; i < 8; i++) {
+                            for (int j = 0; j < 8; j++) {
+                                if (((ImageView) v).getY() == 90 + i * 80) {
+                                    if (((ImageView) v).getX() == 300 + j * 80) {
+                                        boardString += ((ImageView) v).getImage().getUrl().substring(113, 115).toUpperCase();
+                                        boardString += (char) ((int) 'A' + i);
+                                        boardString += j;
+                                        boardString += reverseRotation((ImageView) v);
+                                        //sCount ++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //for Abs
+        for (var v : root.getChildren()) {
+            if (v instanceof Group){
+                for (var v2 : ((Group) v).getChildren()){
+                    if (v2 instanceof ImageView) {
+                        if (((ImageView) v2).getX() >= 300 && ((ImageView) v2).getX() <= 860 && ((ImageView) v2).getY() >= 90 && ((ImageView) v2).getY() <= 650) {
+                            for (int i = 0; i < 8; i++) {
+                                for (int j = 0; j < 8; j++) {
+                                    if (((ImageView) v2).getY() == 90 + i * 80) {
+                                        if (((ImageView) v2).getX() == 300 + j * 80) {
+                                            boardString += ((ImageView) v2).getImage().getUrl().substring(113, 115).toUpperCase();
+                                            boardString += (char) ((int) 'A' + i);
+                                            boardString += j;
+                                            boardString += reverseRotation((ImageView) v2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //recording which round we are at
+        //boardString += roundCount;
+        //boardString += sCount;=
+        System.out.println(boardString);
+    }
+
+    //reverse the rotation process and get the rotation count value
+    private int reverseRotation(ImageView imageView){
+        int count = 0;
+        if (imageView.getScaleX() == -1)
+            count += 4;
+        if (imageView.getRotate() == 90)
+            count += 1;
+        if (imageView.getRotate() == 180)
+            count += 2;
+        if (imageView.getRotate() == 270)
+            count += 3;
+        return count;
+    }
+
+    /*
+    public static void main(String[] args) {
+        launch(args);
+    }
+     */
 }

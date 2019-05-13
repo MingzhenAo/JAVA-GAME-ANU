@@ -1,9 +1,12 @@
 package comp1110.ass2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 
 import static comp1110.ass2.Board.getEmptyGrids;
 import static comp1110.ass2.Board.getFirstValidPlacementString;
+import static comp1110.ass2.TileRotate.getRotatedTile;
 
 
 /**
@@ -79,6 +82,7 @@ public class DiceRoll {
 
             }
         }
+
         return getFirstValidPlacementString(boardString, list);
     }
 
@@ -100,7 +104,131 @@ public class DiceRoll {
                 list.add("" + head[0] + emptyGrid[i] + j);
             }
         }
+
         return getFirstValidPlacementString(boardString, list);
+    }
+
+
+    /**
+     * This method give a random new order for a list
+     *
+     * @param list
+     * @return
+     */
+    public static void randomListSort(ArrayList<String> list) {
+        //Increase randomness
+        Random r = new Random();
+        int time = 0;
+        while (time < list.size()) {
+
+            int a = r.nextInt(list.size());
+
+            String temp;
+            temp = list.get(a);
+            list.remove(list.get(a));
+            list.add(temp);
+
+            time++;
+        }
+    }
+
+    /**
+     * The method return a valid first String for an empty boardString for at the start of the turn
+     *
+     * @param list
+     * @return
+     */
+    public static String getValidStringForEmptyBoardString(ArrayList<String> list) {
+
+        //Increase randomness
+        randomListSort(list);
+
+        ArrayList<int[]> tileList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            tileList.add(getRotatedTile(list.get(i)));
+        }
+
+
+        for (int i = 0; i < list.size(); i++) {
+
+            switch (list.get(i).substring(2, 4)) {
+                case "A1":
+                    if (tileList.get(i)[1] == 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "A5":
+
+                    if (tileList.get(i)[1] != 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "D0":
+
+                    if (tileList.get(i)[0] == 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "D6":
+
+                    if (tileList.get(i)[2] == 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "G1":
+                    if (tileList.get(i)[3] == 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "G5":
+
+                    if (tileList.get(i)[3] == 0) {
+                        return list.get(i);
+                    }
+                    break;
+                case "A3":
+
+                    if (tileList.get(i)[1] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+                case "B0":
+
+                    if (tileList.get(i)[0] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+                case "B6":
+
+                    if (tileList.get(i)[2] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+                case "F0":
+
+                    if (tileList.get(i)[0] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+                case "F6":
+
+                    if (tileList.get(i)[2] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+                case "G3":
+
+                    if (tileList.get(i)[3] == 1) {
+                        return list.get(i);
+                    }
+                    break;
+            }
+
+
+        }
+        return "";
     }
 
 
@@ -568,7 +696,8 @@ public class DiceRoll {
 
 
         //the longest one must be true
-        String longest = list.get(0);//将数组的第一个元素赋给max
+        String longest = list.get(0);//将集合的第一个元素赋给longest
+
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).length() > longest.length()) {//如果arr[i]大于最大值，就将arr[i]赋给最大值
@@ -577,7 +706,24 @@ public class DiceRoll {
 
         }
 
-        return longest;
+        ArrayList<String> tempList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).length() == longest.length()) {
+                tempList.add(list.get(i));
+            }
+
+        }
+
+        HashSet<String> set = new HashSet<>(tempList);
+        //Get a new list after removing duplicate elements
+        ArrayList<String> answerList = new ArrayList<>(set);
+
+        //Increase randomness
+        Random r = new Random();
+        int a = r.nextInt(answerList.size());
+
+        return answerList.get(a);
     }
 
 }

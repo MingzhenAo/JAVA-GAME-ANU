@@ -2,12 +2,13 @@ package comp1110.ass2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
+import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static comp1110.ass2.TileRotate.getRotatedTile;
 import static comp1110.ass2.getBasicScore.*;
-import static java.lang.Character.getNumericValue;
+import static javafx.application.Application.launch;
 
 public class RailroadInk {
     /**
@@ -148,12 +149,39 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
+        //empty boardString returns true
+        if (boardString.equals(""))
+            return true;
+        ArrayList<String> placementSequenceList = getPlacementSequence(boardString);
+        /*
+        Each grid can be used once only.
+        */
+        boolean isRepeat = placementSequenceList.size() != new HashSet<>(placementSequenceList).size();
+        if (isRepeat)
+            return false;
+
+        /*
+        The first tile placed must be an exit;
+        */
+        //This is an array for all exits
+        String[] exits = {"A1", "A5", "D0", "D6", "G1", "G5", "A3", "B0", "B6", "F0", "F6", "G3"};
+        boolean flag = false;
+
+        for (int i = 0; i < exits.length; i++) {
+
+            if (placementSequenceList.get(0).equals(exits[i])) {
+                flag = true;
+            }
+        }
+        if (!flag)
+            return false;
+
+
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
         return true;
-
     }
 
     /**
@@ -267,6 +295,7 @@ public class RailroadInk {
      */
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
+
         String result = getMove(boardString, diceRoll);
 
         return result;
@@ -325,4 +354,6 @@ public class RailroadInk {
         }
         return 0;
     }
+
+
 }
