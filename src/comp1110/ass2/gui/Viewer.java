@@ -3,19 +3,29 @@ package comp1110.ass2.gui;
 import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static comp1110.ass2.RailroadInk.*;
+import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.CYAN;
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -107,6 +117,9 @@ public class Viewer extends Application {
                     a0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a0, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle.setFill(CYAN);
+                    root.getChildren().add(rectangle);
                     root.getChildren().add(a0);
                     break;
                 case "A1":
@@ -117,6 +130,9 @@ public class Viewer extends Application {
                     a1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a1, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle1 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle1.setFill(CYAN);
+                    root.getChildren().add(rectangle1);
                     root.getChildren().add(a1);
                     break;
                 case "A2":
@@ -127,6 +143,9 @@ public class Viewer extends Application {
                     a2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a2, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle2 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle2.setFill(CYAN);
+                    root.getChildren().add(rectangle2);
                     root.getChildren().add(a2);
                     break;
                 case "A3":
@@ -137,6 +156,9 @@ public class Viewer extends Application {
                     a3.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a3, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle3 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle3.setFill(CYAN);
+                    root.getChildren().add(rectangle3);
                     root.getChildren().add(a3);
                     break;
                 case "A4":
@@ -147,6 +169,9 @@ public class Viewer extends Application {
                     a4.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a4, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle4 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle4.setFill(CYAN);
+                    root.getChildren().add(rectangle4);
                     root.getChildren().add(a4);
                     break;
                 case "A5":
@@ -157,6 +182,9 @@ public class Viewer extends Application {
                     a5.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a5, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle5 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle5.setFill(CYAN);
+                    root.getChildren().add(rectangle5);
                     root.getChildren().add(a5);
                     break;
                 case "B0":
@@ -167,6 +195,9 @@ public class Viewer extends Application {
                     b0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b0, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle6 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle6.setFill(CYAN);
+                    root.getChildren().add(rectangle6);
                     root.getChildren().add(b0);
                     break;
                 case "B1":
@@ -177,6 +208,9 @@ public class Viewer extends Application {
                     b1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b1, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle7 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle7.setFill(CYAN);
+                    root.getChildren().add(rectangle7);
                     root.getChildren().add(b1);
                     break;
                 case "B2":
@@ -187,6 +221,9 @@ public class Viewer extends Application {
                     b2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b2, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle8 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle8.setFill(CYAN);
+                    root.getChildren().add(rectangle8);
                     root.getChildren().add(b2);
                     break;
                 case "S0":
@@ -197,6 +234,9 @@ public class Viewer extends Application {
                     s0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s0, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle9 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle9.setFill(CYAN);
+                    root.getChildren().add(rectangle9);
                     root.getChildren().add(s0);
                     break;
                 case "S1":
@@ -207,6 +247,9 @@ public class Viewer extends Application {
                     s1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s1, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle10 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle10.setFill(CYAN);
+                    root.getChildren().add(rectangle10);
                     root.getChildren().add(s1);
                     break;
                 case "S2":
@@ -217,6 +260,9 @@ public class Viewer extends Application {
                     s2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s2, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle11 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle11.setFill(CYAN);
+                    root.getChildren().add(rectangle11);
                     root.getChildren().add(s2);
                     break;
                 case "S3":
@@ -227,6 +273,9 @@ public class Viewer extends Application {
                     s3.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s3, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle12 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle12.setFill(CYAN);
+                    root.getChildren().add(rectangle12);
                     root.getChildren().add(s3);
                     break;
                 case "S4":
@@ -237,6 +286,9 @@ public class Viewer extends Application {
                     s4.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s4, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle13 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle13.setFill(CYAN);
+                    root.getChildren().add(rectangle13);
                     root.getChildren().add(s4);
                     break;
                 case "S5":
@@ -247,6 +299,9 @@ public class Viewer extends Application {
                     s5.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s5, Integer.valueOf(placement.substring(4, 5)));
+                    Rectangle rectangle14 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    rectangle14.setFill(CYAN);
+                    root.getChildren().add(rectangle14);
                     root.getChildren().add(s5);
                     break;
                 default:
@@ -423,12 +478,26 @@ public class Viewer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    String CP="";
+    ArrayList<String> CP1=new ArrayList<>();
+    String PL="";
+    ArrayList<String> PL1=new ArrayList<>();
+    String a="";
     //create the button for next round
+    public ArrayList<String> getposition(String a)
+    {
+        ArrayList<String> c = new ArrayList<>();
+        String[] b=getPlacementStringArray(a);
+        for(var v:b)
+        {
+           c.add(v.substring(2,4));
+        }
+        return c;
+    }
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            System.out.println(boardString + "s");
+            System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString)){
                 roundCount ++;
                 diceRoll = "";
@@ -436,6 +505,17 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
+                // FIXME Task 11: create computer player
+                a=generateMove(CP,generateDiceRoll());
+                CP1=getposition(boardString);
+                while(CP1.contains(a.substring(2,4))|CP1.contains(a.substring(7,9))|CP1.contains(a.substring(12,14))|CP1.contains(a.substring(17,19)))
+                {
+                    a=generateMove(CP,generateDiceRoll());
+                }
+                CP+=a;
+                makePlacement(a);
+                System.out.println("CP is "+CP);
+
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
@@ -578,8 +658,6 @@ public class Viewer extends Application {
         for (int i = 0; i < 4; i++) {
             rollString[i] = diceRoll.substring(2 * i, 2 * i + 2);
         }
-        Group group = new Group();
-        root.getChildren().add(group);
         for (int i = 0; i < 4; i++) {
             switch (rollString[i]) {
                 case "A0":
@@ -590,7 +668,7 @@ public class Viewer extends Application {
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
                     moveTile(a0);
-                    group.getChildren().add(a0);
+                    root.getChildren().add(a0);
                     break;
                 case "A1":
                     Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A1.png").toString());
@@ -600,7 +678,7 @@ public class Viewer extends Application {
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
                     moveTile(a1);
-                    group.getChildren().add(a1);
+                    root.getChildren().add(a1);
                     break;
                 case "A2":
                     Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A2.png").toString());
@@ -610,7 +688,7 @@ public class Viewer extends Application {
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
                     moveTile(a2);
-                    group.getChildren().add(a2);
+                    root.getChildren().add(a2);
                     break;
                 case "A3":
                     Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A3.png").toString());
@@ -620,7 +698,7 @@ public class Viewer extends Application {
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
                     moveTile(a3);
-                    group.getChildren().add(a3);
+                    root.getChildren().add(a3);
                     break;
                 case "A4":
                     Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A4.png").toString());
@@ -630,7 +708,7 @@ public class Viewer extends Application {
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
                     moveTile(a4);
-                    group.getChildren().add(a4);
+                    root.getChildren().add(a4);
                     break;
                 case "A5":
                     Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A5.png").toString());
@@ -640,7 +718,7 @@ public class Viewer extends Application {
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
                     moveTile(a5);
-                    group.getChildren().add(a5);
+                    root.getChildren().add(a5);
                     break;
                 case "B0":
                     Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B0.png").toString());
@@ -650,7 +728,7 @@ public class Viewer extends Application {
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
                     moveTile(b0);
-                    group.getChildren().add(b0);
+                    root.getChildren().add(b0);
                     break;
                 case "B1":
                     Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B1.png").toString());
@@ -660,7 +738,7 @@ public class Viewer extends Application {
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
                     moveTile(b1);
-                    group.getChildren().add(b1);
+                    root.getChildren().add(b1);
                     break;
                 case "B2":
                     Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B2.png").toString());
@@ -670,7 +748,7 @@ public class Viewer extends Application {
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
                     moveTile(b2);
-                    group.getChildren().add(b2);
+                    root.getChildren().add(b2);
                     break;
                 default:
                     break;
@@ -710,7 +788,7 @@ public class Viewer extends Application {
             imageView.setX(mouseEvent.getSceneX() - 40);
             imageView.setY(mouseEvent.getSceneY() - 40);
             placementStringDragging = "";
-            placementStringDragging += imageView.getImage().getUrl().substring(113, 115);
+            placementStringDragging += imageView.getImage().getUrl().substring(imageView.getImage().getUrl().length()-6,imageView.getImage().getUrl().length()-4);
             placementStringDragging.toUpperCase();
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -794,18 +872,16 @@ public class Viewer extends Application {
         //for S
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
-                if (((ImageView) v).getImage().getUrl().length() < 120) {
-                    if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
-                        for (int i = 0; i < 8; i++) {
-                            for (int j = 0; j < 8; j++) {
-                                if (((ImageView) v).getY() == 90 + i * 80) {
-                                    if (((ImageView) v).getX() == 300 + j * 80) {
-                                        boardString += ((ImageView) v).getImage().getUrl().substring(113, 115).toUpperCase();
-                                        boardString += (char) ((int) 'A' + i);
-                                        boardString += j;
-                                        boardString += reverseRotation((ImageView) v);
-                                        //sCount ++;
-                                    }
+                if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
+                    for (int i = 0; i < 8; i++) {
+                        for (int j = 0; j < 8; j++) {
+                            if (((ImageView) v).getY() == 90 + i * 80) {
+                                if (((ImageView) v).getX() == 300 + j * 80) {
+                                    boardString += ((ImageView) v).getImage().getUrl().substring(((ImageView) v).getImage().getUrl().length()-6,((ImageView) v).getImage().getUrl().length()-4).toUpperCase();
+                                    boardString += (char) ((int) 'A' + i);
+                                    boardString += j;
+                                    boardString += reverseRotation((ImageView) v);
+                                    //sCount ++;
                                 }
                             }
                         }
@@ -814,28 +890,6 @@ public class Viewer extends Application {
             }
         }
         //for Abs
-        for (var v : root.getChildren()) {
-            if (v instanceof Group){
-                for (var v2 : ((Group) v).getChildren()){
-                    if (v2 instanceof ImageView) {
-                        if (((ImageView) v2).getX() >= 300 && ((ImageView) v2).getX() <= 860 && ((ImageView) v2).getY() >= 90 && ((ImageView) v2).getY() <= 650) {
-                            for (int i = 0; i < 8; i++) {
-                                for (int j = 0; j < 8; j++) {
-                                    if (((ImageView) v2).getY() == 90 + i * 80) {
-                                        if (((ImageView) v2).getX() == 300 + j * 80) {
-                                            boardString += ((ImageView) v2).getImage().getUrl().substring(113, 115).toUpperCase();
-                                            boardString += (char) ((int) 'A' + i);
-                                            boardString += j;
-                                            boardString += reverseRotation((ImageView) v2);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         //recording which round we are at
         //boardString += roundCount;
         //boardString += sCount;=
