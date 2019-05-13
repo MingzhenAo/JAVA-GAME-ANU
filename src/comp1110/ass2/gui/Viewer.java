@@ -428,7 +428,8 @@ public class Viewer extends Application {
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            if (isValidPlacementSequence(boardString) || boardString.length() < 5){
+            System.out.println(boardString + "s");
+            if (isValidPlacementSequence(boardString)){
                 roundCount ++;
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
@@ -836,7 +837,7 @@ public class Viewer extends Application {
         }
         //recording which round we are at
         //boardString += roundCount;
-        //boardString += sCount;
+        //boardString += sCount;=
         System.out.println(boardString);
     }
 
@@ -854,7 +855,9 @@ public class Viewer extends Application {
         return count;
     }
 
+    /*
     public static void main(String[] args) {
         launch(args);
     }
+     */
 }
