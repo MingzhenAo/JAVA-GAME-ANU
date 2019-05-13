@@ -720,12 +720,13 @@ public class Viewer extends Application {
             rotation(imageView, rotationCount);
             placementStringDragging = placementStringDragging.substring(0, 4);
             placementStringDragging += rotationCount;
-            //System.out.println(placementStringDragging);
+            System.out.println(placementStringDragging);
         });
     }
 
     //check the tile is in position or not
     private void inPosition(ImageView imageView) {
+        //origin slots in place
         for (int i = 0; i < 6; i++) {
             if (imageView.getX() > 10 && imageView.getX() < 50 && imageView.getY() > 70 + i * 100 && imageView.getY() < 110 + i * 100) {
                 imageView.setX(30);
@@ -747,12 +748,22 @@ public class Viewer extends Application {
          */
 
         //task 6 way to implement inPlace
-
+        /*
         if (isValidPlacementSequence(boardString + placementStringDragging)) {
             imageView.setX(Integer.valueOf(placementStringDragging.substring(3, 4)) * 80 + 300);
             imageView.setY(((int) placementStringDragging.charAt(2) - 65) * 80 + 90);
         }
+         */
 
+        //always in place,adds flexibility
+        for (int i = 0; i < 8; i ++){
+            for (int j = 0; j < 8; j ++){
+                if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
+                    imageView.setX(300 + i * 80);
+                    imageView.setY(90 + j * 80);
+                }
+            }
+        }
     }
 
     private void updateBoardString() {
@@ -809,7 +820,7 @@ public class Viewer extends Application {
         //recording which round we are at
         //boardString += roundCount;
         //boardString += sCount;
-        //System.out.println(boardString);
+        System.out.println(boardString);
     }
 
     //reverse the rotation process and get the rotation count value
