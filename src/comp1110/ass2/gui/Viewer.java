@@ -432,6 +432,7 @@ public class Viewer extends Application {
                 roundCount ++;
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
+                clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
                 //my new task 10 version
@@ -444,7 +445,6 @@ public class Viewer extends Application {
                 alert.setTitle("InValid Placement");
                 alert.setHeaderText(null);
                 alert.setContentText("Can't go to next round because the placement is not valid, please recheck!");
-
                 alert.showAndWait();
             }
         });
@@ -454,6 +454,21 @@ public class Viewer extends Application {
         hb.setLayoutX(130);
         hb.setLayoutY(520);
         controls.getChildren().add(hb);
+    }
+
+    //the method to clear the norma tiles at the beginning of each round
+    private void clearNormalTiles(){
+        for (var v : root.getChildren()) {
+            if (v instanceof Group){
+                for (var v2 : ((Group) v).getChildren()){
+                    if (v2 instanceof ImageView) {
+                        if (((ImageView) v2).getX() >= 110 && ((ImageView) v2).getX() <= 150 && ((ImageView) v2).getY() >= 70 && ((ImageView) v2).getY() <= 510) {
+                            ((Group) v).getChildren().remove(v2);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     //the method to end the game
