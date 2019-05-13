@@ -428,15 +428,25 @@ public class Viewer extends Application {
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            roundCount ++;
-            diceRoll = "";
-            diceRoll = generateDiceRoll();
-            showNormalTiles(diceRoll);
-            setRoundCount();
-            //my new task 10 version
-            //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
-            //my old task 10 version
-            //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
+            if (isValidPlacementSequence(boardString) || boardString.length() < 5){
+                roundCount ++;
+                diceRoll = "";
+                diceRoll = generateDiceRoll();
+                showNormalTiles(diceRoll);
+                setRoundCount();
+                //my new task 10 version
+                //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
+                //my old task 10 version
+                //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("InValid Placement");
+                alert.setHeaderText(null);
+                alert.setContentText("Can't go to next round because the placement is not valid, please recheck!");
+
+                alert.showAndWait();
+            }
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
@@ -552,14 +562,6 @@ public class Viewer extends Application {
         for (int i = 0; i < 4; i++) {
             rollString[i] = diceRoll.substring(2 * i, 2 * i + 2);
         }
-        /*
-        if (rollString[0] == rollString[1])
-            rollString[1] = "";
-        if (rollString[0] == rollString[2])
-            rollString[2] = "";
-        if (rollString[1] == rollString[2])
-            rollString[2] = "";
-         */
         Group group = new Group();
         root.getChildren().add(group);
         for (int i = 0; i < 4; i++) {
@@ -835,5 +837,9 @@ public class Viewer extends Application {
         if (imageView.getRotate() == 270)
             count += 3;
         return count;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
