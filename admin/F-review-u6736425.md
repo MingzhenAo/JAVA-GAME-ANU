@@ -1,5 +1,5 @@
 Reviewer: Yusen Wei (u6736425)
-Component: <...>
+Component: <Board.java>
 Author: Zixin Ye (u6605822)
  
 Review Comments:
