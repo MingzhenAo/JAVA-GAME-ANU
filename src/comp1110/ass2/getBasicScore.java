@@ -10,11 +10,11 @@ import static comp1110.ass2.TileRotate.getRotatedTile;
 public class getBasicScore {
     /**
      *Author:Mingzhen Ao
-     * To pick up the centraltiles and calculate the scores
+     * To pick up the central tiles and calculate the scores
      * @param boardString
      * @return the centralTiles Score
      */
-    public static int centralTilesScore(String boardString) {
+    public static int getCentralTilesScore(String boardString) {
         int score = 0;
         String[] placementStringArray = getPlacementStringArray(boardString);
         //central tiles
@@ -79,8 +79,8 @@ public class getBasicScore {
 
     /**
      * Author:Mingzhen  Ao
-     * @param a the all tiles Arraylist
-     * @param c just contain 1 String which don't exitst in ArraList
+     * @param a the all tiles ArrayList
+     * @param c just contain 1 String which don't exit in ArrayList
      * @return All the tiles in the same line with C's string;
      */
 
@@ -143,7 +143,7 @@ public class getBasicScore {
      * @param boardString
      * @return The exits Scores
      */
-    public static int exitsScore(String boardString) {
+    public static int getExitsScore(String boardString) {
         int score = 0;
         ArrayList<Integer> f = new ArrayList<>();
         for (int i = 0; i < exitsMapped(boardString).size(); i++) {
@@ -224,7 +224,7 @@ public class getBasicScore {
      * @param boardString
      * @return dead score
      */
-    public static int getEndScore(String boardString) {
+    public static int getEndsScore(String boardString) {
         String[] placementStringArray = getPlacementStringArray(boardString);
         int score = 0;
         for (int i = 0; i < placementStringArray.length; i++) {

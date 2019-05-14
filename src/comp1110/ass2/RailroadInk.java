@@ -8,7 +8,6 @@ import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
 import static comp1110.ass2.getBasicScore.*;
-import static javafx.application.Application.launch;
 
 public class RailroadInk {
     /**
@@ -219,12 +218,12 @@ public class RailroadInk {
         // FIXME Task 8: compute the basic score
         int score = 0;
         //central tiles
-        score += centralTilesScore(boardString);
+        score += getCentralTilesScore(boardString);
         //exits mapped
         //add the score according to the exits mapped
-        score += exitsScore(boardString);
+        score += getExitsScore(boardString);
         //dead ends
-        score += getEndScore(boardString);
+        score += getEndsScore(boardString);
         return score;
     }
 
