@@ -8,13 +8,12 @@ import static comp1110.ass2.TileRotate.getRotatedTile;
 
 /**
  * Author: Zixin Ye
- * This class provides a method representing the GameBoard with LinkedHashMap
- * and some other method operating the linkedHashMap
+ * This class provides a method representing the Game Board with LinkedHashMap
+ * and some other method to operate the linkedHashMap
  */
 
 
 public class Board {
-
     /**
      * Author: Zixin Ye
      * This method use likedHashMap to provide a game board that all grids are empty.

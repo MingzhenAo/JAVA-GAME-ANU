@@ -8,8 +8,13 @@ import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
 public class getBasicScore {
-
-    public static int centralTilesScore(String boardString) {
+    /**
+     *Author:Mingzhen Ao
+     * To pick up the central tiles and calculate the scores
+     * @param boardString
+     * @return the centralTiles Score
+     */
+    public static int getCentralTilesScore(String boardString) {
         int score = 0;
         String[] placementStringArray = getPlacementStringArray(boardString);
         //central tiles
@@ -22,6 +27,14 @@ public class getBasicScore {
         }
         return score;
     }
+
+    /**
+     * Author:Mingzhen Ao
+     * To fix the problem of B2 ,According to different connection way ,we can assume B2 is A4 or A1(be careful the direction).
+     * @param s1  Original 5 characters
+     * @param s2  the 5 characters which will be added
+     * @return the changed String s2
+     */
 
     public static String handle(String s1, String s2) {
         if (!s2.substring(0, 2).equals("B2")) {
@@ -64,6 +77,13 @@ public class getBasicScore {
         return s2;
     }
 
+    /**
+     * Author:Mingzhen  Ao
+     * @param a the all tiles ArrayList
+     * @param c just contain 1 String which don't exit in ArrayList
+     * @return All the tiles in the same line with C's string;
+     */
+
     public static HashMap<String, String> line(ArrayList<String> a, HashMap<String, String> c) {
         HashMap<String, String> e = new HashMap<>();
         for (int i = 0; i < a.size(); i++) {
@@ -91,46 +111,41 @@ public class getBasicScore {
 
 
     /**
+     * Author:Mingzhen Ao
+     * To get all the lines in the Map, each line store in each HashMap,Arraylist contains all Hashmap
      * @param boardString
-     * @return
+     * @return All the lines in the Map
      */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
-
-        String[] placementStringArray = getPlacementStringArray(boardString);
-
-        ArrayList<String> list = new ArrayList<>();
-
-        //将placementStringArray里的元素都存入进list中
-        for (int i = 0; i < placementStringArray.length; i++) {
-            list.add(placementStringArray[i]);
+        String[] boardStringArray = getPlacementStringArray(boardString);
+        ArrayList<String> m = new ArrayList<>();
+        for (int i = 0; i < boardStringArray.length; i++) {
+            m.add(boardStringArray[i]);
         }
-
-        HashMap<String, String> map = new HashMap<>();
-
-        ArrayList<HashMap<String, String>> mapList = new ArrayList<>();
-
-
-        for (int i = 0; i < list.size(); i++) {
-            //如果tile字符串为空并且
-            if (map.get(list.get(i)) == null && !list.get(i).substring(0, 2).equals("B2")) {
-                map.put(list.get(i), list.get(i).substring(2, 4));
-                HashMap<String, String> n = line(list, map);
+        HashMap<String, String> a = new HashMap<>();
+        ArrayList<HashMap<String, String>> b = new ArrayList<>();
+        for (int h = 0; h < m.size(); h++) {
+            if (a.get(m.get(h)) == null && !m.get(h).substring(0, 2).equals("B2")) {
+                a.put(m.get(h), m.get(h).substring(2, 4));
+                HashMap<String, String> n = line(m, a);
                 if (n.size() != 0) {
-                    n.put(list.get(i), list.get(i).substring(2, 4));
-                    mapList.add(n);
+                    n.put(m.get(h), m.get(h).substring(2, 4));
+                    b.add(n);
                 }
             }
         }
-        return mapList;
+        return b;
     }
 
-
-    public static int exitsScore(String boardString) {
-
+    /**
+     * Author:Mingzhen Ao
+     * Calculate the exits Scores
+     * @param boardString
+     * @return The exits Scores
+     */
+    public static int getExitsScore(String boardString) {
         int score = 0;
-
         ArrayList<Integer> f = new ArrayList<>();
-
         for (int i = 0; i < exitsMapped(boardString).size(); i++) {
             HashMap<String, String> a = exitsMapped(boardString).get(i);
             int count = 0;
@@ -203,27 +218,26 @@ public class getBasicScore {
         return score;
     }
 
-
-    public static int getEndScore(String boardString) {
-
-        //
+    /**
+     * Author:Mingzhen Ao
+     * use reversed thinking calculate dead Score
+     * @param boardString
+     * @return dead score
+     */
+    public static int getEndsScore(String boardString) {
         String[] placementStringArray = getPlacementStringArray(boardString);
-
-        //declare an integer and initialize it to 0 for score
         int score = 0;
-
         for (int i = 0; i < placementStringArray.length; i++) {
             score -= 4; //assume every time it's got 4 dead ends
             //get rid of the end that's blank or empty with the number 5
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left == 5)//The left part of the is empty, no dead ends, so plus 1
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left == 5)
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top == 5)//The top part of the is empty, no dead ends, so plus 1
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top == 5)
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right == 5)//The right part of the is empty, no dead ends, so plus 1
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right == 5)
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom == 5)//The bottom part of the is empty, no dead ends, so plus 1
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom == 5)
                 score++;
-
             //if the tile was connected to the exit then plus 1
             switch (placementStringArray[i].substring(2, 3)) {
                 case "A":
