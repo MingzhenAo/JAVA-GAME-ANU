@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Scanner;
 
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.BLACK;
@@ -41,8 +42,13 @@ public class Viewer extends Application {
     private static final String URI_BASE = "assets/";
 
     private final Group root = new Group();
+    private final Group rootEasyAI = new Group();
     private final Group controls = new Group();
+    private final Group controlsEasyAI = new Group();
     TextField textField;
+    String a="";
+    String b="";
+    String c="";
 
     /**
      * used to set the proper rotation
@@ -88,14 +94,14 @@ public class Viewer extends Application {
      *
      * @param placement A valid placement string
      */
-    void makePlacement(String placement) {
+    void makePlacement(String placement,Group root) {
         // FIXME Task 4: implement the simple placement viewer
         if (placement.length() == 5) {
-            placing(placement);
+            placing(placement,root);
         } else {
             String[] placementArray = getPlacementStringArray(placement);
             for (int i = 0; i < placementArray.length; i++) {
-                placing(placementArray[i]);
+                placing(placementArray[i],root);
             }
         }
     }
@@ -105,7 +111,7 @@ public class Viewer extends Application {
      *
      * @param placement
      */
-    void placing(String placement) {
+    void placing(String placement,Group root) {
         if (isTilePlacementWellFormed(placement)) {
             int n = 0;
             switch (placement.substring(0, 2)) {
@@ -309,8 +315,6 @@ public class Viewer extends Application {
             }
         }
     }
-
-
     /**
      * Create a basic text field for input and a refresh button.
      */
@@ -320,7 +324,7 @@ public class Viewer extends Application {
         textField.setPrefWidth(300);
         Button button = new Button("Refresh");
         button.setOnAction(e -> {
-            makePlacement(textField.getText());
+            makePlacement(textField.getText(),root);
             textField.clear();
         });
         HBox hb = new HBox();
@@ -331,9 +335,8 @@ public class Viewer extends Application {
         controls.getChildren().add(hb);
     }
 
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    //the method to set the board
+    private void setBoard(Group group){
         //set board
         GridPane m = new GridPane();
         for (int i = 0; i < 7; i++) {
@@ -366,14 +369,14 @@ public class Viewer extends Application {
         viewhigh1.setY(20);
         viewhigh1.setFitWidth(100);
         viewhigh1.setFitHeight(100);
-        root.getChildren().add(viewhigh1);
+        group.getChildren().add(viewhigh1);
 
         ImageView viewhigh2 = new ImageView(highexit);
         viewhigh2.setX(690);
         viewhigh2.setY(20);
         viewhigh2.setFitWidth(100);
         viewhigh2.setFitHeight(100);
-        root.getChildren().add(viewhigh2);
+        group.getChildren().add(viewhigh2);
 
         ImageView viewhigh3 = new ImageView(highexit);
         viewhigh3.setRotate(270);
@@ -381,7 +384,7 @@ public class Viewer extends Application {
         viewhigh3.setY(320);
         viewhigh3.setFitWidth(100);
         viewhigh3.setFitHeight(100);
-        root.getChildren().add(viewhigh3);
+        group.getChildren().add(viewhigh3);
 
         ImageView viewhigh4 = new ImageView(highexit);
         viewhigh4.setRotate(90);
@@ -389,7 +392,7 @@ public class Viewer extends Application {
         viewhigh4.setY(320);
         viewhigh4.setFitWidth(100);
         viewhigh4.setFitHeight(100);
-        root.getChildren().add(viewhigh4);
+        group.getChildren().add(viewhigh4);
 
         ImageView viewhigh5 = new ImageView(highexit);
         viewhigh5.setRotate(180);
@@ -397,7 +400,7 @@ public class Viewer extends Application {
         viewhigh5.setY(620);
         viewhigh5.setFitWidth(100);
         viewhigh5.setFitHeight(100);
-        root.getChildren().add(viewhigh5);
+        group.getChildren().add(viewhigh5);
 
         ImageView viewhigh6 = new ImageView(highexit);
         viewhigh6.setRotate(180);
@@ -405,7 +408,7 @@ public class Viewer extends Application {
         viewhigh6.setY(620);
         viewhigh6.setFitWidth(100);
         viewhigh6.setFitHeight(100);
-        root.getChildren().add(viewhigh6);
+        group.getChildren().add(viewhigh6);
 
         //set railway exits
         Image railexit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "RailExit.png").toString());
@@ -414,7 +417,7 @@ public class Viewer extends Application {
         viewrail1.setY(20);
         viewrail1.setFitWidth(100);
         viewrail1.setFitHeight(100);
-        root.getChildren().add(viewrail1);
+        group.getChildren().add(viewrail1);
 
         ImageView viewrail2 = new ImageView(railexit);
         viewrail2.setRotate(270);
@@ -422,7 +425,7 @@ public class Viewer extends Application {
         viewrail2.setY(160);
         viewrail2.setFitWidth(100);
         viewrail2.setFitHeight(100);
-        root.getChildren().add(viewrail2);
+        group.getChildren().add(viewrail2);
 
         ImageView viewrail3 = new ImageView(railexit);
         viewrail3.setRotate(270);
@@ -430,7 +433,7 @@ public class Viewer extends Application {
         viewrail3.setY(480);
         viewrail3.setFitWidth(100);
         viewrail3.setFitHeight(100);
-        root.getChildren().add(viewrail3);
+        group.getChildren().add(viewrail3);
 
         ImageView viewrail4 = new ImageView(railexit);
         viewrail4.setRotate(90);
@@ -438,7 +441,7 @@ public class Viewer extends Application {
         viewrail4.setY(160);
         viewrail4.setFitWidth(100);
         viewrail4.setFitHeight(100);
-        root.getChildren().add(viewrail4);
+        group.getChildren().add(viewrail4);
 
         ImageView viewrail5 = new ImageView(railexit);
         viewrail5.setRotate(90);
@@ -446,7 +449,7 @@ public class Viewer extends Application {
         viewrail5.setY(480);
         viewrail5.setFitWidth(100);
         viewrail5.setFitHeight(100);
-        root.getChildren().add(viewrail5);
+        group.getChildren().add(viewrail5);
 
         ImageView viewrail6 = new ImageView(railexit);
         viewrail6.setRotate(180);
@@ -454,14 +457,21 @@ public class Viewer extends Application {
         viewrail6.setY(620);
         viewrail6.setFitWidth(100);
         viewrail6.setFitHeight(100);
-        root.getChildren().add(viewrail6);
+        group.getChildren().add(viewrail6);
+
+        //set board
+        group.getChildren().add(m);
+        group.getChildren().add(h);
+    }
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("StepsGame Viewer");
         Scene scene = new Scene(root, VIEWER_WIDTH, VIEWER_HEIGHT);
+
         //set board
-        root.getChildren().add(m);
-        root.getChildren().add(h);
+        setBoard(root);
 
         root.getChildren().add(controls);
 
@@ -470,6 +480,7 @@ public class Viewer extends Application {
         //show my stuff
         showSpecialTiles();
         nextRound();
+        setAIScene(primaryStage, scene);
 
         //end the game if there is no more valid moves
         //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
@@ -478,22 +489,42 @@ public class Viewer extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    String CP="";
-    ArrayList<String> CP1=new ArrayList<>();
-    String PL="";
-    ArrayList<String> PL1=new ArrayList<>();
-    String a="";
-    //create the button for next round
-    public ArrayList<String> getposition(String a)
-    {
-        ArrayList<String> c = new ArrayList<>();
-        String[] b=getPlacementStringArray(a);
-        for(var v:b)
-        {
-           c.add(v.substring(2,4));
-        }
-        return c;
+
+    //set new stage
+    //private void startAgain(Stage stage) throws Exception{
+        //start(stage);
+    //}
+
+    //set AI scene
+    Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
+    //set AI scene method
+    private void setAIScene(Stage primaryStage, Scene scene){
+        //set AI scene
+
+        setBoard(rootEasyAI);
+        rootEasyAI.getChildren().add(controlsEasyAI);
+        Button button2 = new Button("     My  View     ");
+        Button button = new Button("     AI  View     ");
+        HBox hb = new HBox();
+        hb.getChildren().addAll(button);
+        hb.setSpacing(10);
+        hb.setLayoutX(130);
+        hb.setLayoutY(560);
+        HBox hb2 = new HBox();
+        hb2.getChildren().addAll(button2);
+        hb2.setSpacing(10);
+        hb2.setLayoutX(130);
+        hb2.setLayoutY(560);
+        controls.getChildren().add(hb);
+        controlsEasyAI.getChildren().add(hb2);
+        button.setOnAction(e -> {
+            primaryStage.setScene(easyAIScene);
+        });
+        button2.setOnAction(e2 -> {
+            primaryStage.setScene(scene);
+        });
     }
+
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
@@ -505,17 +536,9 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                // FIXME Task 11: create computer player
-                a=generateMove(CP,generateDiceRoll());
-                CP1=getposition(boardString);
-                while(CP1.contains(a.substring(2,4))|CP1.contains(a.substring(7,9))|CP1.contains(a.substring(12,14))|CP1.contains(a.substring(17,19)))
-                {
-                    a=generateMove(CP,generateDiceRoll());
-                }
-                CP+=a;
-                makePlacement(a);
-                System.out.println("CP is "+CP);
-
+                a=generateMove(b,generateDiceRoll());
+                b+=a;
+                makePlacement(b,rootEasyAI);
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
@@ -528,6 +551,7 @@ public class Viewer extends Application {
                 alert.setContentText("Can't go to next round because the placement is not valid, please recheck!");
                 alert.showAndWait();
             }
+
         });
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
