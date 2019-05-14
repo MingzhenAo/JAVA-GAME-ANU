@@ -1,33 +1,20 @@
 package comp1110.ass2.gui;
-
-import comp1110.ass2.GenerateMoves;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
-
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Scanner;
-
 import static comp1110.ass2.RailroadInk.*;
-import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.CYAN;
-
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
  * <p>
@@ -46,9 +33,9 @@ public class Viewer extends Application {
     private final Group controls = new Group();
     private final Group controlsEasyAI = new Group();
     TextField textField;
-    String a="";
-    String b="";
-    String c="";
+    String a = "";
+    String b = "";
+    String c = "";
 
     /**
      * used to set the proper rotation
@@ -94,14 +81,14 @@ public class Viewer extends Application {
      *
      * @param placement A valid placement string
      */
-    void makePlacement(String placement,Group root) {
+    void makePlacement(String placement, Group root) {
         // FIXME Task 4: implement the simple placement viewer
         if (placement.length() == 5) {
-            placing(placement,root);
+            placing(placement, root);
         } else {
             String[] placementArray = getPlacementStringArray(placement);
             for (int i = 0; i < placementArray.length; i++) {
-                placing(placementArray[i],root);
+                placing(placementArray[i], root);
             }
         }
     }
@@ -111,9 +98,8 @@ public class Viewer extends Application {
      *
      * @param placement
      */
-    void placing(String placement,Group root) {
+    void placing(String placement, Group root) {
         if (isTilePlacementWellFormed(placement)) {
-            int n = 0;
             switch (placement.substring(0, 2)) {
                 case "A0":
                     Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A0.png").toString());
@@ -123,7 +109,7 @@ public class Viewer extends Application {
                     a0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a0, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle.setFill(CYAN);
                     root.getChildren().add(rectangle);
                     root.getChildren().add(a0);
@@ -136,7 +122,7 @@ public class Viewer extends Application {
                     a1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a1, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle1 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle1 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle1.setFill(CYAN);
                     root.getChildren().add(rectangle1);
                     root.getChildren().add(a1);
@@ -149,7 +135,7 @@ public class Viewer extends Application {
                     a2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a2, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle2 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle2 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle2.setFill(CYAN);
                     root.getChildren().add(rectangle2);
                     root.getChildren().add(a2);
@@ -162,7 +148,7 @@ public class Viewer extends Application {
                     a3.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a3, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle3 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle3 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle3.setFill(CYAN);
                     root.getChildren().add(rectangle3);
                     root.getChildren().add(a3);
@@ -175,7 +161,7 @@ public class Viewer extends Application {
                     a4.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a4, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle4 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle4 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle4.setFill(CYAN);
                     root.getChildren().add(rectangle4);
                     root.getChildren().add(a4);
@@ -188,7 +174,7 @@ public class Viewer extends Application {
                     a5.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     a5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(a5, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle5 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle5 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle5.setFill(CYAN);
                     root.getChildren().add(rectangle5);
                     root.getChildren().add(a5);
@@ -201,7 +187,7 @@ public class Viewer extends Application {
                     b0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b0, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle6 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle6 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle6.setFill(CYAN);
                     root.getChildren().add(rectangle6);
                     root.getChildren().add(b0);
@@ -214,7 +200,7 @@ public class Viewer extends Application {
                     b1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b1, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle7 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle7 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle7.setFill(CYAN);
                     root.getChildren().add(rectangle7);
                     root.getChildren().add(b1);
@@ -227,7 +213,7 @@ public class Viewer extends Application {
                     b2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     b2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(b2, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle8 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle8 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle8.setFill(CYAN);
                     root.getChildren().add(rectangle8);
                     root.getChildren().add(b2);
@@ -240,7 +226,7 @@ public class Viewer extends Application {
                     s0.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s0.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s0, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle9 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle9 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle9.setFill(CYAN);
                     root.getChildren().add(rectangle9);
                     root.getChildren().add(s0);
@@ -253,7 +239,7 @@ public class Viewer extends Application {
                     s1.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s1.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s1, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle10 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle10 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle10.setFill(CYAN);
                     root.getChildren().add(rectangle10);
                     root.getChildren().add(s1);
@@ -266,7 +252,7 @@ public class Viewer extends Application {
                     s2.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s2.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s2, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle11 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle11 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle11.setFill(CYAN);
                     root.getChildren().add(rectangle11);
                     root.getChildren().add(s2);
@@ -279,7 +265,7 @@ public class Viewer extends Application {
                     s3.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s3.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s3, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle12 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle12 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle12.setFill(CYAN);
                     root.getChildren().add(rectangle12);
                     root.getChildren().add(s3);
@@ -292,7 +278,7 @@ public class Viewer extends Application {
                     s4.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s4.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s4, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle13 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle13 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle13.setFill(CYAN);
                     root.getChildren().add(rectangle13);
                     root.getChildren().add(s4);
@@ -305,7 +291,7 @@ public class Viewer extends Application {
                     s5.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
                     s5.setY(90 + 80 * (placement.charAt(2) - 'A'));
                     rotation(s5, Integer.valueOf(placement.substring(4, 5)));
-                    Rectangle rectangle14 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)),90 + 80 * (placement.charAt(2) - 'A'),80,80);
+                    Rectangle rectangle14 = new Rectangle(300 + 80 * Integer.valueOf(placement.substring(3, 4)), 90 + 80 * (placement.charAt(2) - 'A'), 80, 80);
                     rectangle14.setFill(CYAN);
                     root.getChildren().add(rectangle14);
                     root.getChildren().add(s5);
@@ -315,6 +301,7 @@ public class Viewer extends Application {
             }
         }
     }
+
     /**
      * Create a basic text field for input and a refresh button.
      */
@@ -324,7 +311,7 @@ public class Viewer extends Application {
         textField.setPrefWidth(300);
         Button button = new Button("Refresh");
         button.setOnAction(e -> {
-            makePlacement(textField.getText(),root);
+            makePlacement(textField.getText(), root);
             textField.clear();
         });
         HBox hb = new HBox();
@@ -336,7 +323,7 @@ public class Viewer extends Application {
     }
 
     //the method to set the board
-    private void setBoard(Group group){
+    private void setBoard(Group group) {
         //set board
         GridPane m = new GridPane();
         for (int i = 0; i < 7; i++) {
@@ -484,7 +471,7 @@ public class Viewer extends Application {
 
         //end the game if there is no more valid moves
         //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
-            //endGame(primaryStage);
+        //endGame(primaryStage);
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -492,13 +479,14 @@ public class Viewer extends Application {
 
     //set new stage
     //private void startAgain(Stage stage) throws Exception{
-        //start(stage);
+    //start(stage);
     //}
 
     //set AI scene
     Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
+
     //set AI scene method
-    private void setAIScene(Stage primaryStage, Scene scene){
+    private void setAIScene(Stage primaryStage, Scene scene) {
         //set AI scene
 
         setBoard(rootEasyAI);
@@ -529,22 +517,21 @@ public class Viewer extends Application {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
             System.out.println("the boardString for next round: " + boardString);
-            if (isValidPlacementSequence(boardString)){
-                roundCount ++;
+            if (isValidPlacementSequence(boardString)) {
+                roundCount++;
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                a=generateMove(b,generateDiceRoll());
-                b+=a;
-                makePlacement(b,rootEasyAI);
+                a = generateMove(b, generateDiceRoll());
+                b += a;
+                makePlacement(b, rootEasyAI);
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
                 //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
-            }
-            else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("InValid Placement");
                 alert.setHeaderText(null);
@@ -562,10 +549,10 @@ public class Viewer extends Application {
     }
 
     //the method to clear the norma tiles at the beginning of each round
-    private void clearNormalTiles(){
+    private void clearNormalTiles() {
         for (var v : root.getChildren()) {
-            if (v instanceof Group){
-                for (var v2 : ((Group) v).getChildren()){
+            if (v instanceof Group) {
+                for (var v2 : ((Group) v).getChildren()) {
                     if (v2 instanceof ImageView) {
                         if (((ImageView) v2).getX() >= 110 && ((ImageView) v2).getX() <= 150 && ((ImageView) v2).getY() >= 70 && ((ImageView) v2).getY() <= 510) {
                             ((Group) v).getChildren().remove(v2);
@@ -577,17 +564,16 @@ public class Viewer extends Application {
     }
 
     //the method to end the game
-    private void endGame(Stage primaryStage){
+    private void endGame(Stage primaryStage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("You have completed the game");
         alert.setHeaderText("You have completed the game, the basic score you got is: " + getBasicScore(boardString));
         alert.setContentText("Do you want to start a new game?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             primaryStage.close();
-        }
-        else{
+        } else {
             primaryStage.close();
         }
     }
@@ -812,7 +798,7 @@ public class Viewer extends Application {
             imageView.setX(mouseEvent.getSceneX() - 40);
             imageView.setY(mouseEvent.getSceneY() - 40);
             placementStringDragging = "";
-            placementStringDragging += imageView.getImage().getUrl().substring(imageView.getImage().getUrl().length()-6,imageView.getImage().getUrl().length()-4);
+            placementStringDragging += imageView.getImage().getUrl().substring(imageView.getImage().getUrl().length() - 6, imageView.getImage().getUrl().length() - 4);
             placementStringDragging.toUpperCase();
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
@@ -826,7 +812,7 @@ public class Viewer extends Application {
             rotateTile(imageView);
             inPosition(imageView);
         });
-        
+
     }
 
     //the parameter to record the scroll count
@@ -877,8 +863,8 @@ public class Viewer extends Application {
          */
 
         //always in place,adds flexibility
-        for (int i = 0; i < 8; i ++){
-            for (int j = 0; j < 8; j ++){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 if (imageView.getX() > 280 + i * 80 && imageView.getX() < 320 + i * 80 && imageView.getY() > 70 + j * 80 && imageView.getY() < 110 + j * 80) {
                     imageView.setX(300 + i * 80);
                     imageView.setY(90 + j * 80);
@@ -901,7 +887,7 @@ public class Viewer extends Application {
                         for (int j = 0; j < 8; j++) {
                             if (((ImageView) v).getY() == 90 + i * 80) {
                                 if (((ImageView) v).getX() == 300 + j * 80) {
-                                    boardString += ((ImageView) v).getImage().getUrl().substring(((ImageView) v).getImage().getUrl().length()-6,((ImageView) v).getImage().getUrl().length()-4).toUpperCase();
+                                    boardString += ((ImageView) v).getImage().getUrl().substring(((ImageView) v).getImage().getUrl().length() - 6, ((ImageView) v).getImage().getUrl().length() - 4).toUpperCase();
                                     boardString += (char) ((int) 'A' + i);
                                     boardString += j;
                                     boardString += reverseRotation((ImageView) v);
@@ -921,7 +907,7 @@ public class Viewer extends Application {
     }
 
     //reverse the rotation process and get the rotation count value
-    private int reverseRotation(ImageView imageView){
+    private int reverseRotation(ImageView imageView) {
         int count = 0;
         if (imageView.getScaleX() == -1)
             count += 4;
