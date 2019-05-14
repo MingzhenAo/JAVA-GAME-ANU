@@ -8,7 +8,12 @@ import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
 public class getBasicScore {
-
+    /**
+     *Author:Mingzhen Ao
+     * To pick up the centraltiles and calculate the scores
+     * @param boardString
+     * @return the centralTiles Score
+     */
     public static int centralTilesScore(String boardString) {
         int score = 0;
         String[] placementStringArray = getPlacementStringArray(boardString);
@@ -22,6 +27,14 @@ public class getBasicScore {
         }
         return score;
     }
+
+    /**
+     * Author:Mingzhen Ao
+     * To fix the problem of B2 ,According to different connection way ,we can assume B2 is A4 or A1(be careful the direction).
+     * @param s1  Original 5 characters
+     * @param s2  the 5 characters which will be added
+     * @return the changed String s2
+     */
 
     public static String handle(String s1, String s2) {
         if (!s2.substring(0, 2).equals("B2")) {
@@ -64,6 +77,13 @@ public class getBasicScore {
         return s2;
     }
 
+    /**
+     * Author:Mingzhen  Ao
+     * @param a the all tiles Arraylist
+     * @param c just contain 1 String which don't exitst in ArraList
+     * @return All the tiles in the same line with C's string;
+     */
+
     public static HashMap<String, String> line(ArrayList<String> a, HashMap<String, String> c) {
         HashMap<String, String> e = new HashMap<>();
         for (int i = 0; i < a.size(); i++) {
@@ -91,8 +111,10 @@ public class getBasicScore {
 
 
     /**
+     * Author:Mingzhen Ao
+     * To get all the lines in the Map, each line store in each HashMap,Arraylist contains all Hashmap
      * @param boardString
-     * @return
+     * @return All the lines in the Map
      */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
@@ -115,6 +137,12 @@ public class getBasicScore {
         return b;
     }
 
+    /**
+     * Author:Mingzhen Ao
+     * Calculate the exits Scores
+     * @param boardString
+     * @return The exits Scores
+     */
     public static int exitsScore(String boardString) {
         int score = 0;
         ArrayList<Integer> f = new ArrayList<>();
@@ -190,7 +218,12 @@ public class getBasicScore {
         return score;
     }
 
-
+    /**
+     * Author:Mingzhen Ao
+     * use reversed thinking calculate dead Score
+     * @param boardString
+     * @return dead score
+     */
     public static int getEndScore(String boardString) {
         String[] placementStringArray = getPlacementStringArray(boardString);
         int score = 0;
