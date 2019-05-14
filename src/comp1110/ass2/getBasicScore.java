@@ -95,29 +95,42 @@ public class getBasicScore {
      * @return
      */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
-        String[] boardStringArray = getPlacementStringArray(boardString);
-        ArrayList<String> m = new ArrayList<>();
-        for (int i = 0; i < boardStringArray.length; i++) {
-            m.add(boardStringArray[i]);
+
+        String[] placementStringArray = getPlacementStringArray(boardString);
+
+        ArrayList<String> list = new ArrayList<>();
+
+        //将placementStringArray里的元素都存入进list中
+        for (int i = 0; i < placementStringArray.length; i++) {
+            list.add(placementStringArray[i]);
         }
-        HashMap<String, String> a = new HashMap<>();
-        ArrayList<HashMap<String, String>> b = new ArrayList<>();
-        for (int h = 0; h < m.size(); h++) {
-            if (a.get(m.get(h)) == null && !m.get(h).substring(0, 2).equals("B2")) {
-                a.put(m.get(h), m.get(h).substring(2, 4));
-                HashMap<String, String> n = line(m, a);
+
+        HashMap<String, String> map = new HashMap<>();
+
+        ArrayList<HashMap<String, String>> mapList = new ArrayList<>();
+
+
+        for (int i = 0; i < list.size(); i++) {
+            //如果tile字符串为空并且
+            if (map.get(list.get(i)) == null && !list.get(i).substring(0, 2).equals("B2")) {
+                map.put(list.get(i), list.get(i).substring(2, 4));
+                HashMap<String, String> n = line(list, map);
                 if (n.size() != 0) {
-                    n.put(m.get(h), m.get(h).substring(2, 4));
-                    b.add(n);
+                    n.put(list.get(i), list.get(i).substring(2, 4));
+                    mapList.add(n);
                 }
             }
         }
-        return b;
+        return mapList;
     }
 
+
     public static int exitsScore(String boardString) {
+
         int score = 0;
+
         ArrayList<Integer> f = new ArrayList<>();
+
         for (int i = 0; i < exitsMapped(boardString).size(); i++) {
             HashMap<String, String> a = exitsMapped(boardString).get(i);
             int count = 0;
@@ -192,19 +205,25 @@ public class getBasicScore {
 
 
     public static int getEndScore(String boardString) {
+
+        //
         String[] placementStringArray = getPlacementStringArray(boardString);
+
+        //declare an integer and initialize it to 0 for score
         int score = 0;
+
         for (int i = 0; i < placementStringArray.length; i++) {
             score -= 4; //assume every time it's got 4 dead ends
             //get rid of the end that's blank or empty with the number 5
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left == 5)
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left == 5)//The left part of the is empty, no dead ends, so plus 1
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top == 5)
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top == 5)//The top part of the is empty, no dead ends, so plus 1
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right == 5)
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right == 5)//The right part of the is empty, no dead ends, so plus 1
                 score++;
-            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom == 5)
+            if (TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom == 5)//The bottom part of the is empty, no dead ends, so plus 1
                 score++;
+
             //if the tile was connected to the exit then plus 1
             switch (placementStringArray[i].substring(2, 3)) {
                 case "A":
