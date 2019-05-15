@@ -74,12 +74,12 @@ public class task78test {
     public void testcentraltilesScore() {
         String a = "A2F45A1F51A1F61";
         String b = "A3C31A3C20A5D21S2D33B2C41B2D41A5E40A3E33B2E21A4D51A4D61";
-        assertEquals("a is not in central", centralTilesScore(a), 0);
+        assertEquals("a is not in central", getCentralTilesScore(a), 0);
         a += "B2E45";
-        assertEquals("one member in centre", centralTilesScore(a), 1);
+        assertEquals("one member in centre", getCentralTilesScore(a), 1);
         a += "A3E20A3E31";
-        assertEquals("three memebers in centre", centralTilesScore(a), 3);
-        assertEquals("b contains all the centraltiles", centralTilesScore(b), 9);
+        assertEquals("three memebers in centre", getCentralTilesScore(a), 3);
+        assertEquals("b contains all the centraltiles", getCentralTilesScore(b), 9);
 
     }
 
@@ -144,21 +144,21 @@ public class task78test {
     @Test
     public void exitsgetscorestest() {
         String a = "A3D61";
-        assertEquals("one line one exit test", exitsScore(a), 0);
+        assertEquals("one line one exit test", getExitsScore(a), 0);
         a += "A3D53B0C52A0B52A2B63";
-        assertEquals("one line two exits test", exitsScore(a), 4);
+        assertEquals("one line two exits test", getExitsScore(a), 4);
         a += "A4D41B0E60A0F61A3D31A3D23A2G30B0F34A3E32";
-        assertEquals("one line four exits test", exitsScore(a), 12);
+        assertEquals("one line four exits test", getExitsScore(a), 12);
         a += "A1B01B2B10A1B21A0A63A4D01A1G41B0G12S2D10A4C10B2A10A2B33A1A30S4E11A4E21A3C21A3C31S5F11";
-        assertEquals("two lines 7 exits  and 2 exits test", exitsScore(a), 28);
+        assertEquals("two lines 7 exits  and 2 exits test", getExitsScore(a), 28);
     }
 
     @Test
     public void getendScorestest() {
         String a = "A4A12B2B16A1B01A1B23S1B32A1A32B1B44B2A44A4C16A3D15A4D01A5D23A4E20B1F24A2F17A1F01B0G16A5C34A4C43A5C53A3D50A4D61S4E50A0F51A1F67S2E46B1E31A1F30A2G36A1G41B1G52";
-        assertFalse("5 dead lines", getEndScore(a) != -5);
+        assertFalse("5 dead lines", getEndsScore(a) != -5);
         String b = "A4A50A1F61A0B61S5F50B1F46A1F01S1F12A2F23A1E20B2D21A3D03A1C20A0B22B1A61A4D11A4G10B1G44A2G30A3C01A3C12B0B31A1B01A4B50B0C50A2F32A0E32A0E40A4D31B1D47A1B11";
-        assertEquals("8 dead lines",getEndScore(b), -8);
+        assertEquals("8 dead lines", getEndsScore(b), -8);
     }
 }
 

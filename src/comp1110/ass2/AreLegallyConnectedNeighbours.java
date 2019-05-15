@@ -6,21 +6,21 @@ public class AreLegallyConnectedNeighbours {
     /**
      * It is basically same as method 'areConnectedNeighbours' but the two tiles should be next to each other
      * and when a highway connects a railway, it returns false.
+     *
      * @param boardString
      * @return
      */
-    public static boolean areLegallyConnectedNeighbours(String boardString){
+    public static boolean areLegallyConnectedNeighbours(String boardString) {
         int count = boardString.length() / 5;
 
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
 
 
-        //以下代码只能保证所有的tile都合法相邻，但不能保证放置顺序正确
         for (int i = 0; i < count - 1; i++) {
 
             for (int j = i + 1; j < count; j++) {
 
-                if (RailroadInk.areConnectedNeighbours(placementStringArray[i], placementStringArray[j]) == false) {//说明两个tile不是相邻且连接的
+                if (!RailroadInk.areConnectedNeighbours(placementStringArray[i], placementStringArray[j])) {//说明两个tile不是相邻且连接的
 
                     /*
                      * A tile may have one or more edges touching a blank edge of another tile; this is referred to as disconnected,
@@ -59,6 +59,7 @@ public class AreLegallyConnectedNeighbours {
         }
         return true;
     }
+
     /**
      * It is basically same as method 'areConnectedNeighbours' but when nothing connects to anything it returns true
      * and only when a highway connects a railway, it returns false.
@@ -76,15 +77,15 @@ public class AreLegallyConnectedNeighbours {
         int[] tileB = getRotatedTile(b);
 
 
-        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row; a right; b left.
+        if (a.charAt(2) == b.charAt(2) && a.charAt(3) - b.charAt(3) == 1) //same row; a left; b right.
         {
-            if ((tileA[0] == 1 && tileB[2] == 0) || (tileA[0] == 0 && tileB[2] == 1))
+            if ((tileA[2] == 1 && tileB[0] == 0) || (tileA[0] == 0 && tileB[2] == 1))
                 return false;
         }
 
-        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row; b right; a left.
+        if (a.charAt(2) == b.charAt(2) && b.charAt(3) - a.charAt(3) == 1) // same row; b left; a right.
         {
-            if ((tileA[2] == 0 && tileB[0] == 1) || (tileA[2] == 1 && tileB[0] == 0))
+            if ((tileA[0] == 0 && tileB[2] == 1) || (tileA[2] == 1 && tileB[0] == 0))
                 return false;
         }
 

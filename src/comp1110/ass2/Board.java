@@ -7,21 +7,21 @@ import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
 /**
- * This class provides a method representing the GameBoard with LinkedHashMap
- * and some other method operating the linkedHashMap
+ * Author: Zixin Ye
+ * This class provides a method representing the Game Board with LinkedHashMap
+ * and some other method to operate the linkedHashMap
  */
 
 
 public class Board {
-
     /**
+     * Author: Zixin Ye
      * This method use likedHashMap to provide a game board that all grids are empty.
      * If a grid is empty, after the grid position(e.g. A0, B0) it shows [0]. For example, String "A0[0]" means that the grid A0 has not been placed a tile.
      * If a grid has been placed a tiLe, after the grid, there exist an array with 4 elements. For example, String "B1[5,0,1,5]" means that in the grid B1, there is a tile which is empty in its left, with a highway in the top, with a railway in the right, and empty in the bottom.
      *
      * @return
      */
-
     public static LinkedHashMap<String, int[]> getBoard() {
 
         LinkedHashMap<String, int[]> board = new LinkedHashMap<>();
@@ -44,7 +44,8 @@ public class Board {
 
 
     /**
-     * 根据boardingString 返回当前放置贴图情况下的游戏板 According to the boardString passed, return a board represented by linkedHashMap reflecting the present condition.
+     * Author: Zixin Ye
+     * According to the boardString passed, return a board represented by linkedHashMap reflecting the present condition.
      *
      * @param boardString
      * @return a placementBoard represented by linkedHashMap
@@ -68,6 +69,7 @@ public class Board {
 
 
     /**
+     * Author: Zixin Ye
      * Get all grids whether it is empty or not
      *
      * @param boardString
@@ -96,6 +98,7 @@ public class Board {
 
 
     /**
+     * Author: Zixin Ye
      * Get all grids that has been placed a tile
      *
      * @param boardString
@@ -119,6 +122,7 @@ public class Board {
 
 
     /**
+     * Author: Zixin Ye
      * Return all empty grids
      *
      * @param boardString
@@ -151,6 +155,7 @@ public class Board {
 
 
     /**
+     * Author: Zixin Ye
      * According to the boardingString passed, return the first placementString that can be connected.
      *
      * @param boardString
@@ -212,6 +217,7 @@ public class Board {
 
 
     /**
+     * Author: Zixin Ye
      * This method will return a list in which the elements are sorted as their sequence to be placed
      *
      * @param boardString
