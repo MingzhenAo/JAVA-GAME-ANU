@@ -1,20 +1,24 @@
 package comp1110.ass2.gui;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import java.util.Optional;
+
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
+
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
  * <p>

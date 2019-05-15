@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static comp1110.ass2.getBasicScore.*;
 
 public class RailroadInk {
     /**
@@ -180,6 +180,7 @@ public class RailroadInk {
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
+
         return true;
     }
 
@@ -303,7 +304,7 @@ public class RailroadInk {
 
     /**
      * Given the current state of a game board, output an integer representing the sum of all the factors contributing
-     * to `getBasicScore`, as well as those attributed to:
+     * to `BasicScore`, as well as those attributed to:
      * <p>
      * * Longest railroad
      * * Longest highway
