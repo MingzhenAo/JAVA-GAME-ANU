@@ -148,9 +148,6 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
-        //empty boardString returns true
-        if (boardString.equals(""))
-            return true;
         ArrayList<String> placementSequenceList = getPlacementSequence(boardString);
         /*
         Each grid can be used once only.
