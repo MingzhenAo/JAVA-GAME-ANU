@@ -156,9 +156,9 @@ public class RailroadInk {
         if (isRepeat)
             return false;
 
-        /*
-        The first tile placed must be an exit;
-        */
+
+        /*//The first tile placed must be an exit;
+
         //This is an array for all exits
         String[] exits = {"A1", "A5", "D0", "D6", "G1", "G5", "A3", "B0", "B6", "F0", "F6", "G3"};
         boolean flag = false;
@@ -170,7 +170,7 @@ public class RailroadInk {
             }
         }
         if (!flag)
-            return false;
+            return false;*/
 
 
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
