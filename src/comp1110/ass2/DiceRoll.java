@@ -10,6 +10,7 @@ import static comp1110.ass2.TileRotate.getRotatedTile;
 
 
 /**
+ * Author: Zixin Ye
  * This class provides all methods about DiceRoll
  */
 
@@ -133,7 +134,8 @@ public class DiceRoll {
     }
 
     /**
-     * The method return a valid first String for an empty boardString for at the start of the turn
+     * Author: Zixin Ye
+     * This method return the first valid String for an empty boardString at the start of the turn
      *
      * @param list
      * @return
@@ -233,6 +235,7 @@ public class DiceRoll {
 
 
     /**
+     * Author: Zixin Ye
      * @param boardString a board string representing the current state of the game as at the start of the round
      * @param diceRoll    a String representing a dice roll for the round
      * @return a String representing an ordered sequence of valid piece placements for the current round
