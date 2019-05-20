@@ -8,6 +8,7 @@ import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
+import static java.text.ChoiceFormat.nextDouble;
 
 public class RailroadInk {
     /**
@@ -195,8 +196,8 @@ public class RailroadInk {
         String a = "";
         for (int i = 0; i < 3; i++) {
             m[i] = (int) (Math.random() * 6);
-            a = a + "A" + m[i];
         }
+        a = a + "A" + m[0]+"A" + m[1]+"A"+m[2];
         a = a + "B" + (int) (Math.random() * 3);
         return a;
     }
