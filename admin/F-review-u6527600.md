@@ -97,6 +97,6 @@ images, get text input ,create plenty of methods and so on.
 2.I think the best feature of these is that every class have clear name so
 reader can easily understand the uses.
 3.These codes are well-documented and the program is appropriate.
-4.These code clearly follow the java code conventions
+4.These code clearly follow the java code conventions such as the the 
 5.The shortage about this class is that he used so many repeat codes, most
 of them can create a class and just use the class transfer parameter.   
