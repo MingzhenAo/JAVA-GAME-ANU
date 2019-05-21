@@ -1,20 +1,26 @@
 package comp1110.ass2.gui;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import java.util.Optional;
+
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
+
+//fx config: --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
+
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
  * <p>
@@ -459,7 +465,9 @@ public class Viewer extends Application {
 
         //set board
         setBoard(root);
-
+        diceRoll = generateDiceRoll();
+     
+        showNormalTiles(diceRoll);
         root.getChildren().add(controls);
 
         makeControls();
@@ -581,7 +589,7 @@ public class Viewer extends Application {
 
 
     //the parameter that stores which round we are at
-    int roundCount = 0;
+    int roundCount = 1;
 
     //set the label of roundCount
     private void setRoundCount() {
@@ -896,34 +904,34 @@ public class Viewer extends Application {
                                 }
                             }
                         }
-                                }
-                                }
-                                }
-                                }
-                                //for Abs
-                                //recording which round we are at
-                                //boardString += roundCount;
-                                //boardString += sCount;=
-                                System.out.println(boardString);
-                                }
+                    }
+                }
+            }
+        }
+        //for Abs
+        //recording which round we are at
+        //boardString += roundCount;
+        //boardString += sCount;=
+        System.out.println(boardString);
+    }
 
-//reverse the rotation process and get the rotation count value
-private int reverseRotation(ImageView imageView) {
+    //reverse the rotation process and get the rotation count value
+    private int reverseRotation(ImageView imageView) {
         int count = 0;
         if (imageView.getScaleX() == -1)
-        count += 4;
+            count += 4;
         if (imageView.getRotate() == 90)
-        count += 1;
+            count += 1;
         if (imageView.getRotate() == 180)
-        count += 2;
+            count += 2;
         if (imageView.getRotate() == 270)
-        count += 3;
+            count += 3;
         return count;
-        }
+    }
 
-
-public static void main(String[] args) {
+    /*
+    public static void main(String[] args) {
         launch(args);
-        }
-
-        }
+    }
+     */
+}
