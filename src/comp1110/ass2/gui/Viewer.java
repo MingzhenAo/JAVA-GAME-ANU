@@ -591,7 +591,7 @@ public class Viewer extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("You have completed the game");
         alert.setHeaderText("");
-        alert.setContentText("You have completed the game, the basic score you got is: " +  + getBasicScore(boardString) + "/n" + "the total score you got is: " + getAdvancedScore(boardString));
+        alert.setContentText("You have completed the game\nBasic score: " + getBasicScore(boardString) + "\nTotal score: " + getAdvancedScore(boardString));
         alert.showAndWait();
     }
 
