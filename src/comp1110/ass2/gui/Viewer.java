@@ -44,42 +44,42 @@ public class Viewer extends Application {
     String c = "";
 
     /**
+     * Author: Yusen Wei
      * used to set the proper rotation
-     *
-     * @param a
-     * @param n
-     * @return
+     * @param imageview
+     * @param n the rotation count
+     * @return the proper rotated imageview
      */
-    static ImageView rotation(ImageView a, int n) {
+    static ImageView rotation(ImageView imageview, int n) {
         if (n == 0) {
-            a.setRotate(0);
+            imageview.setRotate(0);
         }
         if (n == 1) {
-            a.setRotate(90);
+            imageview.setRotate(90);
         }
         if (n == 2) {
-            a.setRotate(180);
+            imageview.setRotate(180);
         }
         if (n == 3) {
-            a.setRotate(270);
+            imageview.setRotate(270);
         }
         if (n == 4) {
-            a.setScaleX(-1);
-            a.setRotate(0);
+            imageview.setScaleX(-1);
+            imageview.setRotate(0);
         }
         if (n == 5) {
-            a.setScaleX(-1);
-            a.setRotate(90);
+            imageview.setScaleX(-1);
+            imageview.setRotate(90);
         }
         if (n == 6) {
-            a.setScaleX(-1);
-            a.setRotate(180);
+            imageview.setScaleX(-1);
+            imageview.setRotate(180);
         }
         if (n == 7) {
-            a.setScaleX(-1);
-            a.setRotate(270);
+            imageview.setScaleX(-1);
+            imageview.setRotate(270);
         }
-        return a;
+        return imageview;
     }
 
     /**
@@ -100,9 +100,10 @@ public class Viewer extends Application {
     }
 
     /**
-     * Draw a placement or a sets of placements in the window, this is the method
-     *
+     * Author: Yusen Wei
+     * Draw a placement or a sets of placements in the window, this is the method, and also adds the background of color cyan
      * @param placement
+     * @param root
      */
     void placing(String placement, Group root) {
         if (isTilePlacementWellFormed(placement)) {
@@ -328,7 +329,11 @@ public class Viewer extends Application {
         controls.getChildren().add(hb);
     }
 
-    //the method to set the board
+    /**
+     * Author: Yusen Wei
+     * This method to set the board including all the fird line, central area, exits
+     * @param group
+     */
     private void setBoard(Group group) {
         //set board
         GridPane m = new GridPane();
@@ -522,12 +527,18 @@ public class Viewer extends Application {
         });
     }
 
+    /**
+     * Author: Yusen Wei
+     * the method to show the next round label and to set the next round
+     */
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
             System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString)) {
                 roundCount++;
+                if (roundCount == 8)
+                    endGame();
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
                 clearNormalTiles();
@@ -557,7 +568,10 @@ public class Viewer extends Application {
         controls.getChildren().add(hb);
     }
 
-    //the method to clear the norma tiles at the beginning of each round
+    /**
+     * Author: Yusen Wei
+     * the method to clear all the unused normal tiles at the beginning of each round
+     */
     private void clearNormalTiles() {
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
@@ -568,35 +582,27 @@ public class Viewer extends Application {
         }
     }
 
-    //the method to end the game
-    private void endGame(Stage primaryStage) {
+
+    /**
+     * Author: Yusen Wei
+     * the method to end the game
+     */
+    private void endGame() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("You have completed the game");
-        alert.setHeaderText("You have completed the game, the basic score you got is: " + getBasicScore(boardString));
-        alert.setContentText("Do you want to start a new game?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            primaryStage.close();
-        } else {
-            primaryStage.close();
-        }
+        alert.setHeaderText("");
+        alert.setContentText("You have completed the game, the basic score you got is: " +  + getBasicScore(boardString) + "/n" + "the total score you got is: " + getAdvancedScore(boardString));
     }
 
 
     //the parameter that stores which round we are at
     int roundCount = 1;
 
-    //set the label of roundCount
+    /**
+     * Author: Yusen Wei
+     * the method to set the roundCount label
+     */
     private void setRoundCount() {
-        /*
-        for (var v : root.getChildren()) {
-            if (v instanceof HBox) {
-                if (v.getLayoutX() == 30)
-                    root.getChildren().remove(v);
-            }
-        }
-         */
         Label labelRound = new Label("Round " + roundCount);
         labelRound.setFont(new Font("Verdana", 50));
         HBox roundBox = new HBox();
@@ -608,7 +614,10 @@ public class Viewer extends Application {
         root.getChildren().add(roundBox);
     }
 
-    //show Ss tiles
+    /**
+     * Author: Yusen Wei
+     * the method to show all the special tiles to be placed
+     */
     void showSpecialTiles() {
         //S0
         Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S0.png").toString());
@@ -666,7 +675,11 @@ public class Viewer extends Application {
         root.getChildren().add(s5);
     }
 
-    //show ABs draggable tiles
+    /**
+     * Author: Yusen Wei
+     * This method to show the 4 normal tiles based on diceRoll
+     * @param diceRoll
+     */
     void showNormalTiles(String diceRoll) {
         //ABs
         String[] rollString = new String[4];
@@ -782,7 +795,11 @@ public class Viewer extends Application {
     //boardString arrayList
     //ArrayList<String> boardStringList = new ArrayList<>();
 
-    //the method to move the tiles properly
+    /**
+     * Author: Yusen Wei
+     * the method to move the tiles
+     * @param imageView
+     */
     private void moveTile(ImageView imageView) {
         /*
         if (roundCount != 0){
@@ -797,7 +814,12 @@ public class Viewer extends Application {
         });
     }
 
-    //the method to drag the tiles, adding the function to only use one special tile each round, maximum 3
+
+    /**
+     * Author: Yusen Wei
+     * the method to drag the tiles
+     * @param imageView
+     */
     private void dragTile(ImageView imageView) {
         imageView.setOnMouseDragged(mouseEvent -> {
             imageView.setX(mouseEvent.getSceneX() - 40);
@@ -823,7 +845,12 @@ public class Viewer extends Application {
     //the parameter to record the scroll count
     int rotationCount = 0;
 
-    //the methods to rotate the tiles
+
+    /**
+     * Author: Yusen Wei
+     * the methods to rotate the tiles based on the rotationCount
+     * @param imageView
+     */
     private void rotateTile(ImageView imageView) {
         imageView.setOnScroll(scrollEvent -> {
             rotationCount++;
@@ -836,7 +863,11 @@ public class Viewer extends Application {
         });
     }
 
-    //check the tile is in position or not
+    /**
+     * Author: Yusen Wei
+     * check the tile is in position or not, if it's near the area of a placed slot, snap the tile to the correct position
+     * @param imageView
+     */
     private void inPosition(ImageView imageView) {
         //origin slots in place
         for (int i = 0; i < 6; i++) {
@@ -878,6 +909,10 @@ public class Viewer extends Application {
         }
     }
 
+    /**
+     * Author: Yusen Wei
+     * the method to refresh the boardString of the whole board every time the mouse is released
+     */
     private void updateBoardString() {
         //initialise boardString
         boardString = "";
@@ -911,7 +946,11 @@ public class Viewer extends Application {
         System.out.println(boardString);
     }
 
-    //reverse the rotation process and get the rotation count value
+    /**
+     * Author: Yusen Wei
+     * This method reverses the rotation process and gets the rotation count value
+     * @param imageView
+     */
     private int reverseRotation(ImageView imageView) {
         int count = 0;
         if (imageView.getScaleX() == -1)
