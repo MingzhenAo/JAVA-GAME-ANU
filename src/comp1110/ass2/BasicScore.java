@@ -88,21 +88,27 @@ public class BasicScore {
      */
 
     public static HashMap<String, String> line(ArrayList<String> list, HashMap<String, String> map) {
-        HashMap<String, String> newMap = new HashMap<>();
+
+        HashMap<String, String> resultMap = new HashMap<>();
 
         for (int i = 0; i < list.size(); i++) {
+
             if (map.get(list.get(i)) != null) {
+
                 for (int k = 0; k < list.size(); k++) {
+
                     if (areConnectedNeighbours(list.get(i), list.get(k))) {
-                        String m = list.get(k);
+
+                        String s = list.get(k);
+
                         list.set(k, handle(list.get(i), list.get(k)));
                         if (!map.containsKey(list.get(k))) {
                             list.add(list.get(k));
                             map.put(list.get(k), list.get(k).substring(2, 4));
-                            newMap.put(list.get(k), list.get(k).substring(2, 4));
+                            resultMap.put(list.get(k), list.get(k).substring(2, 4));
                         }
-                        if (m.substring(0, 2).equals("B2")) {
-                            list.set(k, m);
+                        if (s.substring(0, 2).equals("B2")) {
+                            list.set(k, s);
                         }
 
                     }
@@ -110,7 +116,7 @@ public class BasicScore {
             }
         }
 
-        return newMap;
+        return resultMap;
     }
 
 

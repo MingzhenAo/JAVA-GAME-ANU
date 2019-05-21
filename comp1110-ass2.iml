@@ -19,5 +19,20 @@
       </library>
     </orderEntry>
     <orderEntry type="library" exported="" name="javafx" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3/apidocs" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>

@@ -5,6 +5,7 @@ import java.util.*;
 import static comp1110.ass2.DiceRoll.getValidStringForEmptyBoardString;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
+import static java.lang.Character.getNumericValue;
 
 /**
  * Author: Zixin Ye
@@ -99,12 +100,12 @@ public class Board {
 
     /**
      * Author: Zixin Ye
-     * Get all grids that has been placed a tile
+     * Get a list containing all grids that has been placed a tile
      *
      * @param boardString
      * @return
      */
-    public static ArrayList<String> getPlacementGrids(String boardString) {
+    public static ArrayList<String> getPlacementGridsList(String boardString) {
 
         ArrayList<String> condition = getAllGridsCondition(boardString);
 
@@ -118,6 +119,70 @@ public class Board {
         }
 
         return condition;
+    }
+
+
+    /**
+     * Author: Zixin Ye
+     * Get a map containing all grids that has been placed a tile
+     *
+     * @param boardString
+     * @return
+     */
+    public static LinkedHashMap<String, int[]> getPlacementGridsMap(String boardString) {
+
+        String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
+
+        LinkedHashMap<String, int[]> map = new LinkedHashMap<>();
+
+        TileRotate r = new TileRotate();
+
+
+        for (int i = 0; i < placementStringArray.length; i++) {
+            int[] tile = new int[4];
+            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
+            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
+
+            map.put(placementStringArray[i].substring(2, 4), tile);
+
+        }
+
+        return map;
+    }
+
+    /**
+     * Author: Zixin Ye
+     * Return all empty grids
+     *
+     * @param boardString
+     * @return
+     */
+    public static String[] getPlacedGrids(String boardString) {
+
+        //Get all grids whether it is empty or not
+        ArrayList<String> combo = getAllGridsCondition(boardString);
+
+        //Remove those grids that has not been placed a tile
+        for (int i = combo.size() - 1; i >= 0; i--) {
+
+            if (combo.get(i).length() == 5) {
+                combo.remove(i);
+            }
+        }
+
+
+        String[] array = new String[combo.size()];
+
+        for (int i = 0; i < combo.size(); i++) {
+
+            array[i] = combo.get(i).substring(0, 2);
+
+        }
+
+        return array;
     }
 
 
@@ -173,6 +238,73 @@ public class Board {
             return getValidStringForEmptyBoardString(list);
 
         }
+        //判断字符串里还有没有没放Tile的
+        TileRotate r = new TileRotate();
+        /*
+        testing are correctly connected to exit
+        String[] highwayExits = {"A1","A5","D0","D6","G1","G5"}; exits with highway
+        String[] railwayExits = {"A3","B0","B6","F0","F6","G3"}; exits with railway
+        */
+        int[] tile = new int[4];
+
+        /*for (int i = 0; i < list.size(); i++) {
+            tile[0] = TileEnum.valueOf(list.get(i).substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(list.get(i).substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(list.get(i).substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(list.get(i).substring(0, 2)).bottom;
+            r.rotateTime(tile, getNumericValue(list.get(i).charAt(4)));
+
+            switch (list.get(i).substring(2, 4)) {
+                case "A1":
+                    if (tile[1] != 0 && tile[1] != 5)
+                        return list.get(i);
+                    break;
+                case "A5":
+                    if (tile[1] != 0 && tile[1] != 5)
+                        return list.get(i);
+                    break;
+                case "D0":
+                    if (tile[0] != 0 && tile[0] != 5)
+                        return list.get(i);
+                    break;
+                case "D6":
+                    if (tile[2] != 0 && tile[2] != 5)
+                        return list.get(i);
+                    break;
+                case "G1":
+                    if (tile[3] != 0 && tile[3] != 5)
+                        return list.get(i);
+                    break;
+                case "G5":
+                    if (tile[3] != 0 && tile[3] != 5)
+                        return list.get(i);
+                    break;
+                case "A3":
+                    if (tile[1] != 1 && tile[1] != 5)
+                        return list.get(i);
+                    break;
+                case "B0":
+                    if (tile[0] != 1 && tile[0] != 5)
+                        return list.get(i);
+                    break;
+                case "B6":
+                    if (tile[2] != 1 && tile[2] != 5)
+                        return list.get(i);
+                    break;
+                case "F0":
+                    if (tile[0] != 1 && tile[0] != 5)
+                        return list.get(i);
+                    break;
+                case "F6":
+                    if (tile[2] != 1 && tile[2] != 5)
+                        return list.get(i);
+                    break;
+                case "G3":
+                    if (tile[3] != 1 && tile[3] != 5)
+                        return list.get(i);
+                    break;
+            }
+        }*/
 
 
         String result = "";
@@ -191,6 +323,7 @@ public class Board {
         for (int i = 0; i < list.size(); i++) {
 
             boolean flag;
+            boolean isInexistent = true;
 
             for (int j = 0; j < placementList.size(); j++) {
 
@@ -202,13 +335,77 @@ public class Board {
                     boolean b = isValidPlacementSequence(boardString + list.get(i));
 
                     if (b) {
-                        result = list.get(i);
-                        return result;
+                        isInexistent = false;
+                        return list.get(i);
                     }
+
 
                 }
 
             }
+            //已经没法和已经放置的Tile连接了，看看出口处行不行
+            if (!isInexistent){
+
+                tile[0] = TileEnum.valueOf(list.get(i).substring(0, 2)).left;
+                tile[1] = TileEnum.valueOf(list.get(i).substring(0, 2)).top;
+                tile[2] = TileEnum.valueOf(list.get(i).substring(0, 2)).right;
+                tile[3] = TileEnum.valueOf(list.get(i).substring(0, 2)).bottom;
+                r.rotateTime(tile, getNumericValue(list.get(i).charAt(4)));
+
+                switch (list.get(i).substring(2, 4)) {
+                    case "A1":
+                        if (tile[1] != 0 && tile[1] != 5)
+                            return list.get(i);
+                        break;
+                    case "A5":
+                        if (tile[1] != 0 && tile[1] != 5)
+                            return list.get(i);
+                        break;
+                    case "D0":
+                        if (tile[0] != 0 && tile[0] != 5)
+                            return list.get(i);
+                        break;
+                    case "D6":
+                        if (tile[2] != 0 && tile[2] != 5)
+                            return list.get(i);
+                        break;
+                    case "G1":
+                        if (tile[3] != 0 && tile[3] != 5)
+                            return list.get(i);
+                        break;
+                    case "G5":
+                        if (tile[3] != 0 && tile[3] != 5)
+                            return list.get(i);
+                        break;
+                    case "A3":
+                        if (tile[1] != 1 && tile[1] != 5)
+                            return list.get(i);
+                        break;
+                    case "B0":
+                        if (tile[0] != 1 && tile[0] != 5)
+                            return list.get(i);
+                        break;
+                    case "B6":
+                        if (tile[2] != 1 && tile[2] != 5)
+                            return list.get(i);
+                        break;
+                    case "F0":
+                        if (tile[0] != 1 && tile[0] != 5)
+                            return list.get(i);
+                        break;
+                    case "F6":
+                        if (tile[2] != 1 && tile[2] != 5)
+                            return list.get(i);
+                        break;
+                    case "G3":
+                        if (tile[3] != 1 && tile[3] != 5)
+                            return list.get(i);
+                        break;
+                }
+            }
+
+            //如果一个都不满足，看看能不能放exit处
+
 
         }
 

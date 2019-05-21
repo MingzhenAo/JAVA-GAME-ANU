@@ -8,7 +8,6 @@ import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static java.text.ChoiceFormat.nextDouble;
 
 public class RailroadInk {
     /**
@@ -158,22 +157,6 @@ public class RailroadInk {
             return false;
 
 
-        /*//The first tile placed must be an exit;
-
-        //This is an array for all exits
-        String[] exits = {"A1", "A5", "D0", "D6", "G1", "G5", "A3", "B0", "B6", "F0", "F6", "G3"};
-        boolean flag = false;
-
-        for (int i = 0; i < exits.length; i++) {
-
-            if (placementSequenceList.get(0).equals(exits[i])) {
-                flag = true;
-            }
-        }
-        if (!flag)
-            return false;*/
-
-
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
@@ -197,7 +180,7 @@ public class RailroadInk {
         for (int i = 0; i < 3; i++) {
             m[i] = (int) (Math.random() * 6);
         }
-        a = a + "A" + m[0]+"A" + m[1]+"A"+m[2];
+        a = a + "A" + m[0] + "A" + m[1] + "A" + m[2];
         a = a + "B" + (int) (Math.random() * 3);
         return a;
     }
@@ -297,6 +280,7 @@ public class RailroadInk {
         String result = getMove(boardString, diceRoll);
 
         return result;
+
     }
 
 
