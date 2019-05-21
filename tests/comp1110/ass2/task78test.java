@@ -7,9 +7,9 @@ import org.junit.rules.Timeout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.RailroadInk.generateDiceRoll;
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
-import static comp1110.ass2.getBasicScore.*;
 import static org.junit.Assert.*;
 
 public class task78test {
