@@ -4,11 +4,12 @@ import static comp1110.ass2.TileRotate.getRotatedTile;
 
 public class AreLegallyConnectedNeighbours {
     /**
+     * Author: Yusen Wei
      * It is basically same as method 'areConnectedNeighbours' but the two tiles should be next to each other
      * and when a highway connects a railway, it returns false.
      *
      * @param boardString
-     * @return
+     * @return false only wen highway to railway
      */
     public static boolean areLegallyConnectedNeighbours(String boardString) {
         int count = boardString.length() / 5;
@@ -61,6 +62,7 @@ public class AreLegallyConnectedNeighbours {
     }
 
     /**
+     * Author: Yusen Wei
      * It is basically same as method 'areConnectedNeighbours' but when nothing connects to anything it returns true
      * and only when a highway connects a railway, it returns false.
      *

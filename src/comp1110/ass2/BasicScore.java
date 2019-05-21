@@ -7,10 +7,11 @@ import static comp1110.ass2.RailroadInk.areConnectedNeighbours;
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
-public class getBasicScore {
+public class BasicScore {
     /**
-     *Author:Mingzhen Ao
+     * Author:Mingzhen Ao
      * To pick up the central tiles and calculate the scores
+     *
      * @param boardString
      * @return the centralTiles Score
      */
@@ -31,8 +32,9 @@ public class getBasicScore {
     /**
      * Author:Mingzhen Ao
      * To fix the problem of B2 ,According to different connection way ,we can assume B2 is A4 or A1(be careful the direction).
-     * @param s1  Original 5 characters
-     * @param s2  the 5 characters which will be added
+     *
+     * @param s1 Original 5 characters
+     * @param s2 the 5 characters which will be added
      * @return the changed String s2
      */
 
@@ -79,26 +81,28 @@ public class getBasicScore {
 
     /**
      * Author:Mingzhen  Ao
-     * @param a the all tiles ArrayList
-     * @param c just contain 1 String which don't exit in ArrayList
+     *
+     * @param list the all tiles ArrayList
+     * @param map  just contain 1 String which don't exit in ArrayList
      * @return All the tiles in the same line with C's string;
      */
 
-    public static HashMap<String, String> line(ArrayList<String> a, HashMap<String, String> c) {
-        HashMap<String, String> e = new HashMap<>();
-        for (int i = 0; i < a.size(); i++) {
-            if (c.get(a.get(i)) != null) {
-                for (int k = 0; k < a.size(); k++) {
-                    if (areConnectedNeighbours(a.get(i), a.get(k))) {
-                        String m = a.get(k);
-                        a.set(k, handle(a.get(i), a.get(k)));
-                        if (!c.containsKey(a.get(k))) {
-                            a.add(a.get(k));
-                            c.put(a.get(k), a.get(k).substring(2, 4));
-                            e.put(a.get(k), a.get(k).substring(2, 4));
+    public static HashMap<String, String> line(ArrayList<String> list, HashMap<String, String> map) {
+        HashMap<String, String> newMap = new HashMap<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (map.get(list.get(i)) != null) {
+                for (int k = 0; k < list.size(); k++) {
+                    if (areConnectedNeighbours(list.get(i), list.get(k))) {
+                        String m = list.get(k);
+                        list.set(k, handle(list.get(i), list.get(k)));
+                        if (!map.containsKey(list.get(k))) {
+                            list.add(list.get(k));
+                            map.put(list.get(k), list.get(k).substring(2, 4));
+                            newMap.put(list.get(k), list.get(k).substring(2, 4));
                         }
                         if (m.substring(0, 2).equals("B2")) {
-                            a.set(k, m);
+                            list.set(k, m);
                         }
 
                     }
@@ -106,80 +110,83 @@ public class getBasicScore {
             }
         }
 
-        return e;
+        return newMap;
     }
 
 
     /**
      * Author:Mingzhen Ao
      * To get all the lines in the Map, each line store in each HashMap,Arraylist contains all Hashmap
+     *
      * @param boardString
      * @return All the lines in the Map
      */
     public static ArrayList<HashMap<String, String>> exitsMapped(String boardString) {
         String[] boardStringArray = getPlacementStringArray(boardString);
-        ArrayList<String> m = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         for (int i = 0; i < boardStringArray.length; i++) {
-            m.add(boardStringArray[i]);
+            list.add(boardStringArray[i]);
         }
-        HashMap<String, String> a = new HashMap<>();
-        ArrayList<HashMap<String, String>> b = new ArrayList<>();
-        for (int h = 0; h < m.size(); h++) {
-            if (a.get(m.get(h)) == null && !m.get(h).substring(0, 2).equals("B2")) {
-                a.put(m.get(h), m.get(h).substring(2, 4));
-                HashMap<String, String> n = line(m, a);
-                if (n.size() != 0) {
-                    n.put(m.get(h), m.get(h).substring(2, 4));
-                    b.add(n);
+        HashMap<String, String> map = new HashMap<>();
+        ArrayList<HashMap<String, String>> mapList = new ArrayList<>();
+
+        for (int h = 0; h < list.size(); h++) {
+            if (map.get(list.get(h)) == null && !list.get(h).substring(0, 2).equals("B2")) {
+                map.put(list.get(h), list.get(h).substring(2, 4));
+                HashMap<String, String> lineMap = line(list, map);
+                if (lineMap.size() != 0) {
+                    lineMap.put(list.get(h), list.get(h).substring(2, 4));
+                    mapList.add(lineMap);
                 }
             }
         }
-        return b;
+        return mapList;
     }
 
     /**
      * Author:Mingzhen Ao
      * Calculate the exits Scores
+     *
      * @param boardString
      * @return The exits Scores
      */
     public static int getExitsScore(String boardString) {
         int score = 0;
-        ArrayList<Integer> f = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < exitsMapped(boardString).size(); i++) {
-            HashMap<String, String> a = exitsMapped(boardString).get(i);
+            HashMap<String, String> map = exitsMapped(boardString).get(i);
             int count = 0;
-            for (String key : a.keySet()) {
-                if (a.get(key).equals("A1") && getRotatedTile(key)[1] != 5)
+            for (String key : map.keySet()) {
+                if (map.get(key).equals("A1") && getRotatedTile(key)[1] != 5)
                     count++;
-                if (a.get(key).equals("A3") && getRotatedTile(key)[1] != 5)
+                if (map.get(key).equals("A3") && getRotatedTile(key)[1] != 5)
                     count++;
-                if (a.get(key).equals("A5") && getRotatedTile(key)[1] != 5)
+                if (map.get(key).equals("A5") && getRotatedTile(key)[1] != 5)
                     count++;
-                if (a.get(key).equals("B0") && getRotatedTile(key)[0] != 5)
+                if (map.get(key).equals("B0") && getRotatedTile(key)[0] != 5)
                     count++;
-                if (a.get(key).equals("B6") && getRotatedTile(key)[2] != 5)
+                if (map.get(key).equals("B6") && getRotatedTile(key)[2] != 5)
                     count++;
-                if (a.get(key).equals("D0") && getRotatedTile(key)[0] != 5)
+                if (map.get(key).equals("D0") && getRotatedTile(key)[0] != 5)
                     count++;
-                if (a.get(key).equals("D6") && getRotatedTile(key)[2] != 5)
+                if (map.get(key).equals("D6") && getRotatedTile(key)[2] != 5)
                     count++;
-                if (a.get(key).equals("F0") && getRotatedTile(key)[0] != 5)
+                if (map.get(key).equals("F0") && getRotatedTile(key)[0] != 5)
                     count++;
-                if (a.get(key).equals("F6") && getRotatedTile(key)[2] != 5)
+                if (map.get(key).equals("F6") && getRotatedTile(key)[2] != 5)
                     count++;
-                if (a.get(key).equals("G1") && getRotatedTile(key)[3] != 5)
+                if (map.get(key).equals("G1") && getRotatedTile(key)[3] != 5)
                     count++;
-                if (a.get(key).equals("G3") && getRotatedTile(key)[3] != 5)
+                if (map.get(key).equals("G3") && getRotatedTile(key)[3] != 5)
                     count++;
-                if (a.get(key).equals("G5") && getRotatedTile(key)[3] != 5)
+                if (map.get(key).equals("G5") && getRotatedTile(key)[3] != 5)
                     count++;
             }
-            f.add(count);
+            list.add(count);
         }
 
-        for (int j = 0; j < f.size(); j++) {
-            switch (f.get(j)) {
+        for (int j = 0; j < list.size(); j++) {
+            switch (list.get(j)) {
                 case 2:
                     score += 4;
                     break;
@@ -221,6 +228,7 @@ public class getBasicScore {
     /**
      * Author:Mingzhen Ao
      * use reversed thinking calculate dead Score
+     *
      * @param boardString
      * @return dead score
      */

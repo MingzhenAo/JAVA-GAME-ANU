@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GenerateMoves {
-    //generate moves valid for task 6
+
+    /**
+     * Author: Yusen Wei
+     * generate moves valid for task 6, different from task 10
+     * @param boardString
+     * @param diceRoll
+     * @return the valid move ArrayList
+     */
     public static ArrayList<String> generateValidMoves(String boardString, String diceRoll){
         ArrayList<String> resultList = new ArrayList<>();
         String[] head = new String[4];
@@ -77,7 +84,13 @@ public class GenerateMoves {
         return resultList;
     }
 
-    //generate strict moves
+    /**
+     * Author: Yusen Wei
+     * generate strict moves, different form task 10, different determination from the above one, this one is more strict
+     * @param boardString
+     * @param diceRoll
+     * @return the valid move ArrayList
+     */
     public static ArrayList<String> generateStrictMoves(String boardString, String diceRoll){
         ArrayList<String> resultList = new ArrayList<>();
         String[] head = new String[4];

@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static comp1110.ass2.getBasicScore.*;
+import static java.text.ChoiceFormat.nextDouble;
 
 public class RailroadInk {
     /**
@@ -148,9 +149,6 @@ public class RailroadInk {
      */
     public static boolean isValidPlacementSequence(String boardString) {
         // FIXME Task 6: determine whether the given placement sequence is valid
-        //empty boardString returns true
-        if (boardString.equals(""))
-            return true;
         ArrayList<String> placementSequenceList = getPlacementSequence(boardString);
         /*
         Each grid can be used once only.
@@ -159,9 +157,9 @@ public class RailroadInk {
         if (isRepeat)
             return false;
 
-        /*
-        The first tile placed must be an exit;
-        */
+
+        /*//The first tile placed must be an exit;
+
         //This is an array for all exits
         String[] exits = {"A1", "A5", "D0", "D6", "G1", "G5", "A3", "B0", "B6", "F0", "F6", "G3"};
         boolean flag = false;
@@ -173,13 +171,14 @@ public class RailroadInk {
             }
         }
         if (!flag)
-            return false;
+            return false;*/
 
 
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
+
         return true;
     }
 
@@ -197,8 +196,8 @@ public class RailroadInk {
         String a = "";
         for (int i = 0; i < 3; i++) {
             m[i] = (int) (Math.random() * 6);
-            a = a + "A" + m[i];
         }
+        a = a + "A" + m[0]+"A" + m[1]+"A"+m[2];
         a = a + "B" + (int) (Math.random() * 3);
         return a;
     }
@@ -303,7 +302,7 @@ public class RailroadInk {
 
     /**
      * Given the current state of a game board, output an integer representing the sum of all the factors contributing
-     * to `getBasicScore`, as well as those attributed to:
+     * to `BasicScore`, as well as those attributed to:
      * <p>
      * * Longest railroad
      * * Longest highway
