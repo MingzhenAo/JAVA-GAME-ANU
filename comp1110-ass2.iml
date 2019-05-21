@@ -18,7 +18,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="javafx" level="project" />
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -34,5 +33,6 @@
         <jarDirectory url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
