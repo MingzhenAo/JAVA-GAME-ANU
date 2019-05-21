@@ -3,6 +3,13 @@ package comp1110.ass2;
 import static comp1110.ass2.TileRotate.getRotatedTile;
 
 public class ConnectedNeighbours {
+    /**
+     * Author: Yusen Wei
+     * the method to check if two tiles are connected neighbours
+     * @param a a tile
+     * @param b another tile
+     * @return true when they are connected neighbours
+     */
     public static boolean connectedNeighboursOrNot(String a, String b) {
         int[] tileA = getRotatedTile(a);
         int[] tileB = getRotatedTile(b);

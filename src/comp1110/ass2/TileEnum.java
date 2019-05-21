@@ -1,7 +1,8 @@
 package comp1110.ass2;
 
 /**
- * This class provides all of the unrotated tiles
+ * Author: Yusen Wei
+ * This class provides all of the unRotated tiles
  */
 
 public enum TileEnum {

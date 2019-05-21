@@ -4,6 +4,12 @@ import static java.lang.Character.getNumericValue;
 
 public class AreLegallyConnectedToExits {
 
+    /**
+     * Author: Yusen Wei
+     * the method to test a given boardString are legally attached to exits
+     * @param boardString
+     * @return true if it's legal
+     */
     public static boolean areLegallyConnectedToExits(String boardString) {
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
 

@@ -8,7 +8,7 @@ Review Comments:
 
 2. The best feature of these codes is that he pulled some useful codes out to create different methods. For example, method line, it can be used for task 12 as well.
 
-3. He used proper capitalization both for methods and variables. But I think the “getBasicScore” is not an appropriate name for a class. I suggest that he can change it to “BasicScore”. 
+3. He used proper capitalization both for methods and variables. But I the “getBasicScore” is an appropriate name for a class. I suggest that he can change it to “BasicScore”. 
 
 4. For most of the variables and methods, he gave an appropriate name. But I think when name an ArrayList “xxxList” is a better style. Similarly, when name a map, “xxxMap” would be easier  for a reader to understand.
 

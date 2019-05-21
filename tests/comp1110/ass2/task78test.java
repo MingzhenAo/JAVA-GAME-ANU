@@ -7,9 +7,9 @@ import org.junit.rules.Timeout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.RailroadInk.generateDiceRoll;
 import static comp1110.ass2.RailroadInk.getPlacementStringArray;
+import static comp1110.ass2.getBasicScore.*;
 import static org.junit.Assert.*;
 
 public class task78test {
@@ -17,7 +17,7 @@ public class task78test {
     public Timeout globalTimeout = Timeout.millis(2000);
 
     @Test
-    public void generateDiceRollTest() {
+    public void generateDiceRolltest() {
         int a = 0;
         int b = 0;
         int c = 0;
