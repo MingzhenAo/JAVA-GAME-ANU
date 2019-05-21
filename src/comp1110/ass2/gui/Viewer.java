@@ -560,13 +560,9 @@ public class Viewer extends Application {
     //the method to clear the norma tiles at the beginning of each round
     private void clearNormalTiles() {
         for (var v : root.getChildren()) {
-            if (v instanceof Group) {
-                for (var v2 : ((Group) v).getChildren()) {
-                    if (v2 instanceof ImageView) {
-                        if (((ImageView) v2).getX() >= 110 && ((ImageView) v2).getX() <= 150 && ((ImageView) v2).getY() >= 70 && ((ImageView) v2).getY() <= 510) {
-                            ((Group) v).getChildren().remove(v2);
-                        }
-                    }
+            if (v instanceof ImageView) {
+                if (((ImageView) v).getX() == 130) {
+                    v.setVisible(false);
                 }
             }
         }
