@@ -537,7 +537,7 @@ public class Viewer extends Application {
             System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString)) {
                 roundCount++;
-                if (roundCount == 8)
+                if(roundCount == 9)
                     endGame();
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
@@ -592,6 +592,7 @@ public class Viewer extends Application {
         alert.setTitle("You have completed the game");
         alert.setHeaderText("");
         alert.setContentText("You have completed the game, the basic score you got is: " +  + getBasicScore(boardString) + "/n" + "the total score you got is: " + getAdvancedScore(boardString));
+        alert.showAndWait();
     }
 
 
