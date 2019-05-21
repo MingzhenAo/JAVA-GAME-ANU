@@ -468,6 +468,7 @@ public class Viewer extends Application {
         showSpecialTiles();
         nextRound();
         setAIScene(primaryStage, scene);
+        setRoundCount();
 
         //end the game if there is no more valid moves
         //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
@@ -895,34 +896,34 @@ public class Viewer extends Application {
                                 }
                             }
                         }
-                    }
-                }
-            }
-        }
-        //for Abs
-        //recording which round we are at
-        //boardString += roundCount;
-        //boardString += sCount;=
-        System.out.println(boardString);
-    }
+                                }
+                                }
+                                }
+                                }
+                                //for Abs
+                                //recording which round we are at
+                                //boardString += roundCount;
+                                //boardString += sCount;=
+                                System.out.println(boardString);
+                                }
 
-    //reverse the rotation process and get the rotation count value
-    private int reverseRotation(ImageView imageView) {
+//reverse the rotation process and get the rotation count value
+private int reverseRotation(ImageView imageView) {
         int count = 0;
         if (imageView.getScaleX() == -1)
-            count += 4;
+        count += 4;
         if (imageView.getRotate() == 90)
-            count += 1;
+        count += 1;
         if (imageView.getRotate() == 180)
-            count += 2;
+        count += 2;
         if (imageView.getRotate() == 270)
-            count += 3;
+        count += 3;
         return count;
-    }
+        }
 
-    /*
-    public static void main(String[] args) {
+
+public static void main(String[] args) {
         launch(args);
-    }
-     */
-}
+        }
+
+        }
