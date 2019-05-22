@@ -2,7 +2,9 @@ package comp1110.ass2;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 
+import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.Board.getEmptyGrids;
 import static comp1110.ass2.DiceRoll.*;
 import static comp1110.ass2.RailroadInk.*;
@@ -29,7 +31,7 @@ public class AdvancedComputer {
 
         }
 
-        return getAdvancedFirstValidPlacementString(boardString, list);
+        return getFirstValidSpecial(boardString);
     }
 
 
@@ -41,7 +43,8 @@ public class AdvancedComputer {
      * @return a String representing an ordered sequence of valid piece placements for the current round
      * @see RailroadInk#generateDiceRoll()
      */
-    public static ArrayList<String> getAdvancedMove(String boardString, String diceRoll) {
+    public static String getAdvancedMove(String boardString, String diceRoll) {
+
 
         ArrayList<String> list = new ArrayList(24);
 
@@ -573,19 +576,16 @@ public class AdvancedComputer {
         ArrayList<String> answerList = new ArrayList<>(set);
 
 
-       /* //Increase randomness
+        // Increase randomness
         Random r = new Random();
         int a = r.nextInt(answerList.size());
 
-        return answerList.get(a);*/
-
-        return answerList;
+        return answerList.get(a);
     }
-
 
     /**
      * Author: Zixin Ye
-     * According to the boardingString passed, return the first placementString that can be connected.
+     * According to the boardingString passed, return the first placementString that can be connected.(Better Way)
      *
      * @param boardString
      * @param list        a list containing all placementString that theoretically a dice can generate
@@ -598,83 +598,23 @@ public class AdvancedComputer {
 
         //The boardString may be ""
         if (placementStringArray.length == 0) {
+
             return getValidStringForEmptyBoardString(list);
-        }
-
-
-        int length = placementStringArray.length;
-
-        //保证一局里没有重复使用
-        boolean exitSpecial = false;
-        if (placementStringArray[length - 1].substring(0, 1).equals("S") || placementStringArray[length - 2].substring(0, 1).equals("S") || placementStringArray[length - 3].substring(0, 1).equals("S") || placementStringArray[length - 4].substring(0, 1).equals("S") || placementStringArray[length - 5].substring(0, 1).equals("S")) {
-            exitSpecial = true;
-        }
-
-        //判断已经放置了几个特殊字符了
-        int count = 0;
-        int limit0 = 0;
-        int limit1 = 0;
-        int limit2 = 0;
-        int limit3 = 0;
-        int limit4 = 0;
-        int limit5 = 0;
-
-
-        for (int i = 0; i < placementStringArray.length; i++) {
-
-            if (placementStringArray[i].substring(0, 1).equals("S")) {
-                count++;
-            }
-
-            //本局已经使用过三次了
-            if (count >= 3) {
-                exitSpecial = true;
-                break;//跳出当前循环
-            }
-
-            switch (placementStringArray[i].substring(0, 2)) {
-
-                case "S0":
-                    limit0++;
-                    break;
-
-                case "S1":
-                    limit1++;
-                    break;
-
-                case "S2":
-                    limit2++;
-                    break;
-
-                case "S3":
-                    limit3++;
-                    break;
-
-                case "S4":
-                    limit4++;
-                    break;
-
-                case "S5":
-                    limit5++;
-                    break;
-            }
 
         }
 
 
-        String result = "";
-
-        //Create a String ArrayList
+        //Get a String ArrayList
         ArrayList<String> placementList = new ArrayList<>();
 
 
-        //Take all elements in the placementStringArray to the placementList
+        //Take all elements in the placementStringArray to the list
         for (String str : placementStringArray) {
             placementList.add(str);
         }
 
-        //find the first valid String
 
+        //Preferentially determine whether to connect with existing tiles
         for (int i = 0; i < list.size(); i++) {
 
             boolean flag;
@@ -689,92 +629,120 @@ public class AdvancedComputer {
                     boolean b = isValidPlacementSequence(boardString + list.get(i));
 
                     if (b) {
-
-                        //这一回合肯定没用过特殊字符
-                        if (!exitSpecial) {
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S0")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit0 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S1")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit1 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S2")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit2 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S3")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit3 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S4")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit4 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-                            //判断是不是特殊
-                            if (list.get(i).substring(0, 1).equals("S5")) {
-                                //使用少于3次
-                                if (count < 3) {
-                                    if (limit5 == 0) {
-                                        result = list.get(i);
-                                        return result;
-                                    }
-                                }
-                            }
-
-
-                        }
-
-                        //其它tile
-                        result = list.get(i);
-                        return result;
+                        return list.get(i);
                     }
 
                 }
+            }
 
+            //If computer cannot connect to tiles that have been placed, consider Exits
+            boolean exits = areLegallyConnectedToExits(list.get(i));
+            if (exits) {
+                if (isValidPlacementSequence(boardString + list.get(i)))
+                    return list.get(i);
+            }
+        }
+        return "";
+    }
+
+
+    public static String getFirstValidSpecial(String boardString) {
+
+        String[] placementStringArray = getPlacementStringArray(boardString);
+
+        int countS = 0;
+        int countS0 = 0;
+        int countS1 = 0;
+        int countS2 = 0;
+        int countS3 = 0;
+        int countS4 = 0;
+        int countS5 = 0;
+        for (int i = 0; i < placementStringArray.length; i++) {
+
+            if (placementStringArray[i].substring(0, 1).equals("S")) {
+                countS++;
+            }
+
+            //每种Tile只能使用一次
+            switch (placementStringArray[i].substring(0, 2)) {
+                case "S0":
+                    countS0++;
+                    break;
+                case "S1":
+                    countS1++;
+                    break;
+                case "S2":
+                    countS2++;
+                    break;
+                case "S3":
+                    countS3++;
+                    break;
+                case "S4":
+                    countS4++;
+                    break;
+                case "S5":
+                    countS5++;
+                    break;
+            }
+
+
+        }
+
+        //使用Special超过3次
+        if (countS >= 3) {
+            return "";
+        }
+
+        //每种Special超过3次
+        if (countS0 >= 1) {
+            return "";
+        }
+        if (countS1 >= 1) {
+            return "";
+        }
+        if (countS2 >= 1) {
+            return "";
+        }
+        if (countS3 >= 1) {
+            return "";
+        }
+        if (countS4 >= 1) {
+            return "";
+        }
+        if (countS5 >= 1) {
+            return "";
+        }
+
+
+        ArrayList<String> list = new ArrayList();
+        //找还剩几个空格,也就是还可以放置的地方
+        String[] emptyGrid = getEmptyGrids(boardString);
+
+        //添加特殊tiles
+        String[] s = {"S0", "S1", "S2", "S3", "S4", "S5"};
+        for (int i = 0; i < s.length; i++) {
+            for (int k = 0; k < emptyGrid.length; k++) {
+
+                for (int j = 0; j < 8; j++) {//j is the 8 kinds of orientation
+                    list.add("" + s[i] + emptyGrid[k] + j);
+                }
             }
 
         }
 
-        return result;
+        for (int i = 0; i < list.size(); i++) {
+
+            if (isValidPlacementSequence(boardString + list.get(i))) {
+                return list.get(i);
+            }
+
+            //If computer cannot connect to tiles that have been placed, consider Exits
+            if (areLegallyConnectedToExits(list.get(i))) {
+                if (isValidPlacementSequence(boardString + list.get(i)))
+                    return list.get(i);
+            }
+        }
+
+        return "";
     }
-
-
 }

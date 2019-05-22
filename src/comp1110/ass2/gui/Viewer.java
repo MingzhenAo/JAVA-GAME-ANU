@@ -15,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
+import static comp1110.ass2.AdvancedComputer.getAdvancedMove;
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
 
@@ -42,6 +43,8 @@ public class Viewer extends Application {
     TextField textField;
     String validMoveEasyAI = "";
     String boardStringEasyAI = "";
+    String validAdvancedAI = "";
+    String boardStringAdvancedAI = "";
 
     /**
      * Author: Yusen Wei
@@ -441,6 +444,9 @@ public class Viewer extends Application {
                 validMoveEasyAI = generateMove(boardStringEasyAI, generateDiceRoll());
                 boardStringEasyAI += validMoveEasyAI;
                 makePlacement(boardStringEasyAI, rootEasyAI);
+                validAdvancedAI = getAdvancedMove(boardStringAdvancedAI, generateDiceRoll());
+                boardStringAdvancedAI+=validAdvancedAI;
+                makePlacement(boardStringAdvancedAI,rootAdvancedAI);
 
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
