@@ -603,63 +603,43 @@ public class Viewer extends Application {
         //S0
         Image S0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S0.png").toString());
         ImageView s0 = new ImageView(S0);
-        s0.setFitHeight(80);
-        s0.setFitWidth(80);
-        s0.setX(30);
-        s0.setY(90);
-        s0.setPickOnBounds(true);
-        moveTile(s0);
-        root.getChildren().add(s0);
+        showSpecialTile(s0, 0);
         //S1
         Image S1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S1.png").toString());
         ImageView s1 = new ImageView(S1);
-        s1.setFitHeight(80);
-        s1.setFitWidth(80);
-        s1.setX(30);
-        s1.setY(190);
-        s1.setPickOnBounds(true);
-        moveTile(s1);
-        root.getChildren().add(s1);
+        showSpecialTile(s1, 1);
         //S2
         Image S2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S2.png").toString());
         ImageView s2 = new ImageView(S2);
-        s2.setFitHeight(80);
-        s2.setFitWidth(80);
-        s2.setX(30);
-        s2.setY(290);
-        s2.setPickOnBounds(true);
-        moveTile(s2);
-        root.getChildren().add(s2);
+        showSpecialTile(s2, 2);
         //S3
         Image S3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S3.png").toString());
         ImageView s3 = new ImageView(S3);
-        s3.setFitHeight(80);
-        s3.setFitWidth(80);
-        s3.setX(30);
-        s3.setY(390);
-        s3.setPickOnBounds(true);
-        moveTile(s3);
-        root.getChildren().add(s3);
+        showSpecialTile(s3, 3);
         //S4
         Image S4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S4.png").toString());
         ImageView s4 = new ImageView(S4);
-        s4.setFitHeight(80);
-        s4.setFitWidth(80);
-        s4.setX(30);
-        s4.setY(490);
-        s4.setPickOnBounds(true);
-        moveTile(s4);
-        root.getChildren().add(s4);
+        showSpecialTile(s4, 4);
         //S5
         Image S5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "S5.png").toString());
         ImageView s5 = new ImageView(S5);
-        s5.setFitHeight(80);
-        s5.setFitWidth(80);
-        s5.setX(30);
-        s5.setY(590);
-        s5.setPickOnBounds(true);
-        moveTile(s5);
-        root.getChildren().add(s5);
+        showSpecialTile(s5, 5);
+    }
+
+    /**
+     * Author: Yusen Wei
+     * the method to put every special tile
+     * @param imageView
+     * @param i the order of the special tiles
+     */
+    private void showSpecialTile(ImageView imageView, int i){
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(80);
+        imageView.setX(30);
+        imageView.setY(90 + 100 * i);
+        imageView.setPickOnBounds(true);
+        moveTile(imageView);
+        root.getChildren().add(imageView);
     }
 
     /**
