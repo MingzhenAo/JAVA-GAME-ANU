@@ -1,7 +1,6 @@
 package comp1110.ass2;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import static comp1110.ass2.Board.getEmptyGrids;
@@ -706,6 +705,7 @@ public class DiceRoll {
             }
 
         }
+
 
         return longest;
     }

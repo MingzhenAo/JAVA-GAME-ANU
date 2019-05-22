@@ -239,7 +239,6 @@ public class Board {
 
         }
 
-        String result = "";
 
         //Get a String ArrayList
         ArrayList<String> placementList = new ArrayList<>();
@@ -251,7 +250,7 @@ public class Board {
         }
 
 
-        //find all valid String
+        //Preferentially determine whether to connect with existing tiles
         for (int i = 0; i < list.size(); i++) {
 
             boolean flag;
@@ -270,10 +269,10 @@ public class Board {
                     }
 
                 }
-
             }
         }
-        return result;
+
+        return "";
     }
 
 

@@ -32,7 +32,7 @@ public class AreLegallyConnectedToExitsTest {
     }
 
     private void testExitConnection(String boardString, boolean b){
-        assertTrue("AreLegallyConnectedToExits.areLegallyConnectedToExits(\"" + boardString + "\") returned invalid validity: " + AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString), AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString) == b);
+        assertTrue("AreLegallyConnectedToExits.areLegallyPlacedToExits(\"" + boardString + "\") returned invalid validity: " + AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString), AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString) == b);
     }
 
     private String[] NO_EXIT_CONNECTION = {
