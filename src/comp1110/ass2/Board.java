@@ -2,6 +2,7 @@ package comp1110.ass2;
 
 import java.util.*;
 
+import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.DiceRoll.getValidStringForEmptyBoardString;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
@@ -255,6 +256,7 @@ public class Board {
 
             boolean flag;
 
+
             for (int j = 0; j < placementList.size(); j++) {
 
                 flag = areConnectedNeighbours(list.get(i), placementList.get(j));
@@ -269,6 +271,13 @@ public class Board {
                     }
 
                 }
+
+
+            }
+            //If computer cannot connect to tiles that have been placed, consider Exits
+            if (areLegallyConnectedToExits(list.get(i))) {
+                if (isValidPlacementSequence(boardString + list.get(i)))
+                    return list.get(i);
             }
         }
 

@@ -1,8 +1,6 @@
 package comp1110.ass2;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
 
 import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.Board.getEmptyGrids;
@@ -52,7 +50,6 @@ public class AdvancedComputer {
         String temp01 = "";
         String boardString01 = boardString;
 
-        temp01 += special(boardString01);
 
         temp01 += dice01(boardString01, diceRoll);
         boardString01 += dice01(boardString01, diceRoll);
@@ -66,6 +63,8 @@ public class AdvancedComputer {
         temp01 += dice04(boardString01, diceRoll);
         boardString01 += dice04(boardString01, diceRoll);
 
+        temp01 += special(boardString01);
+
         list.add(temp01);
 
 
@@ -73,7 +72,6 @@ public class AdvancedComputer {
         String temp02 = "";
         String boardString02 = boardString;
 
-        temp02 += special(boardString02);
 
         temp02 += dice01(boardString02, diceRoll);
         boardString02 += dice01(boardString02, diceRoll);
@@ -88,14 +86,14 @@ public class AdvancedComputer {
         temp02 += dice03(boardString02, diceRoll);
         boardString02 += dice03(boardString02, diceRoll);
 
+        temp02 += special(boardString02);
+
         list.add(temp02);
 
 
         //1324的顺序
         String temp03 = "";
         String boardString03 = boardString;
-
-        temp03 += special(boardString03);
 
         temp03 += dice01(boardString03, diceRoll);
         boardString03 += dice01(boardString03, diceRoll);
@@ -109,14 +107,14 @@ public class AdvancedComputer {
         temp03 += dice04(boardString03, diceRoll);
         boardString03 += dice04(boardString03, diceRoll);
 
+        temp03 += special(boardString03);
+
         list.add(temp03);
 
 
         //1342的顺序
         String temp04 = "";
         String boardString04 = boardString;
-
-        temp04 += special(boardString04);
 
         temp04 += dice01(boardString04, diceRoll);
         boardString04 += dice01(boardString04, diceRoll);
@@ -130,14 +128,14 @@ public class AdvancedComputer {
         temp04 += dice02(boardString04, diceRoll);
         boardString04 += dice02(boardString04, diceRoll);
 
+        temp04 += special(boardString04);
+
         list.add(temp04);
 
 
         //1423的顺序
         String temp05 = "";
         String boardString05 = boardString;
-
-        temp05 += special(boardString05);
 
         temp05 += dice01(boardString05, diceRoll);
         boardString05 += dice01(boardString05, diceRoll);
@@ -152,14 +150,14 @@ public class AdvancedComputer {
         temp05 += dice03(boardString05, diceRoll);
         boardString05 += dice03(boardString05, diceRoll);
 
+        temp05 += special(boardString05);
+
         list.add(temp05);
 
 
         //1432的顺序
         String temp06 = "";
         String boardString06 = boardString;
-
-        temp06 += special(boardString06);
 
         temp06 += dice01(boardString06, diceRoll);
         boardString06 += dice01(boardString06, diceRoll);
@@ -173,14 +171,14 @@ public class AdvancedComputer {
         temp06 += dice02(boardString06, diceRoll);
         boardString06 += dice02(boardString06, diceRoll);
 
+        temp06 += special(boardString06);
+
         list.add(temp06);
 
 
         //2134的顺序
         String temp07 = "";
         String boardString07 = boardString;
-
-        temp07 += special(boardString07);
 
         temp07 += dice02(boardString07, diceRoll);
         boardString07 += dice02(boardString07, diceRoll);
@@ -194,15 +192,14 @@ public class AdvancedComputer {
         temp07 += dice04(boardString07, diceRoll);
         boardString07 += dice04(boardString07, diceRoll);
 
+        temp07 += special(boardString07);
+
         list.add(temp07);
 
 
         //2143的顺序
         String temp08 = "";
-
         String boardString08 = boardString;
-
-        temp08 += special(boardString08);
 
         temp08 += dice02(boardString08, diceRoll);
         boardString08 += dice02(boardString08, diceRoll);
@@ -216,13 +213,14 @@ public class AdvancedComputer {
         temp08 += dice03(boardString08, diceRoll);
         boardString08 += dice03(boardString08, diceRoll);
 
+        temp08 += special(boardString08);
+
         list.add(temp08);
 
 
         //2341的顺序
         String temp09 = "";
         String boardString09 = boardString;
-        temp09 += special(boardString09);
 
         temp09 += dice02(boardString09, diceRoll);
         boardString09 += dice02(boardString09, diceRoll);
@@ -236,14 +234,14 @@ public class AdvancedComputer {
         temp09 += dice01(boardString09, diceRoll);
         boardString09 += dice01(boardString09, diceRoll);
 
+        temp09 += special(boardString09);
+
         list.add(temp09);
 
 
         //2314的顺序
         String temp10 = "";
         String boardString10 = boardString;
-
-        temp10 += special(boardString10);
 
         temp10 += dice02(boardString10, diceRoll);
         boardString10 += dice02(boardString10, diceRoll);
@@ -257,14 +255,14 @@ public class AdvancedComputer {
         temp10 += dice04(boardString10, diceRoll);
         boardString10 += dice04(boardString10, diceRoll);
 
+        temp10 += special(boardString10);
+
         list.add(temp10);
 
 
         //2413的顺序
         String temp11 = "";
         String boardString11 = boardString;
-
-        temp11 += special(boardString11);
 
         temp11 += dice02(boardString11, diceRoll);
         boardString11 += dice02(boardString11, diceRoll);
@@ -278,14 +276,14 @@ public class AdvancedComputer {
         temp11 += dice03(boardString11, diceRoll);
         boardString11 += dice03(boardString11, diceRoll);
 
+        temp11 += special(boardString11);
+
         list.add(temp11);
 
 
         //2431的顺序
         String temp12 = "";
         String boardString12 = boardString;
-
-        temp12 += special(boardString12);
 
         temp12 += dice02(boardString12, diceRoll);
         boardString12 += dice02(boardString12, diceRoll);
@@ -299,14 +297,14 @@ public class AdvancedComputer {
         temp12 += dice01(boardString12, diceRoll);
         boardString12 += dice01(boardString12, diceRoll);
 
+        temp12 += special(boardString12);
+
         list.add(temp12);
 
 
         //3124的顺序
         String temp13 = "";
         String boardString13 = boardString;
-
-        temp13 += special(boardString13);
 
         temp13 += dice03(boardString13, diceRoll);
         boardString13 += dice03(boardString13, diceRoll);
@@ -320,14 +318,14 @@ public class AdvancedComputer {
         temp13 += dice04(boardString13, diceRoll);
         boardString13 += dice04(boardString13, diceRoll);
 
+        temp13 += special(boardString13);
+
         list.add(temp13);
 
 
         //3142的顺序
         String temp14 = "";
         String boardString14 = boardString;
-
-        temp14 += special(boardString14);
 
         temp14 += dice03(boardString14, diceRoll);
         boardString14 += dice03(boardString14, diceRoll);
@@ -341,6 +339,8 @@ public class AdvancedComputer {
         temp14 += dice02(boardString14, diceRoll);
         boardString14 += dice02(boardString14, diceRoll);
 
+        temp14 += special(boardString14);
+
 
         list.add(temp14);
 
@@ -348,8 +348,6 @@ public class AdvancedComputer {
         String temp15 = "";
 
         String boardString15 = boardString;
-
-        temp15 += special(boardString15);
 
         temp15 += dice03(boardString15, diceRoll);
         boardString15 += dice03(boardString15, diceRoll);
@@ -363,6 +361,8 @@ public class AdvancedComputer {
         temp15 += dice01(boardString15, diceRoll);
         boardString15 += dice01(boardString15, diceRoll);
 
+        temp15 += special(boardString15);
+
         list.add(temp15);
 
 
@@ -370,8 +370,6 @@ public class AdvancedComputer {
         String temp16 = "";
 
         String boardString16 = boardString;
-
-        temp16 += special(boardString16);
 
         temp16 += dice03(boardString16, diceRoll);
         boardString16 += dice03(boardString16, diceRoll);
@@ -385,13 +383,13 @@ public class AdvancedComputer {
         temp16 += dice04(boardString16, diceRoll);
         boardString16 += dice04(boardString16, diceRoll);
 
+        temp16 += special(boardString16);
+
         list.add(temp16);
 
         //3412的顺序
         String temp17 = "";
         String boardString17 = boardString;
-
-        temp17 += special(boardString17);
 
         temp17 += dice03(boardString17, diceRoll);
         boardString17 += dice03(boardString17, diceRoll);
@@ -405,14 +403,14 @@ public class AdvancedComputer {
         temp17 += dice02(boardString17, diceRoll);
         boardString17 += dice02(boardString17, diceRoll);
 
+        temp17 += special(boardString17);
+
         list.add(temp17);
 
         //3421的顺序
         String temp18 = "";
 
         String boardString18 = boardString;
-
-        temp18 += special(boardString18);
 
         temp18 += dice03(boardString18, diceRoll);
         boardString18 += dice03(boardString18, diceRoll);
@@ -426,14 +424,14 @@ public class AdvancedComputer {
         temp18 += dice01(boardString18, diceRoll);
         boardString18 += dice01(boardString18, diceRoll);
 
+        temp18 += special(boardString18);
+
         list.add(temp18);
 
 
         //4123的顺序
         String temp19 = "";
         String boardString19 = boardString;
-
-        temp19 += special(boardString19);
 
         temp19 += dice04(boardString19, diceRoll);
         boardString19 += dice04(boardString19, diceRoll);
@@ -447,13 +445,13 @@ public class AdvancedComputer {
         temp19 += dice03(boardString19, diceRoll);
         boardString19 += dice03(boardString19, diceRoll);
 
+        temp19 += special(boardString19);
+
         list.add(temp19);
 
         //4132的顺序
         String temp20 = "";
         String boardString20 = boardString;
-
-        temp20 += special(boardString20);
 
         temp20 += dice04(boardString20, diceRoll);
         boardString20 += dice04(boardString20, diceRoll);
@@ -467,6 +465,8 @@ public class AdvancedComputer {
         temp20 += dice02(boardString20, diceRoll);
         boardString20 += dice02(boardString20, diceRoll);
 
+        temp20 += special(boardString20);
+
         list.add(temp20);
 
 
@@ -474,7 +474,6 @@ public class AdvancedComputer {
         String temp21 = "";
         String boardString21 = boardString;
 
-        temp21 += special(boardString21);
 
         temp21 += dice04(boardString21, diceRoll);
         boardString21 += dice04(boardString21, diceRoll);
@@ -488,13 +487,14 @@ public class AdvancedComputer {
         temp21 += dice01(boardString21, diceRoll);
         boardString21 += dice01(boardString21, diceRoll);
 
+        temp21 += special(boardString21);
+
         list.add(temp21);
 
         //4213的顺序
         String temp22 = "";
         String boardString22 = boardString;
 
-        temp22 += special(boardString22);
 
         temp22 += dice04(boardString22, diceRoll);
         boardString22 += dice04(boardString22, diceRoll);
@@ -508,13 +508,13 @@ public class AdvancedComputer {
         temp22 += dice03(boardString22, diceRoll);
         boardString22 += dice03(boardString22, diceRoll);
 
+        temp22 += special(boardString22);
+
         list.add(temp22);
 
         //4321的顺序
         String temp23 = "";
         String boardString23 = boardString;
-
-        temp23 += special(boardString23);
 
         temp23 += dice04(boardString23, diceRoll);
         boardString23 += dice04(boardString23, diceRoll);
@@ -528,13 +528,13 @@ public class AdvancedComputer {
         temp23 += dice01(boardString23, diceRoll);
         boardString23 += dice01(boardString23, diceRoll);
 
+        temp23 += special(boardString23);
+
         list.add(temp23);
 
         //4312的顺序
         String temp24 = "";
         String boardString24 = boardString;
-
-        temp24 += special(boardString24);
 
         temp24 += dice04(boardString24, diceRoll);
         boardString24 += dice04(boardString24, diceRoll);
@@ -547,6 +547,8 @@ public class AdvancedComputer {
 
         temp24 += dice02(boardString24, diceRoll);
         boardString24 += dice02(boardString24, diceRoll);
+
+        temp24 += special(boardString24);
 
         list.add(temp24);
 
@@ -562,25 +564,9 @@ public class AdvancedComputer {
 
         }
 
-        ArrayList<String> tempList = new ArrayList<>();
 
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).length() == longest.length()) {
-                tempList.add(list.get(i));
-            }
+        return longest;
 
-        }
-
-        HashSet<String> set = new HashSet<>(tempList);
-        //Get a new list after removing duplicate elements
-        ArrayList<String> answerList = new ArrayList<>(set);
-
-
-        // Increase randomness
-        Random r = new Random();
-        int a = r.nextInt(answerList.size());
-
-        return answerList.get(a);
     }
 
     /**
@@ -649,6 +635,7 @@ public class AdvancedComputer {
     public static String getFirstValidSpecial(String boardString) {
 
         String[] placementStringArray = getPlacementStringArray(boardString);
+
 
         int countS = 0;
         int countS0 = 0;
@@ -729,6 +716,9 @@ public class AdvancedComputer {
             }
 
         }
+
+        //Increase randomness
+        randomListSort(list);
 
         for (int i = 0; i < list.size(); i++) {
 
