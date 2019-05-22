@@ -3,10 +3,7 @@ package comp1110.ass2.gui;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -17,10 +14,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
 
-//fx config: --module-path "D:\Programs\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
+//fx config: --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -37,11 +35,13 @@ public class Viewer extends Application {
 
     private final Group root = new Group();
     private final Group rootEasyAI = new Group();
+    private final Group rootAdvancedAI = new Group();
     private final Group controls = new Group();
     private final Group controlsEasyAI = new Group();
+    private final Group controlsAdvancedAI = new Group();
     TextField textField;
-    String a = "";
-    String b = "";
+    String validMoveEasyAI = "";
+    String boardStringEasyAI = "";
 
     /**
      * Author: Yusen Wei
@@ -107,7 +107,6 @@ public class Viewer extends Application {
             }
         }
     }
-
 
     /**
      * Author: Yusen Wei
@@ -334,7 +333,6 @@ public class Viewer extends Application {
         group.getChildren().add(imageView);
     }
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("StepsGame Viewer");
@@ -361,14 +359,25 @@ public class Viewer extends Application {
 
     //set AI scene
     Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
+    Scene advancedAIScene = new Scene(rootAdvancedAI, VIEWER_WIDTH, VIEWER_HEIGHT);
 
-    //set AI scene method
+    /**
+     * Author: Mingzhen Ao
+     * set AI scene method
+     *
+     * @param primaryStage
+     * @param scene
+     */
     private void setAIScene(Stage primaryStage, Scene scene) {
         //set AI scene
         setBoard(rootEasyAI);
+        setBoard(rootAdvancedAI);
         rootEasyAI.getChildren().add(controlsEasyAI);
-        Button button2 = new Button("     My  View     ");
-        Button button = new Button("     AI  View     ");
+        rootAdvancedAI.getChildren().add(controlsAdvancedAI);
+        Button button2 = new Button("  My  View  ");
+        Button button4 = new Button("  My  View  ");
+        Button button = new Button("Easy AI View");
+        Button button3 = new Button("Advanced AI view");
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
         hb.setSpacing(10);
@@ -379,12 +388,30 @@ public class Viewer extends Application {
         hb2.setSpacing(10);
         hb2.setLayoutX(130);
         hb2.setLayoutY(560);
+        HBox hb3 = new HBox();
+        hb3.getChildren().addAll(button3);
+        hb3.setSpacing(10);
+        hb3.setLayoutX(130);
+        hb3.setLayoutY(600);
+        HBox hb4 = new HBox();
+        hb4.getChildren().addAll(button4);
+        hb4.setSpacing(10);
+        hb4.setLayoutX(130);
+        hb4.setLayoutY(600);
         controls.getChildren().add(hb);
+        controls.getChildren().add(hb3);
         controlsEasyAI.getChildren().add(hb2);
+        controlsAdvancedAI.getChildren().add(hb4);
         button.setOnAction(e -> {
             primaryStage.setScene(easyAIScene);
         });
         button2.setOnAction(e2 -> {
+            primaryStage.setScene(scene);
+        });
+        button3.setOnAction(e3 -> {
+            primaryStage.setScene(advancedAIScene);
+        });
+        button4.setOnAction(e3 -> {
             primaryStage.setScene(scene);
         });
     }
@@ -411,9 +438,10 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                a = generateMove(b, generateDiceRoll());
-                b += a;
-                makePlacement(b, rootEasyAI);
+                validMoveEasyAI = generateMove(boardStringEasyAI, generateDiceRoll());
+                boardStringEasyAI += validMoveEasyAI;
+                makePlacement(boardStringEasyAI, rootEasyAI);
+
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
@@ -517,7 +545,6 @@ public class Viewer extends Application {
         }
     }
 
-
     /**
      * Author: Yusen Wei
      * the method to end the game
@@ -526,10 +553,9 @@ public class Viewer extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("You have completed the game");
         alert.setHeaderText("");
-        alert.setContentText("You have completed the game!\nBasic score: " + getBasicScore(boardString) + "     AI: " + getBasicScore(b) + "\nTotal score: " + getAdvancedScore(boardString) + "     AI: " + getAdvancedScore(b));
+        alert.setContentText("You have completed the game!\nBasic score: " + getBasicScore(boardString) + "     AI: " + getBasicScore(boardStringEasyAI) + "\nTotal score: " + getAdvancedScore(boardString) + "     AI: " + getAdvancedScore(boardStringEasyAI));
         alert.showAndWait();
     }
-
 
     //the parameter that stores which round we are at
     int roundCount = 1;
@@ -700,7 +726,6 @@ public class Viewer extends Application {
         });
     }
 
-
     /**
      * Author: Yusen Wei
      * the method to drag the tiles
@@ -731,7 +756,6 @@ public class Viewer extends Application {
 
     //the parameter to record the scroll count
     int rotationCount = 0;
-
 
     /**
      * Author: Yusen Wei
@@ -829,5 +853,4 @@ public class Viewer extends Application {
             count += 3;
         return count;
     }
-
 }
