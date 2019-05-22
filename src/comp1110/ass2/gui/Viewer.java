@@ -3,7 +3,10 @@ package comp1110.ass2.gui;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -14,12 +17,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.Optional;
-
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
 
-//fx config: --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
+//fx config: --module-path "D:\Programs\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
@@ -41,7 +42,6 @@ public class Viewer extends Application {
     TextField textField;
     String a = "";
     String b = "";
-    String c = "";
 
     /**
      * Author: Yusen Wei
@@ -112,9 +112,10 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method for the console to place the tiles with a cyan background
+     *
      * @param imageView
      */
-    private void consolePlacing (ImageView imageView, String placement, Group root){
+    private void consolePlacing(ImageView imageView, String placement, Group root) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
@@ -272,42 +273,42 @@ public class Viewer extends Application {
         //set highway exits
         Image highExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
         ImageView viewHigh1 = new ImageView(highExit);
-        setExits(viewHigh1, 370, 20,0, group);
+        setExits(viewHigh1, 370, 20, 0, group);
 
         ImageView viewHigh2 = new ImageView(highExit);
-        setExits(viewHigh2, 690, 20,0, group);
+        setExits(viewHigh2, 690, 20, 0, group);
 
         ImageView viewHigh3 = new ImageView(highExit);
-        setExits(viewHigh3, 230, 320,270, group);
+        setExits(viewHigh3, 230, 320, 270, group);
 
         ImageView viewHigh4 = new ImageView(highExit);
-        setExits(viewHigh4, 830, 320,90, group);
+        setExits(viewHigh4, 830, 320, 90, group);
 
         ImageView viewHigh5 = new ImageView(highExit);
-        setExits(viewHigh5, 370, 620,180, group);
+        setExits(viewHigh5, 370, 620, 180, group);
 
         ImageView viewHigh6 = new ImageView(highExit);
-        setExits(viewHigh6, 690, 620,180, group);
+        setExits(viewHigh6, 690, 620, 180, group);
 
         //set railway exits
         Image railExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "RailExit.png").toString());
         ImageView viewRail1 = new ImageView(railExit);
-        setExits(viewRail1, 530, 20,0, group);
+        setExits(viewRail1, 530, 20, 0, group);
 
         ImageView viewRail2 = new ImageView(railExit);
-        setExits(viewRail2, 230, 160,270, group);
+        setExits(viewRail2, 230, 160, 270, group);
 
         ImageView viewRail3 = new ImageView(railExit);
-        setExits(viewRail3, 230, 480,270, group);
+        setExits(viewRail3, 230, 480, 270, group);
 
         ImageView viewRail4 = new ImageView(railExit);
-        setExits(viewRail4, 830, 160,90, group);
+        setExits(viewRail4, 830, 160, 90, group);
 
         ImageView viewRail5 = new ImageView(railExit);
-        setExits(viewRail5, 830, 480,90, group);
+        setExits(viewRail5, 830, 480, 90, group);
 
         ImageView viewRail6 = new ImageView(railExit);
-        setExits(viewRail6, 530, 620,180, group);
+        setExits(viewRail6, 530, 620, 180, group);
 
         //set board
         group.getChildren().add(m);
@@ -317,13 +318,14 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * set the exits
+     *
      * @param imageView
-     * @param x the x position of the exit
-     * @param y the y position of the exit
-     * @param degree the rotation degree
+     * @param x         the x position of the exit
+     * @param y         the y position of the exit
+     * @param degree    the rotation degree
      * @param group
      */
-    private void setExits(ImageView imageView, int x, int y, int degree, Group group){
+    private void setExits(ImageView imageView, int x, int y, int degree, Group group) {
         imageView.setX(x);
         imageView.setY(y);
         imageView.setFitWidth(100);
@@ -438,16 +440,17 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * lock the special tile column if three are already placed
+     *
      * @param boardString
      */
-    private void lockSpecialTiles(String boardString){
+    private void lockSpecialTiles(String boardString) {
         String[] current = getPlacementStringArray(boardString);
         int currentCount = 0;
-        for (var v : current){
-            if (v.substring(0,1).equals("S"))
-                currentCount ++;
+        for (var v : current) {
+            if (v.substring(0, 1).equals("S"))
+                currentCount++;
         }
-        if (currentCount >= 3){
+        if (currentCount >= 3) {
             for (var v : root.getChildren()) {
                 if (v instanceof ImageView) {
                     if (((ImageView) v).getX() == 30) {
@@ -461,23 +464,24 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * check if more than one tiles are placed at one round, you can't go to next round
-     * @param boardString the current boardString
+     *
+     * @param boardString             the current boardString
      * @param roundInitialBoardString the BoardString at the beginning of each round
      * @return true if only one Special is placed
      */
-    private boolean isSpecialTilesProper(String boardString, String roundInitialBoardString){
+    private boolean isSpecialTilesProper(String boardString, String roundInitialBoardString) {
         String[] current = getPlacementStringArray(boardString);
         String[] initial = getPlacementStringArray(roundInitialBoardString);
         int currentCount = 0;
         int initialCount = 0;
-        for (var v : current){
-            if (v.substring(0,1).equals("S"))
-                currentCount ++;
+        for (var v : current) {
+            if (v.substring(0, 1).equals("S"))
+                currentCount++;
         }
         //System.out.println(currentCount);
-        for (var v : initial){
-            if (v.substring(0,1).equals("S"))
-                initialCount ++;
+        for (var v : initial) {
+            if (v.substring(0, 1).equals("S"))
+                initialCount++;
         }
         //System.out.println(initialCount);
         if (currentCount - initialCount > 1)
@@ -489,7 +493,7 @@ public class Viewer extends Application {
      * Author: Yusen Wei
      * the method to lock the previous in positioned tiles
      */
-    private void lockTiles(){
+    private void lockTiles() {
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
                 if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
@@ -580,10 +584,11 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method to put every special tile
+     *
      * @param imageView
-     * @param i the order of the special tiles
+     * @param i         the order of the special tiles
      */
-    private void showSpecialTile(ImageView imageView, int i){
+    private void showSpecialTile(ImageView imageView, int i) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(30);
@@ -661,10 +666,11 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * place the normal tiles
+     *
      * @param imageView
-     * @param i the order of the normal tile
+     * @param i         the order of the normal tile
      */
-    private void placeNormalTiles(ImageView imageView, int i){
+    private void placeNormalTiles(ImageView imageView, int i) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(130);

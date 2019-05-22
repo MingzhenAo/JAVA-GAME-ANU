@@ -2,6 +2,7 @@ package comp1110.ass2;
 
 import java.util.*;
 
+import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.DiceRoll.getValidStringForEmptyBoardString;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
@@ -271,8 +272,17 @@ public class Board {
 
                 }
 
+
+            }
+
+            boolean exits = areLegallyConnectedToExits(list.get(i));
+            if (exits) {
+                if (isValidPlacementSequence(boardString + list.get(i)))
+                    return list.get(i);
             }
         }
+
+
         return result;
     }
 
