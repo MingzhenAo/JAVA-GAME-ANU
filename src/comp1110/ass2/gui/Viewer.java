@@ -391,19 +391,10 @@ public class Viewer extends Application {
         nextRound();
         setAIScene(primaryStage, scene);
         setRoundCount();
-
-        //end the game if there is no more valid moves
-        //if (GenerateMoves.generateValidMoves(boardString, diceRoll).size() == 0)
-        //endGame(primaryStage);
-
+        
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    //set new stage
-    //private void startAgain(Stage stage) throws Exception{
-    //start(stage);
-    //}
 
     //set AI scene
     Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
@@ -411,7 +402,6 @@ public class Viewer extends Application {
     //set AI scene method
     private void setAIScene(Stage primaryStage, Scene scene) {
         //set AI scene
-
         setBoard(rootEasyAI);
         rootEasyAI.getChildren().add(controlsEasyAI);
         Button button2 = new Button("     My  View     ");
@@ -725,14 +715,10 @@ public class Viewer extends Application {
 
     //store the diceRoll String for each round
     String diceRoll = "";
-    //store the valid move option for each round
-    //ArrayList<String>  validMoves = new ArrayList<>();
     //the placement string when dragging and rotating
     String placementStringDragging = "";
     //the boardString of the game
     String boardString = "";
-    //boardString arrayList
-    //ArrayList<String> boardStringList = new ArrayList<>();
 
     /**
      * Author: Yusen Wei
@@ -741,13 +727,6 @@ public class Viewer extends Application {
      * @param imageView
      */
     private void moveTile(ImageView imageView) {
-        /*
-        if (roundCount != 0){
-            if (!imageView.getImage().getUrl().substring(113,114).equals("s") && Integer.valueOf(boardString.substring(boardString.length() - 1, boardString.length())) < 3){
-
-            }
-        }
-         */
         dragTile(imageView);
         imageView.setOnMouseReleased(mouseEvent -> {
             updateBoardString();
@@ -825,22 +804,6 @@ public class Viewer extends Application {
                 imageView.setY(90 + i * 100);
             }
         }
-        //task 10 way to implement inPlace
-        /*
-        if (validMoves.contains(placementStringDragging)){
-            imageView.setX(Integer.valueOf(placementStringDragging.substring(3,4)) * 80 + 300);
-            imageView.setY(((int)placementStringDragging.charAt(2) - 65) * 80 + 90);
-        }
-         */
-
-        //task 6 way to implement inPlace
-        /*
-        if (isValidPlacementSequence(boardString + placementStringDragging)) {
-            imageView.setX(Integer.valueOf(placementStringDragging.substring(3, 4)) * 80 + 300);
-            imageView.setY(((int) placementStringDragging.charAt(2) - 65) * 80 + 90);
-        }
-         */
-
         //always in place,adds flexibility
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -860,9 +823,6 @@ public class Viewer extends Application {
         //initialise boardString
         boardString = "";
         //listen on mouse release, each time mouse released scan the whole screen to give the boardString
-        //record how many S tile are in the board
-        //int sCount = 0;
-        //for S
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
                 if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
@@ -874,7 +834,6 @@ public class Viewer extends Application {
                                     boardString += (char) ((int) 'A' + i);
                                     boardString += j;
                                     boardString += reverseRotation((ImageView) v);
-                                    //sCount ++;
                                 }
                             }
                         }
@@ -882,10 +841,6 @@ public class Viewer extends Application {
                 }
             }
         }
-        //for Abs
-        //recording which round we are at
-        //boardString += roundCount;
-        //boardString += sCount;=
         System.out.println(boardString);
     }
 
