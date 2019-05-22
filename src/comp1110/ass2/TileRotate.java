@@ -1,6 +1,8 @@
 package comp1110.ass2;
 
 
+import java.util.ArrayList;
+
 import static java.lang.Character.getNumericValue;
 
 /**
@@ -121,6 +123,34 @@ public class TileRotate {
         r.rotateTime(tile, getNumericValue(placementString.charAt(4)));
 
         return tile;
+    }
+
+
+    /**
+     * This method return an ArrayList containing all RotatedTiles which are int array.
+     * @param boardString
+     * @return
+     */
+    public static ArrayList<int[]> getALLRotatedTiles(String boardString) {
+
+        ArrayList<int[]> list =new ArrayList<>();
+
+        String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
+
+        TileRotate r = new TileRotate();
+
+        for (int i = 0; i < placementStringArray.length; i++) {
+            int[] tile = new int[4];
+            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
+            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
+            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
+            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
+            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
+            list.add(tile);
+        }
+
+        return list;
+
     }
 
 

@@ -135,7 +135,7 @@ public class BoardTest {
 
 
     /**
-     * Test method getPlacementGrids(String boardString)
+     * Test method getPlacementGridsList(String boardString)
      */
     @Test
     public void testGetPlacementGrids() {
@@ -169,13 +169,13 @@ public class BoardTest {
         //1.Create an object of Class Board
         Board board = new Board();
 
-        //2.Call the method getPlacementGrids(String boardString)
-        ArrayList<String> placementGridsList = board.getPlacementGrids(boardString);
+        //2.Call the method getPlacementGridsList(String boardString)
+        ArrayList<String> placementGridsList = board.getPlacementGridsList(boardString);
 
         //Convert to String
         String realResult = getListString(placementGridsList);
 
-        assertTrue("Board.getPlacementGrids(\"" + boardString + "\") " + "expect: " + expectedResult + ", but returned invalid result: " + realResult, realResult.equals(expectedResult));
+        assertTrue("Board.getPlacementGridsList(\"" + boardString + "\") " + "expect: " + expectedResult + ", but returned invalid result: " + realResult, realResult.equals(expectedResult));
 
         //Print
         System.out.println("The result is:");
