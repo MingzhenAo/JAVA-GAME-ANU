@@ -46,8 +46,9 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * used to set the proper rotation
+     *
      * @param imageview
-     * @param n the rotation count
+     * @param n         the rotation count
      * @return the proper rotated imageview
      */
     static ImageView rotation(ImageView imageview, int n) {
@@ -102,6 +103,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * Draw a placement or a sets of placements in the window, this is the method, and also adds the background of color cyan
+     *
      * @param placement
      * @param root
      */
@@ -332,6 +334,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * This method to set the board including all the fird line, central area, exits
+     *
      * @param group
      */
     private void setBoard(Group group) {
@@ -471,7 +474,7 @@ public class Viewer extends Application {
         //set board
         setBoard(root);
         diceRoll = generateDiceRoll();
-     
+
         showNormalTiles(diceRoll);
         root.getChildren().add(controls);
 
@@ -537,7 +540,7 @@ public class Viewer extends Application {
             System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString)) {
                 roundCount++;
-                if(roundCount == 9)
+                if (roundCount == 9)
                     endGame();
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
@@ -627,6 +630,7 @@ public class Viewer extends Application {
         s0.setFitWidth(80);
         s0.setX(30);
         s0.setY(90);
+        s0.setPickOnBounds(true);
         moveTile(s0);
         root.getChildren().add(s0);
         //S1
@@ -636,6 +640,7 @@ public class Viewer extends Application {
         s1.setFitWidth(80);
         s1.setX(30);
         s1.setY(190);
+        s1.setPickOnBounds(true);
         moveTile(s1);
         root.getChildren().add(s1);
         //S2
@@ -645,6 +650,7 @@ public class Viewer extends Application {
         s2.setFitWidth(80);
         s2.setX(30);
         s2.setY(290);
+        s2.setPickOnBounds(true);
         moveTile(s2);
         root.getChildren().add(s2);
         //S3
@@ -654,6 +660,7 @@ public class Viewer extends Application {
         s3.setFitWidth(80);
         s3.setX(30);
         s3.setY(390);
+        s3.setPickOnBounds(true);
         moveTile(s3);
         root.getChildren().add(s3);
         //S4
@@ -663,6 +670,7 @@ public class Viewer extends Application {
         s4.setFitWidth(80);
         s4.setX(30);
         s4.setY(490);
+        s4.setPickOnBounds(true);
         moveTile(s4);
         root.getChildren().add(s4);
         //S5
@@ -672,6 +680,7 @@ public class Viewer extends Application {
         s5.setFitWidth(80);
         s5.setX(30);
         s5.setY(590);
+        s5.setPickOnBounds(true);
         moveTile(s5);
         root.getChildren().add(s5);
     }
@@ -679,6 +688,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * This method to show the 4 normal tiles based on diceRoll
+     *
      * @param diceRoll
      */
     void showNormalTiles(String diceRoll) {
@@ -696,6 +706,7 @@ public class Viewer extends Application {
                     a0.setFitWidth(80);
                     a0.setX(130);
                     a0.setY(90 + 100 * i);
+                    a0.setPickOnBounds(true);
                     moveTile(a0);
                     root.getChildren().add(a0);
                     break;
@@ -706,6 +717,7 @@ public class Viewer extends Application {
                     a1.setFitWidth(80);
                     a1.setX(130);
                     a1.setY(90 + 100 * i);
+                    a1.setPickOnBounds(true);
                     moveTile(a1);
                     root.getChildren().add(a1);
                     break;
@@ -716,6 +728,7 @@ public class Viewer extends Application {
                     a2.setFitWidth(80);
                     a2.setX(130);
                     a2.setY(90 + 100 * i);
+                    a2.setPickOnBounds(true);
                     moveTile(a2);
                     root.getChildren().add(a2);
                     break;
@@ -726,6 +739,7 @@ public class Viewer extends Application {
                     a3.setFitWidth(80);
                     a3.setX(130);
                     a3.setY(90 + 100 * i);
+                    a3.setPickOnBounds(true);
                     moveTile(a3);
                     root.getChildren().add(a3);
                     break;
@@ -736,6 +750,7 @@ public class Viewer extends Application {
                     a4.setFitWidth(80);
                     a4.setX(130);
                     a4.setY(90 + 100 * i);
+                    a4.setPickOnBounds(true);
                     moveTile(a4);
                     root.getChildren().add(a4);
                     break;
@@ -746,6 +761,7 @@ public class Viewer extends Application {
                     a5.setFitWidth(80);
                     a5.setX(130);
                     a5.setY(90 + 100 * i);
+                    a5.setPickOnBounds(true);
                     moveTile(a5);
                     root.getChildren().add(a5);
                     break;
@@ -756,6 +772,7 @@ public class Viewer extends Application {
                     b0.setFitWidth(80);
                     b0.setX(130);
                     b0.setY(90 + 100 * i);
+                    b0.setPickOnBounds(true);
                     moveTile(b0);
                     root.getChildren().add(b0);
                     break;
@@ -766,6 +783,7 @@ public class Viewer extends Application {
                     b1.setFitWidth(80);
                     b1.setX(130);
                     b1.setY(90 + 100 * i);
+                    b1.setPickOnBounds(true);
                     moveTile(b1);
                     root.getChildren().add(b1);
                     break;
@@ -776,6 +794,7 @@ public class Viewer extends Application {
                     b2.setFitWidth(80);
                     b2.setX(130);
                     b2.setY(90 + 100 * i);
+                    b2.setPickOnBounds(true);
                     moveTile(b2);
                     root.getChildren().add(b2);
                     break;
@@ -799,6 +818,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method to move the tiles
+     *
      * @param imageView
      */
     private void moveTile(ImageView imageView) {
@@ -819,6 +839,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method to drag the tiles
+     *
      * @param imageView
      */
     private void dragTile(ImageView imageView) {
@@ -850,6 +871,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the methods to rotate the tiles based on the rotationCount
+     *
      * @param imageView
      */
     private void rotateTile(ImageView imageView) {
@@ -867,6 +889,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * check the tile is in position or not, if it's near the area of a placed slot, snap the tile to the correct position
+     *
      * @param imageView
      */
     private void inPosition(ImageView imageView) {
@@ -950,6 +973,7 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * This method reverses the rotation process and gets the rotation count value
+     *
      * @param imageView
      */
     private int reverseRotation(ImageView imageView) {

@@ -707,24 +707,7 @@ public class DiceRoll {
 
         }
 
-        ArrayList<String> tempList = new ArrayList<>();
-
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).length() == longest.length()) {
-                tempList.add(list.get(i));
-            }
-
-        }
-
-        HashSet<String> set = new HashSet<>(tempList);
-        //Get a new list after removing duplicate elements
-        ArrayList<String> answerList = new ArrayList<>(set);
-
-        //Increase randomness
-        Random r = new Random();
-        int a = r.nextInt(answerList.size());
-
-        return answerList.get(a);
+        return longest;
     }
 
 }
