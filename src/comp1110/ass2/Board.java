@@ -2,7 +2,6 @@ package comp1110.ass2;
 
 import java.util.*;
 
-import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.DiceRoll.getValidStringForEmptyBoardString;
 import static comp1110.ass2.RailroadInk.*;
 import static comp1110.ass2.TileRotate.getRotatedTile;
@@ -240,7 +239,6 @@ public class Board {
 
         }
 
-        String result = "";
 
         //Get a String ArrayList
         ArrayList<String> placementList = new ArrayList<>();
@@ -252,7 +250,7 @@ public class Board {
         }
 
 
-        //find all valid String
+        //Preferentially determine whether to connect with existing tiles
         for (int i = 0; i < list.size(); i++) {
 
             boolean flag;
@@ -271,19 +269,10 @@ public class Board {
                     }
 
                 }
-
-
-            }
-
-            boolean exits = areLegallyConnectedToExits(list.get(i));
-            if (exits) {
-                if (isValidPlacementSequence(boardString + list.get(i)))
-                    return list.get(i);
             }
         }
 
-
-        return result;
+        return "";
     }
 
 

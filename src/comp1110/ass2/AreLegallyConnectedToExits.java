@@ -6,7 +6,7 @@ public class AreLegallyConnectedToExits {
 
     /**
      * Author: Yusen Wei
-     * the method to test a given boardString are legally attached to exits
+     * the method to test a given boardString are legally placed at the exits
      *
      * @param boardString
      * @return true if it's legal
@@ -102,6 +102,13 @@ public class AreLegallyConnectedToExits {
     }
 
 
+    /**
+     * Author: Zixin Ye
+     * the method test whether a given placementString is legally placed at the exits
+     *
+     * @param placementString
+     * @return true if it's legal
+     */
     public static boolean areLegallyConnectedToExits(String placementString) {
 
         TileRotate r = new TileRotate();
