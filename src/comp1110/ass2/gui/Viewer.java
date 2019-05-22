@@ -550,6 +550,8 @@ public class Viewer extends Application {
         button.setOnAction(e -> {
             System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString) && isSpecialTilesProper(boardString, roundInitialBoardString)) {
+                //lock Special tiles if three are already placed
+                lockSpecialTiles(boardString);
                 roundCount++;
                 if (roundCount == 9)
                     endGame();
@@ -585,6 +587,30 @@ public class Viewer extends Application {
     }
 
     /**
+     * Author: Yusen Wei
+     * lock the special tile column if three are already placed
+     * @param boardString
+     */
+    private void lockSpecialTiles(String boardString){
+        String[] current = getPlacementStringArray(boardString);
+        int currentCount = 0;
+        for (var v : current){
+            if (v.substring(0,1).equals("S"))
+                currentCount ++;
+        }
+        if (currentCount >= 3){
+            for (var v : root.getChildren()) {
+                if (v instanceof ImageView) {
+                    if (((ImageView) v).getX() == 30) {
+                        v.setDisable(true);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Author: Yusen Wei
      * check if more than one tiles are placed at one round, you can't go to next round
      * @param boardString the current boardString
      * @param roundInitialBoardString the BoardString at the beginning of each round
@@ -599,12 +625,12 @@ public class Viewer extends Application {
             if (v.substring(0,1).equals("S"))
                 currentCount ++;
         }
-        System.out.println(currentCount);
+        //System.out.println(currentCount);
         for (var v : initial){
             if (v.substring(0,1).equals("S"))
                 initialCount ++;
         }
-        System.out.println(initialCount);
+        //System.out.println(initialCount);
         if (currentCount - initialCount > 1)
             return false;
         return true;
