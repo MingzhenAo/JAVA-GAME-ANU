@@ -538,6 +538,9 @@ public class Viewer extends Application {
         });
     }
 
+    //record the inital boardString at the start of each round
+    String roundInitialBoardString = "";
+
     /**
      * Author: Yusen Wei
      * the method to show the next round label and to set the next round
@@ -545,6 +548,7 @@ public class Viewer extends Application {
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
+            roundInitialBoardString = boardString;
             System.out.println("the boardString for next round: " + boardString);
             if (isValidPlacementSequence(boardString)) {
                 roundCount++;
@@ -562,6 +566,7 @@ public class Viewer extends Application {
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
                 //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
+                lockTiles();
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("InValid Placement");
@@ -577,6 +582,20 @@ public class Viewer extends Application {
         hb.setLayoutX(130);
         hb.setLayoutY(520);
         controls.getChildren().add(hb);
+    }
+
+    /**
+     * Author: Yusen Wei
+     * the method to lock the previous in positioned tiles
+     */
+    private void lockTiles(){
+        for (var v : root.getChildren()) {
+            if (v instanceof ImageView) {
+                if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
+                    v.setDisable(true);
+                }
+            }
+        }
     }
 
     /**
