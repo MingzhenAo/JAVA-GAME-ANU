@@ -1,5 +1,6 @@
 package comp1110.ass2;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,7 +67,7 @@ public class RailroadInk {
      * - it consists of exactly N five-character tile placements (where N = 1 .. 31);
      * - each piece placement is well-formed
      * - no more than three special tiles are included
-     *
+     *@Author: Mingzhen Ao
      * @param boardString a board string describing the placement of one or more pieces
      * @return true if the board string is well-formed
      */
@@ -170,9 +171,10 @@ public class RailroadInk {
      * Dice A should be rolled three times, dice B should be rolled once.
      * Each die has faces numbered 0-5.
      * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
-     *
+     * @ Author: Mingzhen Ao
      * @return a String representing the die roll e.g. A0A4A3B2
      */
+
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
         int[] m = new int[3];
@@ -192,7 +194,7 @@ public class RailroadInk {
      * * Number of exits mapped
      * * Number of centre tiles used
      * * Number of dead ends in the network
-     *
+     *  Author: Mingzhen Ao
      * @param boardString a board string representing a completed game
      * @return integer (positive or negative) for score *not* considering longest rail/highway
      */
@@ -296,46 +298,11 @@ public class RailroadInk {
      */
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
-        return -1;
+        int bonus = getBasicScore(boardString);
+      /*  bonus += getLongestHighway(boardString);
+        bonus += getLongestRailway(boardString);*/
+        return bonus;
     }
-
-    public static int getLongestRailway(String boardString) {
-        String[] boardStringArray = getPlacementStringArray(boardString);
-        /*
-        ArrayList<String> railwayList = new ArrayList<>();
-        railwayList.add("B0");
-        railwayList.add("F0");
-        railwayList.add("A3");
-        railwayList.add("G3");
-        railwayList.add("B6");
-        railwayList.add("F6");
-         */
-        ArrayList<String> railwayTileList = new ArrayList<>();
-        railwayTileList.add("S0");
-        railwayTileList.add("S1");
-        railwayTileList.add("S3");
-        railwayTileList.add("S4");
-        railwayTileList.add("S5");
-        railwayTileList.add("A0");
-        railwayTileList.add("A1");
-        railwayTileList.add("A2");
-        railwayTileList.add("B0");
-        railwayTileList.add("B1");
-        railwayTileList.add("B2");
-        ArrayList<String> routList = new ArrayList<>();
-        HashMap<String, ArrayList<String>> routMap = new HashMap<>();
-        for (var v : boardStringArray) {
-            if (railwayTileList.contains(v.substring(0, 2))) {
-                for (var v2 : boardStringArray) {
-                    routList.clear();
-                    if (areConnectedNeighbours(v2, v)) {
-
-                    }
-                }
-            }
-        }
-        return 0;
-    }
-
-
 }
+
+

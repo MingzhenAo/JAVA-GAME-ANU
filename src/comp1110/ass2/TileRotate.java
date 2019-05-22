@@ -9,33 +9,20 @@ import static java.lang.Character.getNumericValue;
  * This class provides some methods to rotate or flip the tiles
  */
 
+/**
+ * @Author: Mingzhen Ao
+ * this class is for tile rotate
+ */
 public class TileRotate {
 
-    /*
-    int A0[] = {1,1,5,5};
-    int A1[] = {5,1,5,1};
-    int A2[] = {5,1,1,1};
-    int A3[] = {5,0,0,0};
-    int A4[] = {5,0,5,0};
-    int A5[] = {0,0,5,5};
-    int B0[] = {5,0,5,1};
-    int B1[] = {5,0,1,5};
-    int B2[] = {1,0,1,5};
-    int S0[] = {0,0,0,1};
-    int S1[] = {1,0,1,1};
-    int S2[] = {0,0,0,0};
-    int S3[] = {1,1,1,1};
-    int S4[] = {0,0,1,1};
-    int S5[] = {1,0,1,0};
-    */
-
     /**
+     * @Author: Mingzhen Ao
      * AS is shown in Class TileEnum,a[0]:left,a[1]:top,a[2]:right,a[3]:bottom.
      * So, a rotation of 90 degree clockwise means:
      * a[0] to the top, a[1] to the right, a[2] to the bottom, a[3] to the left.
-     *
-     * @param a
-     * @return
+     *@Author: Mingzhen Ao
+     * @param  a
+     * @return rotate90 a
      */
     public int[] rotate90(int[] a) {
 
@@ -53,7 +40,7 @@ public class TileRotate {
      * So, a rotation of 90 degree clockwise means:
      * So, mirroring the original position over the y-axis means:
      * Exchange the value of a[0] and a[2].
-     *
+     * @Author: Mingzhen Ao
      * @param a
      * @return
      */
@@ -67,10 +54,10 @@ public class TileRotate {
     /**
      * This method will return a final status of tiles by passing the array and the serial number of Orientation
      * , with the help of method rotate90(int[] a) and method mirror(int[] a)
-     *
+     *@Author: Mingzhen Ao
      * @param a
      * @param m: the serial number of Orientation (0 to 7)
-     * @return
+     * @return rotate m times a
      */
     public int[] rotateTime(int[] a, int m) {
         int[] result = a;
@@ -91,6 +78,7 @@ public class TileRotate {
 
 
     /**
+     * @Author: Mingzhen Ao
      * @param placementString
      * @return an int array containing 4 integers.
      * The fist element represents the left;
@@ -124,34 +112,4 @@ public class TileRotate {
 
         return tile;
     }
-
-
-    /**
-     * This method return an ArrayList containing all RotatedTiles which are int array.
-     * @param boardString
-     * @return
-     */
-    public static ArrayList<int[]> getALLRotatedTiles(String boardString) {
-
-        ArrayList<int[]> list =new ArrayList<>();
-
-        String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
-
-        TileRotate r = new TileRotate();
-
-        for (int i = 0; i < placementStringArray.length; i++) {
-            int[] tile = new int[4];
-            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
-            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
-            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
-            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
-            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
-            list.add(tile);
-        }
-
-        return list;
-
-    }
-
-
 }

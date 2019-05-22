@@ -122,7 +122,7 @@ public class BasicScore {
 
     /**
      * Author:Mingzhen Ao
-     * To get all the lines in the Map, each line store in each HashMap,Arraylist contains all Hashmap
+     * To get all the lines in the Map, each line store in each HashMap,Arraylist contains all Hashmaps
      *
      * @param boardString
      * @return All the lines in the Map

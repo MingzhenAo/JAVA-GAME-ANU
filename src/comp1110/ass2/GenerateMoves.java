@@ -156,9 +156,4 @@ public class GenerateMoves {
         }
         return resultList;
     }
-
-    public static void main(String[] args) {
-        System.out.println(generateStrictMoves("","A0A0A0B0"));
-    }
-
 }
