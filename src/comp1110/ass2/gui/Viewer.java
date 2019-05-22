@@ -659,106 +659,68 @@ public class Viewer extends Application {
                 case "A0":
                     Image A0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A0.png").toString());
                     ImageView a0 = new ImageView(A0);
-                    a0.setFitHeight(80);
-                    a0.setFitWidth(80);
-                    a0.setX(130);
-                    a0.setY(90 + 100 * i);
-                    a0.setPickOnBounds(true);
-                    moveTile(a0);
-                    root.getChildren().add(a0);
+                    placeNormalTiles(a0, i);
                     break;
                 case "A1":
                     Image A1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A1.png").toString());
                     ImageView a1 = new ImageView(A1);
-                    a1.setFitHeight(80);
-                    a1.setFitWidth(80);
-                    a1.setX(130);
-                    a1.setY(90 + 100 * i);
-                    a1.setPickOnBounds(true);
-                    moveTile(a1);
-                    root.getChildren().add(a1);
+                    placeNormalTiles(a1, i);
                     break;
                 case "A2":
                     Image A2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A2.png").toString());
                     ImageView a2 = new ImageView(A2);
-                    a2.setFitHeight(80);
-                    a2.setFitWidth(80);
-                    a2.setX(130);
-                    a2.setY(90 + 100 * i);
-                    a2.setPickOnBounds(true);
-                    moveTile(a2);
-                    root.getChildren().add(a2);
+                    placeNormalTiles(a2, i);
                     break;
                 case "A3":
                     Image A3 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A3.png").toString());
                     ImageView a3 = new ImageView(A3);
-                    a3.setFitHeight(80);
-                    a3.setFitWidth(80);
-                    a3.setX(130);
-                    a3.setY(90 + 100 * i);
-                    a3.setPickOnBounds(true);
-                    moveTile(a3);
-                    root.getChildren().add(a3);
+                    placeNormalTiles(a3, i);
                     break;
                 case "A4":
                     Image A4 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A4.png").toString());
                     ImageView a4 = new ImageView(A4);
-                    a4.setFitHeight(80);
-                    a4.setFitWidth(80);
-                    a4.setX(130);
-                    a4.setY(90 + 100 * i);
-                    a4.setPickOnBounds(true);
-                    moveTile(a4);
-                    root.getChildren().add(a4);
+                    placeNormalTiles(a4, i);
                     break;
                 case "A5":
                     Image A5 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "A5.png").toString());
                     ImageView a5 = new ImageView(A5);
-                    a5.setFitHeight(80);
-                    a5.setFitWidth(80);
-                    a5.setX(130);
-                    a5.setY(90 + 100 * i);
-                    a5.setPickOnBounds(true);
-                    moveTile(a5);
-                    root.getChildren().add(a5);
+                    placeNormalTiles(a5, i);
                     break;
                 case "B0":
                     Image B0 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B0.png").toString());
                     ImageView b0 = new ImageView(B0);
-                    b0.setFitHeight(80);
-                    b0.setFitWidth(80);
-                    b0.setX(130);
-                    b0.setY(90 + 100 * i);
-                    b0.setPickOnBounds(true);
-                    moveTile(b0);
-                    root.getChildren().add(b0);
+                    placeNormalTiles(b0, i);
                     break;
                 case "B1":
                     Image B1 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B1.png").toString());
                     ImageView b1 = new ImageView(B1);
-                    b1.setFitHeight(80);
-                    b1.setFitWidth(80);
-                    b1.setX(130);
-                    b1.setY(90 + 100 * i);
-                    b1.setPickOnBounds(true);
-                    moveTile(b1);
-                    root.getChildren().add(b1);
+                    placeNormalTiles(b1, i);
                     break;
                 case "B2":
                     Image B2 = new Image(Viewer.class.getResource(Viewer.URI_BASE + "B2.png").toString());
                     ImageView b2 = new ImageView(B2);
-                    b2.setFitHeight(80);
-                    b2.setFitWidth(80);
-                    b2.setX(130);
-                    b2.setY(90 + 100 * i);
-                    b2.setPickOnBounds(true);
-                    moveTile(b2);
-                    root.getChildren().add(b2);
+                    placeNormalTiles(b2, i);
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    /**
+     * Author: Yusen Wei
+     * place the normal tiles
+     * @param imageView
+     * @param i the order of the normal tile
+     */
+    private void placeNormalTiles(ImageView imageView, int i){
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(80);
+        imageView.setX(130);
+        imageView.setY(90 + 100 * i);
+        imageView.setPickOnBounds(true);
+        moveTile(imageView);
+        root.getChildren().add(imageView);
     }
 
     //store the diceRoll String for each round
