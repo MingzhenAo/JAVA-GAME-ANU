@@ -548,9 +548,8 @@ public class Viewer extends Application {
     private void nextRound() {
         Button button = new Button("Next Round");
         button.setOnAction(e -> {
-            roundInitialBoardString = boardString;
             System.out.println("the boardString for next round: " + boardString);
-            if (isValidPlacementSequence(boardString)) {
+            if (isValidPlacementSequence(boardString) && isSpecialTilesProper(boardString, roundInitialBoardString)) {
                 roundCount++;
                 if (roundCount == 9)
                     endGame();
@@ -567,6 +566,7 @@ public class Viewer extends Application {
                 //my old task 10 version
                 //validMoves = GenerateMoves.generateStrictMoves(boardString, diceRoll);
                 lockTiles();
+                roundInitialBoardString = boardString;
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("InValid Placement");
@@ -582,6 +582,32 @@ public class Viewer extends Application {
         hb.setLayoutX(130);
         hb.setLayoutY(520);
         controls.getChildren().add(hb);
+    }
+
+    /**
+     * check if more than one tiles are placed at one round, you can't go to next round
+     * @param boardString the current boardString
+     * @param roundInitialBoardString the BoardString at the beginning of each round
+     * @return true if only one Special is placed
+     */
+    private boolean isSpecialTilesProper(String boardString, String roundInitialBoardString){
+        String[] current = getPlacementStringArray(boardString);
+        String[] initial = getPlacementStringArray(roundInitialBoardString);
+        int currentCount = 0;
+        int initialCount = 0;
+        for (var v : current){
+            if (v.substring(0,1).equals("S"))
+                currentCount ++;
+        }
+        System.out.println(currentCount);
+        for (var v : initial){
+            if (v.substring(0,1).equals("S"))
+                initialCount ++;
+        }
+        System.out.println(initialCount);
+        if (currentCount - initialCount > 1)
+            return false;
+        return true;
     }
 
     /**
