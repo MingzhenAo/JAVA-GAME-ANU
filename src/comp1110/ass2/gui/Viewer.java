@@ -14,7 +14,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.util.Optional;
 
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
@@ -107,7 +106,6 @@ public class Viewer extends Application {
             }
         }
     }
-
 
     /**
      * Author: Yusen Wei
@@ -332,7 +330,6 @@ public class Viewer extends Application {
         group.getChildren().add(imageView);
     }
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("StepsGame Viewer");
@@ -360,7 +357,12 @@ public class Viewer extends Application {
     //set AI scene
     Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
 
-    //set AI scene method
+    /**
+     * Author: Mingzhen Ao
+     * set AI scene method
+     * @param primaryStage
+     * @param scene
+     */
     private void setAIScene(Stage primaryStage, Scene scene) {
         //set AI scene
         setBoard(rootEasyAI);
@@ -513,7 +515,6 @@ public class Viewer extends Application {
         }
     }
 
-
     /**
      * Author: Yusen Wei
      * the method to end the game
@@ -525,7 +526,6 @@ public class Viewer extends Application {
         alert.setContentText("You have completed the game!\nBasic score: " + getBasicScore(boardString) + "     AI: " + getBasicScore(b) + "\nTotal score: " + getAdvancedScore(boardString) + "     AI: " + getAdvancedScore(b));
         alert.showAndWait();
     }
-
 
     //the parameter that stores which round we are at
     int roundCount = 1;
@@ -694,7 +694,6 @@ public class Viewer extends Application {
         });
     }
 
-
     /**
      * Author: Yusen Wei
      * the method to drag the tiles
@@ -725,7 +724,6 @@ public class Viewer extends Application {
 
     //the parameter to record the scroll count
     int rotationCount = 0;
-
 
     /**
      * Author: Yusen Wei
@@ -823,5 +821,4 @@ public class Viewer extends Application {
             count += 3;
         return count;
     }
-
 }
