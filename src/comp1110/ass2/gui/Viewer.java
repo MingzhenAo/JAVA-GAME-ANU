@@ -272,103 +272,64 @@ public class Viewer extends Application {
         //set highway exits
         Image highExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
         ImageView viewHigh1 = new ImageView(highExit);
-        viewHigh1.setX(370);
-        viewHigh1.setY(20);
-        viewHigh1.setFitWidth(100);
-        viewHigh1.setFitHeight(100);
-        group.getChildren().add(viewHigh1);
+        setExits(viewHigh1, 370, 20,0, group);
 
         ImageView viewHigh2 = new ImageView(highExit);
-        viewHigh2.setX(690);
-        viewHigh2.setY(20);
-        viewHigh2.setFitWidth(100);
-        viewHigh2.setFitHeight(100);
-        group.getChildren().add(viewHigh2);
+        setExits(viewHigh2, 690, 20,0, group);
 
         ImageView viewHigh3 = new ImageView(highExit);
-        viewHigh3.setRotate(270);
-        viewHigh3.setX(230);
-        viewHigh3.setY(320);
-        viewHigh3.setFitWidth(100);
-        viewHigh3.setFitHeight(100);
-        group.getChildren().add(viewHigh3);
+        setExits(viewHigh3, 230, 320,270, group);
 
         ImageView viewHigh4 = new ImageView(highExit);
-        viewHigh4.setRotate(90);
-        viewHigh4.setX(830);
-        viewHigh4.setY(320);
-        viewHigh4.setFitWidth(100);
-        viewHigh4.setFitHeight(100);
-        group.getChildren().add(viewHigh4);
+        setExits(viewHigh4, 830, 320,90, group);
 
         ImageView viewHigh5 = new ImageView(highExit);
-        viewHigh5.setRotate(180);
-        viewHigh5.setX(370);
-        viewHigh5.setY(620);
-        viewHigh5.setFitWidth(100);
-        viewHigh5.setFitHeight(100);
-        group.getChildren().add(viewHigh5);
+        setExits(viewHigh5, 370, 620,180, group);
 
         ImageView viewHigh6 = new ImageView(highExit);
-        viewHigh6.setRotate(180);
-        viewHigh6.setX(690);
-        viewHigh6.setY(620);
-        viewHigh6.setFitWidth(100);
-        viewHigh6.setFitHeight(100);
-        group.getChildren().add(viewHigh6);
+        setExits(viewHigh6, 690, 620,180, group);
 
         //set railway exits
         Image railExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "RailExit.png").toString());
         ImageView viewRail1 = new ImageView(railExit);
-        viewRail1.setX(530);
-        viewRail1.setY(20);
-        viewRail1.setFitWidth(100);
-        viewRail1.setFitHeight(100);
-        group.getChildren().add(viewRail1);
+        setExits(viewRail1, 530, 20,0, group);
 
         ImageView viewRail2 = new ImageView(railExit);
-        viewRail2.setRotate(270);
-        viewRail2.setX(230);
-        viewRail2.setY(160);
-        viewRail2.setFitWidth(100);
-        viewRail2.setFitHeight(100);
-        group.getChildren().add(viewRail2);
+        setExits(viewRail2, 230, 160,270, group);
 
         ImageView viewRail3 = new ImageView(railExit);
-        viewRail3.setRotate(270);
-        viewRail3.setX(230);
-        viewRail3.setY(480);
-        viewRail3.setFitWidth(100);
-        viewRail3.setFitHeight(100);
-        group.getChildren().add(viewRail3);
+        setExits(viewRail3, 230, 480,270, group);
 
         ImageView viewRail4 = new ImageView(railExit);
-        viewRail4.setRotate(90);
-        viewRail4.setX(830);
-        viewRail4.setY(160);
-        viewRail4.setFitWidth(100);
-        viewRail4.setFitHeight(100);
-        group.getChildren().add(viewRail4);
+        setExits(viewRail4, 830, 160,90, group);
 
         ImageView viewRail5 = new ImageView(railExit);
-        viewRail5.setRotate(90);
-        viewRail5.setX(830);
-        viewRail5.setY(480);
-        viewRail5.setFitWidth(100);
-        viewRail5.setFitHeight(100);
-        group.getChildren().add(viewRail5);
+        setExits(viewRail5, 830, 480,90, group);
 
         ImageView viewRail6 = new ImageView(railExit);
-        viewRail6.setRotate(180);
-        viewRail6.setX(530);
-        viewRail6.setY(620);
-        viewRail6.setFitWidth(100);
-        viewRail6.setFitHeight(100);
-        group.getChildren().add(viewRail6);
+        setExits(viewRail6, 530, 620,180, group);
 
         //set board
         group.getChildren().add(m);
         group.getChildren().add(h);
+    }
+
+    /**
+     * Author: Yusen Wei
+     * set the exits
+     * @param imageView
+     * @param x the x position of the exit
+     * @param y the y position of the exit
+     * @param degree the rotation degree
+     * @param group
+     */
+    private void setExits(ImageView imageView, int x, int y, int degree, Group group){
+        imageView.setX(x);
+        imageView.setY(y);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        imageView.setRotate(degree);
+        group.getChildren().add(imageView);
     }
 
 
@@ -391,7 +352,7 @@ public class Viewer extends Application {
         nextRound();
         setAIScene(primaryStage, scene);
         setRoundCount();
-        
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -426,7 +387,7 @@ public class Viewer extends Application {
         });
     }
 
-    //record the inital boardString at the start of each round
+    //record the initial boardString at the start of each round
     String roundInitialBoardString = "";
 
     /**
@@ -863,9 +824,4 @@ public class Viewer extends Application {
         return count;
     }
 
-    /*
-    public static void main(String[] args) {
-        launch(args);
-    }
-     */
 }
