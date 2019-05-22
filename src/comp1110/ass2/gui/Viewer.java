@@ -40,7 +40,7 @@ public class Viewer extends Application {
     private final Group controlsEasyAI = new Group();
     private final Group controlsAdvancedAI = new Group();
     TextField textField;
-    String validMove = "";
+    String validMoveEasyAI = "";
     String boardStringEasyAI = "";
 
     /**
@@ -433,8 +433,8 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                validMove = generateMove(boardStringEasyAI, generateDiceRoll());
-                boardStringEasyAI += validMove;
+                validMoveEasyAI = generateMove(boardStringEasyAI, generateDiceRoll());
+                boardStringEasyAI += validMoveEasyAI;
                 makePlacement(boardStringEasyAI, rootEasyAI);
 
                 //my new task 10 version
