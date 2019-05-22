@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import static comp1110.ass2.AreLegallyConnectedToExits.areLegallyConnectedToExits;
 import static comp1110.ass2.Board.getEmptyGrids;
 import static comp1110.ass2.DiceRoll.*;
-import static comp1110.ass2.RailroadInk.*;
+import static comp1110.ass2.RailroadInk.getPlacementStringArray;
+import static comp1110.ass2.RailroadInk.isValidPlacementSequence;
 
 public class AdvancedComputer {
 
@@ -569,69 +570,11 @@ public class AdvancedComputer {
 
     }
 
+
     /**
-     * Author: Zixin Ye
-     * According to the boardingString passed, return the first placementString that can be connected.(Better Way)
-     *
      * @param boardString
-     * @param list        a list containing all placementString that theoretically a dice can generate
      * @return
      */
-    public static String getAdvancedFirstValidPlacementString(String boardString, ArrayList<String> list) {
-
-        //Get a String array that containing all placementString
-        String[] placementStringArray = getPlacementStringArray(boardString);
-
-        //The boardString may be ""
-        if (placementStringArray.length == 0) {
-
-            return getValidStringForEmptyBoardString(list);
-
-        }
-
-
-        //Get a String ArrayList
-        ArrayList<String> placementList = new ArrayList<>();
-
-
-        //Take all elements in the placementStringArray to the list
-        for (String str : placementStringArray) {
-            placementList.add(str);
-        }
-
-
-        //Preferentially determine whether to connect with existing tiles
-        for (int i = 0; i < list.size(); i++) {
-
-            boolean flag;
-
-            for (int j = 0; j < placementList.size(); j++) {
-
-                flag = areConnectedNeighbours(list.get(i), placementList.get(j));
-
-                if (flag) {
-
-                    //Determine whether a new boardString is valid, after added a new placementString
-                    boolean b = isValidPlacementSequence(boardString + list.get(i));
-
-                    if (b) {
-                        return list.get(i);
-                    }
-
-                }
-            }
-
-            //If computer cannot connect to tiles that have been placed, consider Exits
-            boolean exits = areLegallyConnectedToExits(list.get(i));
-            if (exits) {
-                if (isValidPlacementSequence(boardString + list.get(i)))
-                    return list.get(i);
-            }
-        }
-        return "";
-    }
-
-
     public static String getFirstValidSpecial(String boardString) {
 
         String[] placementStringArray = getPlacementStringArray(boardString);
@@ -644,6 +587,7 @@ public class AdvancedComputer {
         int countS3 = 0;
         int countS4 = 0;
         int countS5 = 0;
+
         for (int i = 0; i < placementStringArray.length; i++) {
 
             if (placementStringArray[i].substring(0, 1).equals("S")) {
@@ -675,12 +619,12 @@ public class AdvancedComputer {
 
         }
 
-        //使用Special超过3次
+        //使用Special总计超过3次
         if (countS >= 3) {
             return "";
         }
 
-        //每种Special超过3次
+        //每种Special超过1次
         if (countS0 >= 1) {
             return "";
         }
@@ -706,7 +650,7 @@ public class AdvancedComputer {
         String[] emptyGrid = getEmptyGrids(boardString);
 
         //添加特殊tiles
-        String[] s = {"S0", "S1", "S2", "S3", "S4", "S5"};
+        String[] s = {"S5", "S0", "S3", "S1", "S2", "S4",};
         for (int i = 0; i < s.length; i++) {
             for (int k = 0; k < emptyGrid.length; k++) {
 
@@ -722,15 +666,17 @@ public class AdvancedComputer {
 
         for (int i = 0; i < list.size(); i++) {
 
-            if (isValidPlacementSequence(boardString + list.get(i))) {
-                return list.get(i);
-            }
-
             //If computer cannot connect to tiles that have been placed, consider Exits
             if (areLegallyConnectedToExits(list.get(i))) {
                 if (isValidPlacementSequence(boardString + list.get(i)))
                     return list.get(i);
             }
+
+            if (isValidPlacementSequence(boardString + list.get(i))) {
+                return list.get(i);
+            }
+
+
         }
 
         return "";
