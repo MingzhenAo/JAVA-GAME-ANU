@@ -9,7 +9,7 @@ import static comp1110.ass2.RailroadInk.areConnectedNeighbours;
 public class CanIPlaceTheStringHere {
     /**
      * Author: Yusen Wei
-     * to tell if I can place that boardsting there given a board of HashMap
+     * to tell if I can place that boardString there given a board of HashMap
      * @param boardString
      * @param tilesMap
      * @return true if I can place
