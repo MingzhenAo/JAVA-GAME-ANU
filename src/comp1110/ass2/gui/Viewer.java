@@ -35,8 +35,10 @@ public class Viewer extends Application {
 
     private final Group root = new Group();
     private final Group rootEasyAI = new Group();
+    private final Group rootAdvancedAI = new Group();
     private final Group controls = new Group();
     private final Group controlsEasyAI = new Group();
+    private final Group controlsAdvancedAI = new Group();
     TextField textField;
     String validMove = "";
     String boardStringEasyAI = "";
@@ -109,9 +111,10 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method for the console to place the tiles with a cyan background
+     *
      * @param imageView
      */
-    private void consolePlacing (ImageView imageView, String placement, Group root){
+    private void consolePlacing(ImageView imageView, String placement, Group root) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(300 + 80 * Integer.valueOf(placement.substring(3, 4)));
@@ -269,42 +272,42 @@ public class Viewer extends Application {
         //set highway exits
         Image highExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "HighExit.png").toString());
         ImageView viewHigh1 = new ImageView(highExit);
-        setExits(viewHigh1, 370, 20,0, group);
+        setExits(viewHigh1, 370, 20, 0, group);
 
         ImageView viewHigh2 = new ImageView(highExit);
-        setExits(viewHigh2, 690, 20,0, group);
+        setExits(viewHigh2, 690, 20, 0, group);
 
         ImageView viewHigh3 = new ImageView(highExit);
-        setExits(viewHigh3, 230, 320,270, group);
+        setExits(viewHigh3, 230, 320, 270, group);
 
         ImageView viewHigh4 = new ImageView(highExit);
-        setExits(viewHigh4, 830, 320,90, group);
+        setExits(viewHigh4, 830, 320, 90, group);
 
         ImageView viewHigh5 = new ImageView(highExit);
-        setExits(viewHigh5, 370, 620,180, group);
+        setExits(viewHigh5, 370, 620, 180, group);
 
         ImageView viewHigh6 = new ImageView(highExit);
-        setExits(viewHigh6, 690, 620,180, group);
+        setExits(viewHigh6, 690, 620, 180, group);
 
         //set railway exits
         Image railExit = new Image(Viewer.class.getResource(Viewer.URI_BASE + "RailExit.png").toString());
         ImageView viewRail1 = new ImageView(railExit);
-        setExits(viewRail1, 530, 20,0, group);
+        setExits(viewRail1, 530, 20, 0, group);
 
         ImageView viewRail2 = new ImageView(railExit);
-        setExits(viewRail2, 230, 160,270, group);
+        setExits(viewRail2, 230, 160, 270, group);
 
         ImageView viewRail3 = new ImageView(railExit);
-        setExits(viewRail3, 230, 480,270, group);
+        setExits(viewRail3, 230, 480, 270, group);
 
         ImageView viewRail4 = new ImageView(railExit);
-        setExits(viewRail4, 830, 160,90, group);
+        setExits(viewRail4, 830, 160, 90, group);
 
         ImageView viewRail5 = new ImageView(railExit);
-        setExits(viewRail5, 830, 480,90, group);
+        setExits(viewRail5, 830, 480, 90, group);
 
         ImageView viewRail6 = new ImageView(railExit);
-        setExits(viewRail6, 530, 620,180, group);
+        setExits(viewRail6, 530, 620, 180, group);
 
         //set board
         group.getChildren().add(m);
@@ -314,13 +317,14 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * set the exits
+     *
      * @param imageView
-     * @param x the x position of the exit
-     * @param y the y position of the exit
-     * @param degree the rotation degree
+     * @param x         the x position of the exit
+     * @param y         the y position of the exit
+     * @param degree    the rotation degree
      * @param group
      */
-    private void setExits(ImageView imageView, int x, int y, int degree, Group group){
+    private void setExits(ImageView imageView, int x, int y, int degree, Group group) {
         imageView.setX(x);
         imageView.setY(y);
         imageView.setFitWidth(100);
@@ -355,21 +359,28 @@ public class Viewer extends Application {
 
     //set AI scene
     Scene easyAIScene = new Scene(rootEasyAI, VIEWER_WIDTH, VIEWER_HEIGHT);
+    Scene advancedAIScene = new Scene(rootAdvancedAI, VIEWER_WIDTH, VIEWER_HEIGHT);
 
     /**
      * Author: Mingzhen Ao
      * set AI scene method
+     *
      * @param primaryStage
      * @param scene
      */
     private void setAIScene(Stage primaryStage, Scene scene) {
         //set AI scene
         setBoard(rootEasyAI);
+        setBoard(rootAdvancedAI);
         rootEasyAI.getChildren().add(controlsEasyAI);
+        rootAdvancedAI.getChildren().add(controlsAdvancedAI);
         Button button2 = new Button("     My  View     ");
+        Button button4 = new Button("     My  View     ");
         Button button = new Button("     AI  View     ");
+        Button button3 = new Button(" Advanced AI view ");
         HBox hb = new HBox();
         hb.getChildren().addAll(button);
+        hb.getChildren().addAll(button3);
         hb.setSpacing(10);
         hb.setLayoutX(130);
         hb.setLayoutY(560);
@@ -378,12 +389,24 @@ public class Viewer extends Application {
         hb2.setSpacing(10);
         hb2.setLayoutX(130);
         hb2.setLayoutY(560);
+        HBox hb3 = new HBox();
+        hb3.getChildren().addAll(button4);
+        hb3.setSpacing(10);
+        hb3.setLayoutX(130);
+        hb3.setLayoutY(560);
         controls.getChildren().add(hb);
         controlsEasyAI.getChildren().add(hb2);
+        controlsAdvancedAI.getChildren().add(hb3);
         button.setOnAction(e -> {
             primaryStage.setScene(easyAIScene);
         });
         button2.setOnAction(e2 -> {
+            primaryStage.setScene(scene);
+        });
+        button3.setOnAction(e3 -> {
+            primaryStage.setScene(advancedAIScene);
+        });
+        button4.setOnAction(e3 -> {
             primaryStage.setScene(scene);
         });
     }
@@ -413,6 +436,7 @@ public class Viewer extends Application {
                 validMove = generateMove(boardStringEasyAI, generateDiceRoll());
                 boardStringEasyAI += validMove;
                 makePlacement(boardStringEasyAI, rootEasyAI);
+
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
@@ -439,16 +463,17 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * lock the special tile column if three are already placed
+     *
      * @param boardString
      */
-    private void lockSpecialTiles(String boardString){
+    private void lockSpecialTiles(String boardString) {
         String[] current = getPlacementStringArray(boardString);
         int currentCount = 0;
-        for (var v : current){
-            if (v.substring(0,1).equals("S"))
-                currentCount ++;
+        for (var v : current) {
+            if (v.substring(0, 1).equals("S"))
+                currentCount++;
         }
-        if (currentCount >= 3){
+        if (currentCount >= 3) {
             for (var v : root.getChildren()) {
                 if (v instanceof ImageView) {
                     if (((ImageView) v).getX() == 30) {
@@ -462,23 +487,24 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * check if more than one tiles are placed at one round, you can't go to next round
-     * @param boardString the current boardString
+     *
+     * @param boardString             the current boardString
      * @param roundInitialBoardString the BoardString at the beginning of each round
      * @return true if only one Special is placed
      */
-    private boolean isSpecialTilesProper(String boardString, String roundInitialBoardString){
+    private boolean isSpecialTilesProper(String boardString, String roundInitialBoardString) {
         String[] current = getPlacementStringArray(boardString);
         String[] initial = getPlacementStringArray(roundInitialBoardString);
         int currentCount = 0;
         int initialCount = 0;
-        for (var v : current){
-            if (v.substring(0,1).equals("S"))
-                currentCount ++;
+        for (var v : current) {
+            if (v.substring(0, 1).equals("S"))
+                currentCount++;
         }
         //System.out.println(currentCount);
-        for (var v : initial){
-            if (v.substring(0,1).equals("S"))
-                initialCount ++;
+        for (var v : initial) {
+            if (v.substring(0, 1).equals("S"))
+                initialCount++;
         }
         //System.out.println(initialCount);
         if (currentCount - initialCount > 1)
@@ -490,7 +516,7 @@ public class Viewer extends Application {
      * Author: Yusen Wei
      * the method to lock the previous in positioned tiles
      */
-    private void lockTiles(){
+    private void lockTiles() {
         for (var v : root.getChildren()) {
             if (v instanceof ImageView) {
                 if (((ImageView) v).getX() >= 300 && ((ImageView) v).getX() <= 860 && ((ImageView) v).getY() >= 90 && ((ImageView) v).getY() <= 650) {
@@ -579,10 +605,11 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * the method to put every special tile
+     *
      * @param imageView
-     * @param i the order of the special tiles
+     * @param i         the order of the special tiles
      */
-    private void showSpecialTile(ImageView imageView, int i){
+    private void showSpecialTile(ImageView imageView, int i) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(30);
@@ -660,10 +687,11 @@ public class Viewer extends Application {
     /**
      * Author: Yusen Wei
      * place the normal tiles
+     *
      * @param imageView
-     * @param i the order of the normal tile
+     * @param i         the order of the normal tile
      */
-    private void placeNormalTiles(ImageView imageView, int i){
+    private void placeNormalTiles(ImageView imageView, int i) {
         imageView.setFitHeight(80);
         imageView.setFitWidth(80);
         imageView.setX(130);
