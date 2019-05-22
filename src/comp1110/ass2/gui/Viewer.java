@@ -320,6 +320,7 @@ public class Viewer extends Application {
      * @param imageView
      * @param x the x position of the exit
      * @param y the y position of the exit
+     * @param degree the rotation degree
      * @param group
      */
     private void setExits(ImageView imageView, int x, int y, int degree, Group group){
