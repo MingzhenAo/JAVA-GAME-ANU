@@ -387,7 +387,7 @@ public class Viewer extends Application {
         });
     }
 
-    //record the inital boardString at the start of each round
+    //record the initial boardString at the start of each round
     String roundInitialBoardString = "";
 
     /**
