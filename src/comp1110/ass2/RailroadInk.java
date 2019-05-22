@@ -1,5 +1,7 @@
 package comp1110.ass2;
 
+import comp1110.ass2.gittest.A;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -197,7 +199,7 @@ public class RailroadInk {
         for (int i = 0; i < 3; i++) {
             m[i] = (int) (Math.random() * 6);
         }
-        a = a + "A" + m[0]+"A" + m[1]+"A"+m[2];
+        a = a + "A" + m[0] + "A" + m[1] + "A" + m[2];
         a = a + "B" + (int) (Math.random() * 3);
         return a;
     }
@@ -312,46 +314,11 @@ public class RailroadInk {
      */
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
-        return -1;
+        int bonus = getBasicScore(boardString);
+        bonus += getLongestHighway(boardString);
+        bonus += getLongestRailway(boardString);
+        return bonus;
     }
-
-    public static int getLongestRailway(String boardString) {
-        String[] boardStringArray = getPlacementStringArray(boardString);
-        /*
-        ArrayList<String> railwayList = new ArrayList<>();
-        railwayList.add("B0");
-        railwayList.add("F0");
-        railwayList.add("A3");
-        railwayList.add("G3");
-        railwayList.add("B6");
-        railwayList.add("F6");
-         */
-        ArrayList<String> railwayTileList = new ArrayList<>();
-        railwayTileList.add("S0");
-        railwayTileList.add("S1");
-        railwayTileList.add("S3");
-        railwayTileList.add("S4");
-        railwayTileList.add("S5");
-        railwayTileList.add("A0");
-        railwayTileList.add("A1");
-        railwayTileList.add("A2");
-        railwayTileList.add("B0");
-        railwayTileList.add("B1");
-        railwayTileList.add("B2");
-        ArrayList<String> routList = new ArrayList<>();
-        HashMap<String, ArrayList<String>> routMap = new HashMap<>();
-        for (var v : boardStringArray) {
-            if (railwayTileList.contains(v.substring(0, 2))) {
-                for (var v2 : boardStringArray) {
-                    routList.clear();
-                    if (areConnectedNeighbours(v2, v)) {
-
-                    }
-                }
-            }
-        }
-        return 0;
-    }
-
-
 }
+
+

@@ -89,7 +89,6 @@ public class BasicScore {
 
     public static HashMap<String, String> line(ArrayList<String> list, HashMap<String, String> map) {
         HashMap<String, String> newMap = new HashMap<>();
-
         for (int i = 0; i < list.size(); i++) {
             if (map.get(list.get(i)) != null) {
                 for (int k = 0; k < list.size(); k++) {
@@ -104,12 +103,10 @@ public class BasicScore {
                         if (m.substring(0, 2).equals("B2")) {
                             list.set(k, m);
                         }
-
                     }
                 }
             }
         }
-
         return newMap;
     }
 

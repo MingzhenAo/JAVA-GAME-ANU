@@ -464,7 +464,7 @@ public class Viewer extends Application {
         //set board
         setBoard(root);
         diceRoll = generateDiceRoll();
-     
+
         showNormalTiles(diceRoll);
         root.getChildren().add(controls);
 
