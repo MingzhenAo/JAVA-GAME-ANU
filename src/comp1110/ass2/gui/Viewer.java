@@ -39,8 +39,7 @@ public class Viewer extends Application {
     private final Group controlsEasyAI = new Group();
     TextField textField;
     String a = "";
-    String b = "";
-    String c = "";
+    String boardStringEasyAI = "";
 
     /**
      * Author: Yusen Wei
@@ -411,9 +410,9 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                a = generateMove(b, generateDiceRoll());
-                b += a;
-                makePlacement(b, rootEasyAI);
+                a = generateMove(boardStringEasyAI, generateDiceRoll());
+                boardStringEasyAI += a;
+                makePlacement(boardStringEasyAI, rootEasyAI);
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
                 //my old task 10 version
@@ -523,7 +522,7 @@ public class Viewer extends Application {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("You have completed the game");
         alert.setHeaderText("");
-        alert.setContentText("You have completed the game!\nBasic score: " + getBasicScore(boardString) + "     AI: " + getBasicScore(b) + "\nTotal score: " + getAdvancedScore(boardString) + "     AI: " + getAdvancedScore(b));
+        alert.setContentText("You have completed the game!\nBasic score: " + getBasicScore(boardString) + "     AI: " + getBasicScore(boardStringEasyAI) + "\nTotal score: " + getAdvancedScore(boardString) + "     AI: " + getAdvancedScore(boardStringEasyAI));
         alert.showAndWait();
     }
 
