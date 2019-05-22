@@ -1,6 +1,5 @@
 package comp1110.ass2;
 
-import comp1110.ass2.gittest.A;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import static comp1110.ass2.BasicScore.*;
 import static comp1110.ass2.Board.getPlacementSequence;
 import static comp1110.ass2.ConnectedNeighbours.connectedNeighboursOrNot;
 import static comp1110.ass2.DiceRoll.getMove;
-import static java.text.ChoiceFormat.nextDouble;
 
 public class RailroadInk {
     /**
@@ -69,7 +67,7 @@ public class RailroadInk {
      * - it consists of exactly N five-character tile placements (where N = 1 .. 31);
      * - each piece placement is well-formed
      * - no more than three special tiles are included
-     *
+     *@Author: Mingzhen Ao
      * @param boardString a board string describing the placement of one or more pieces
      * @return true if the board string is well-formed
      */
@@ -160,22 +158,6 @@ public class RailroadInk {
             return false;
 
 
-        /*//The first tile placed must be an exit;
-
-        //This is an array for all exits
-        String[] exits = {"A1", "A5", "D0", "D6", "G1", "G5", "A3", "B0", "B6", "F0", "F6", "G3"};
-        boolean flag = false;
-
-        for (int i = 0; i < exits.length; i++) {
-
-            if (placementSequenceList.get(0).equals(exits[i])) {
-                flag = true;
-            }
-        }
-        if (!flag)
-            return false;*/
-
-
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
         if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
@@ -189,9 +171,10 @@ public class RailroadInk {
      * Dice A should be rolled three times, dice B should be rolled once.
      * Each die has faces numbered 0-5.
      * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
-     *
+     * @ Author: Mingzhen Ao
      * @return a String representing the die roll e.g. A0A4A3B2
      */
+
     public static String generateDiceRoll() {
         // FIXME Task 7: generate a dice roll
         int[] m = new int[3];
@@ -211,7 +194,7 @@ public class RailroadInk {
      * * Number of exits mapped
      * * Number of centre tiles used
      * * Number of dead ends in the network
-     *
+     *  Author: Mingzhen Ao
      * @param boardString a board string representing a completed game
      * @return integer (positive or negative) for score *not* considering longest rail/highway
      */
@@ -299,6 +282,7 @@ public class RailroadInk {
         String result = getMove(boardString, diceRoll);
 
         return result;
+
     }
 
 
@@ -315,8 +299,8 @@ public class RailroadInk {
     public static int getAdvancedScore(String boardString) {
         // FIXME Task 12: compute the total score including bonus points
         int bonus = getBasicScore(boardString);
-        bonus += getLongestHighway(boardString);
-        bonus += getLongestRailway(boardString);
+      /*  bonus += getLongestHighway(boardString);
+        bonus += getLongestRailway(boardString);*/
         return bonus;
     }
 }

@@ -56,7 +56,7 @@ public class GetadvancedScore {
     }
     return b;
 }
-    public static String removeHignlway(String boardString) {
+    /*public static String removeHignlway(String boardString) {
         String[] a = getPlacementStringArray(boardString);
         String b="";
         for (int i = 0; i < a.length; i++) {
@@ -73,7 +73,7 @@ public class GetadvancedScore {
             b+=a[i];
         }
         return b;
-    }
+    }*/
 
     /*public static HashMap<String, String> lineHighway(ArrayList<String> list, HashMap<String, String> map) {
         HashMap<String, String> newMap = new HashMap<>();
@@ -98,10 +98,11 @@ public class GetadvancedScore {
         return newMap;
     }*/
 
-    public static int getLongestRailway(String boardString)
+    /*public static int getLongestRailway(String boardString)
     {
         String a=removeHignlway(boardString);
         ArrayList<HashMap<String,String>> b=exitsMapped(a);
 
     }
+    */
 }

@@ -5,7 +5,15 @@ import java.util.HashMap;
 import static comp1110.ass2.AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours;
 import static comp1110.ass2.RailroadInk.areConnectedNeighbours;
 
+
 public class CanIPlaceTheStringHere {
+    /**
+     * Author: Yusen Wei
+     * to tell if I can place that boardsting there given a board of HashMap
+     * @param boardString
+     * @param tilesMap
+     * @return true if I can place
+     */
     public static boolean canIplacetheStringHere(String boardString, HashMap<String, String> tilesMap){
         String checkLeft = "";
         String checkUp = "";
