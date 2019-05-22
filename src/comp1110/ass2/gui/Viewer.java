@@ -38,7 +38,7 @@ public class Viewer extends Application {
     private final Group controls = new Group();
     private final Group controlsEasyAI = new Group();
     TextField textField;
-    String a = "";
+    String validMove = "";
     String boardStringEasyAI = "";
 
     /**
@@ -410,8 +410,8 @@ public class Viewer extends Application {
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
-                a = generateMove(boardStringEasyAI, generateDiceRoll());
-                boardStringEasyAI += a;
+                validMove = generateMove(boardStringEasyAI, generateDiceRoll());
+                boardStringEasyAI += validMove;
                 makePlacement(boardStringEasyAI, rootEasyAI);
                 //my new task 10 version
                 //validMoves = GenerateMoves.generateValidMoves(boardString, diceRoll);
