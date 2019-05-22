@@ -391,7 +391,7 @@ public class Viewer extends Application {
         nextRound();
         setAIScene(primaryStage, scene);
         setRoundCount();
-        
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -862,10 +862,5 @@ public class Viewer extends Application {
             count += 3;
         return count;
     }
-
-    /*
-    public static void main(String[] args) {
-        launch(args);
-    }
-     */
+    
 }
