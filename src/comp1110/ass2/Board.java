@@ -123,69 +123,6 @@ public class Board {
     }
 
 
-    /**
-     * Author: Zixin Ye
-     * Get a map containing all grids that has been placed a tile
-     *
-     * @param boardString
-     * @return
-     */
-    public static LinkedHashMap<String, int[]> getPlacementGridsMap(String boardString) {
-
-        String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
-
-        LinkedHashMap<String, int[]> map = new LinkedHashMap<>();
-
-        TileRotate r = new TileRotate();
-
-
-        for (int i = 0; i < placementStringArray.length; i++) {
-            int[] tile = new int[4];
-            tile[0] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).left;
-            tile[1] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).top;
-            tile[2] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).right;
-            tile[3] = TileEnum.valueOf(placementStringArray[i].substring(0, 2)).bottom;
-            r.rotateTime(tile, getNumericValue(placementStringArray[i].charAt(4)));
-
-            map.put(placementStringArray[i].substring(2, 4), tile);
-
-        }
-
-        return map;
-    }
-
-    /**
-     * Author: Zixin Ye
-     * Return all empty grids
-     *
-     * @param boardString
-     * @return
-     */
-    public static String[] getPlacedGrids(String boardString) {
-
-        //Get all grids whether it is empty or not
-        ArrayList<String> combo = getAllGridsCondition(boardString);
-
-        //Remove those grids that has not been placed a tile
-        for (int i = combo.size() - 1; i >= 0; i--) {
-
-            if (combo.get(i).length() == 5) {
-                combo.remove(i);
-            }
-        }
-
-
-        String[] array = new String[combo.size()];
-
-        for (int i = 0; i < combo.size(); i++) {
-
-            array[i] = combo.get(i).substring(0, 2);
-
-        }
-
-        return array;
-    }
-
 
     /**
      * Author: Zixin Ye
