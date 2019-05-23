@@ -438,6 +438,9 @@ public class Viewer extends Application {
                     endGame();
                 diceRoll = "";
                 diceRoll = generateDiceRoll();
+                if (generateMove(boardString, diceRoll).equals("")){
+                    endGame();
+                }
                 clearNormalTiles();
                 showNormalTiles(diceRoll);
                 setRoundCount();
