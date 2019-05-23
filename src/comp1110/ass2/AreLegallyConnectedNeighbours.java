@@ -12,6 +12,7 @@ public class AreLegallyConnectedNeighbours {
      * @return false only wen highway to railway
      */
     public static boolean areLegallyConnectedNeighbours(String boardString) {
+
         int count = boardString.length() / 5;
 
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);

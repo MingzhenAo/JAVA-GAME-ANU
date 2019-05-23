@@ -153,6 +153,7 @@ public class RailroadInk {
         /*
         Each grid can be used once only.
         */
+
         boolean isRepeat = placementSequenceList.size() != new HashSet<>(placementSequenceList).size();
         if (isRepeat)
             return false;
