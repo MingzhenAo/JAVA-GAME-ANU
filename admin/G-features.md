@@ -9,5 +9,10 @@ of our project implements the following features:
  - Generates basic starting piece placements (Task 8)
  - Implements hints (Task 10)
  - Implements interesting starting placements (Task 11)
-
-additional features...
+ - drag the tile when clicked, release the tile when mouse released
+ - middle mouse button to rotate the tile
+ - lock the tile when next round is entered
+ - only one special tile can be used once a round, three special tiles are the max number
+ - in Task 8 using the handle to replace the B2 tile with different tiles in different situations
+ - class board provides several methods to operate the boardString conveniently
+ 
