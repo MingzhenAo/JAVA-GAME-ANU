@@ -153,6 +153,7 @@ public class RailroadInk {
         /*
         Each grid can be used once only.
         */
+
         boolean isRepeat = placementSequenceList.size() != new HashSet<>(placementSequenceList).size();
         if (isRepeat)
             return false;
@@ -213,60 +214,6 @@ public class RailroadInk {
         return score;
     }
 
-
-    /**
-     * @param placementString
-     * @param tilesMap
-     * @return
-     */
-    public static boolean canIPlaceTheStringHere(String placementString, HashMap<String, String> tilesMap) {
-        String checkLeft = "";
-        String checkUp = "";
-        String checkRight = "";
-        String checkDown = "";
-
-        char row = placementString.charAt(2);
-        int column = placementString.charAt(3);
-
-        checkLeft += row;
-        checkLeft += (char) (column - 1);
-        checkUp += (char) ((int) row - 1);
-        checkUp += (char) column;
-        checkRight += row;
-        checkRight += (char) (column + 1);
-        checkDown += (char) ((int) row + 1);
-        checkDown += (char) column;
-        boolean b = false;
-
-        //They should legally connect all the near tiles and have at lest one connected neighbour
-        if (tilesMap.containsKey(checkLeft)) {
-            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkLeft), placementString))
-                return false;
-            if (areConnectedNeighbours(tilesMap.get(checkLeft), placementString))
-                b = true;
-        }
-        if (tilesMap.containsKey(checkUp)) {
-            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkUp), placementString))
-                return false;
-            if (areConnectedNeighbours(tilesMap.get(checkUp), placementString))
-                b = true;
-
-        }
-        if (tilesMap.containsKey(checkRight)) {
-            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkRight), placementString))
-                return false;
-            if (areConnectedNeighbours(tilesMap.get(checkRight), placementString))
-                b = true;
-        }
-        if (tilesMap.containsKey(checkDown)) {
-            if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(tilesMap.get(checkDown), placementString))
-                return false;
-            if (areConnectedNeighbours(tilesMap.get(checkDown), placementString))
-                b = true;
-        }
-
-        return b;
-    }
 
 
     /**

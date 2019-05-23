@@ -160,7 +160,7 @@ public class DiceRoll {
                     break;
                 case "A5":
 
-                    if (tileList.get(i)[1] != 0) {
+                    if (tileList.get(i)[1] == 0) {
                         return list.get(i);
                     }
                     break;
