@@ -618,7 +618,7 @@ public class Viewer extends Application {
      * the method to put every special tile
      *
      * @param imageView
-     * @param i         the order of the special tiles
+     * @param i   the order of the special tiles
      */
     private void showSpecialTile(ImageView imageView, int i) {
         imageView.setFitHeight(80);
