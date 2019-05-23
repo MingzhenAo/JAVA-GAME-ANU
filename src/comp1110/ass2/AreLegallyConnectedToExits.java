@@ -12,7 +12,6 @@ public class AreLegallyConnectedToExits {
      * @return true if it's legal
      */
     public static boolean areLegallyPlacedToExits(String boardString) {
-
         String[] placementStringArray = RailroadInk.getPlacementStringArray(boardString);
 
         TileRotate r = new TileRotate();
@@ -194,3 +193,4 @@ public class AreLegallyConnectedToExits {
 
 
 }
+
