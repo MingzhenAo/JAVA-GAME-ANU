@@ -32,6 +32,7 @@ public class AreLegallyConnectedNeighbours {
                     {
                         //Determine whether a tile have one or more edges touching a blank edge of another tile
                         if (getRotatedTile(placementStringArray[i])[0] != 5 && getRotatedTile(placementStringArray[j])[2] != 5) {
+                            if(!areLegallyConnectedNeighbours(placementStringArray[i],placementStringArray[j]))
                             return false;
                         }
 
@@ -39,19 +40,22 @@ public class AreLegallyConnectedNeighbours {
                     {
                         //Determine whether a tile have one or more edges touching a blank edge of another tile
                         if (getRotatedTile(placementStringArray[j])[0] != 5 && getRotatedTile(placementStringArray[i])[2] != 5) {
-                            return false;
+                            if(!areLegallyConnectedNeighbours(placementStringArray[i],placementStringArray[j]))
+                                return false;
                         }
                     } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[i].charAt(2) - (int) placementStringArray[j].charAt(2) == 1)//same column,i below, j top
                     {
                         //Determine whether a tile have one or more edges touching a blank edge of another tile
                         if (getRotatedTile(placementStringArray[i])[1] != 5 && getRotatedTile(placementStringArray[j])[3] != 5) {
-                            return false;
+                            if(!areLegallyConnectedNeighbours(placementStringArray[i],placementStringArray[j]))
+                                return false;
                         }
                     } else if (placementStringArray[i].charAt(3) == placementStringArray[j].charAt(3) && (int) placementStringArray[j].charAt(2) - (int) placementStringArray[i].charAt(2) == 1)//same column,j below, i top
                     {
                         //Determine whether a tile have one or more edges touching a blank edge of another tile
                         if (getRotatedTile(placementStringArray[j])[1] != 5 && getRotatedTile(placementStringArray[i])[3] != 5) {
-                            return false;
+                            if(!areLegallyConnectedNeighbours(placementStringArray[i],placementStringArray[j]))
+                                return false;
                         }
 
                     }
