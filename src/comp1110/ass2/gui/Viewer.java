@@ -19,7 +19,7 @@ import static comp1110.ass2.AdvancedComputer.getAdvancedMove;
 import static comp1110.ass2.RailroadInk.*;
 import static javafx.scene.paint.Color.CYAN;
 
-//fx config: --module-path "C:\Users\Administrator\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
+//fx config: --module-path "/lab/usr/local/javafx-sdk-11.0.2/lib" --add-modules=javafx.controls,javafx.fxml,javafx.media
 
 /**
  * A very simple viewer for tile placements in the Railroad Ink game.
