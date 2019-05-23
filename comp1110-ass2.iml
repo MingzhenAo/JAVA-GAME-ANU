@@ -33,6 +33,6 @@
         <jarDirectory url="file://$MODULE_DIR$/../../Java/commons-collections4-4.3" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
-    <orderEntry type="library" exported="" name="javaFX" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

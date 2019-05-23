@@ -1,5 +1,4 @@
 package comp1110.ass2;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -66,10 +65,9 @@ public class RailroadInk {
      * - it consists of exactly N five-character tile placements (where N = 1 .. 31);
      * - each piece placement is well-formed
      * - no more than three special tiles are included
-     *
+     *@Author: Mingzhen Ao
      * @param boardString a board string describing the placement of one or more pieces
      * @return true if the board string is well-formed
-     * @Author: Mingzhen Ao
      */
     public static boolean isBoardStringWellFormed(String boardString) {
         // FIXME Task 3: determine whether a board string is well-formed
@@ -160,7 +158,7 @@ public class RailroadInk {
 
         if (!AreLegallyConnectedNeighbours.areLegallyConnectedNeighbours(boardString))
             return false;
-        if (!AreLegallyConnectedToExits.areLegallyPlacedToExits(boardString))
+        if (!AreLegallyConnectedToExits.areLegallyConnectedToExits(boardString))
             return false;
 
         return true;
@@ -171,9 +169,8 @@ public class RailroadInk {
      * Dice A should be rolled three times, dice B should be rolled once.
      * Each die has faces numbered 0-5.
      * Each die roll is formed of 'A' or 'B' representing the dice, and '0'-'5' representing the face.
-     *
-     * @return a String representing the die roll e.g. A0A4A3B2
      * @ Author: Mingzhen Ao
+     * @return a String representing the die roll e.g. A0A4A3B2
      */
 
     public static String generateDiceRoll() {
@@ -195,8 +192,7 @@ public class RailroadInk {
      * * Number of exits mapped
      * * Number of centre tiles used
      * * Number of dead ends in the network
-     * Author: Mingzhen Ao
-     *
+     *  Author: Mingzhen Ao
      * @param boardString a board string representing a completed game
      * @return integer (positive or negative) for score *not* considering longest rail/highway
      */
@@ -226,10 +222,8 @@ public class RailroadInk {
      */
     public static String generateMove(String boardString, String diceRoll) {
         // FIXME Task 10: generate a valid move
-
         String result = getMove(boardString, diceRoll);
         return result;
-
     }
 
 
