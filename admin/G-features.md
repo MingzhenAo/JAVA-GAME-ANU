@@ -15,4 +15,4 @@ of our project implements the following features:
  - only one special tile can be used once a round, three special tiles are the max number
  - in Task 8 using the handle to replace the B2 tile with different tiles in different situations
  - class board provides several methods to operate the boardString conveniently
- 
+
