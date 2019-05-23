@@ -156,4 +156,5 @@ public class GenerateMoves {
         }
         return resultList;
     }
+    
 }
